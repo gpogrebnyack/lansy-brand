@@ -1,0 +1,20 @@
+# Lansy brand
+
+> Lansy's visual language for agents: colours, type, logo, icon, marker, blob, dots, 3D. Read brand.md first; take values from tokens.json and files from assets/manifest.json. The page at / shows the same rules to people.
+
+## Rules and values
+
+- [brand.md](brand.md): rules for agents. Hard rules first, then colour, type, logo, icon, marker, blob, dots, 3D, the square post and image prompts.
+- [tokens.json](tokens.json): every value (colours, gradients, fonts, type scale, radii, logo sizes, the pen, the marker, dots, 3D) in W3C design-token format.
+- [assets/manifest.json](assets/manifest.json): every logo, icon, shape, font, line, 3D render and example file, with its purpose, allowed backgrounds and minimum size.
+
+## Examples and the lab
+
+- [marker.html](marker.html), [blob.html](blob.html), [dots.html](dots.html), [3d.html](3d.html): the four techniques for people, with examples.
+- [labs/canvas.html](labs/canvas.html): every technique in use, as finished layouts on one canvas (`index.html?view=canvas` opens it from the main page; `?clean` hides its controls). The dotted pictures are drawn live in its code.
+- [assets/examples/](assets/examples/): those examples, rendered from the labs (marker and blob from line-lab, dots from the canvas, 3D from the Blender scripts).
+- [labs/line-lab.html](labs/line-lab.html): the pen, the blob generator and the post layouts. `?solo=<post id>` renders one post (`?solo=spec` a marker specimen); `?shape=a|b|kept|<seed>&path=1` one shape with its path.
+
+## Not settled yet
+
+The logo's clear space and the colour proportions are proposals (marked so in brand.md).

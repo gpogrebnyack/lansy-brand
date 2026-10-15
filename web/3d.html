@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3D · Lansy design tools</title>
+<link rel="icon" href="assets/icon/lansy-icon-ink.svg" type="image/svg+xml">
+<link rel="alternate" type="text/markdown" href="brand.md#3d" title="3D rules for agents">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="page.css?v=20">
+<style>.figs video{display:block;width:100%;aspect-ratio:1.43;height:auto;object-fit:contain;border-radius:16px;box-shadow:0 0 0 1px var(--line);background:#9CDE45}</style>
+</head>
+<body>
+<script src="nav.js"></script>
+<header class="intro"><div class="plate">
+  <div class="wrap">
+    <h1>Our icons, made of real materials</h1>
+    <p class="lead">The Lansy icon and the industry icons as objects: a few materials, one studio light, one way of moving.</p>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <h2>The materials</h2>
+  <p>Four materials, each with one job. Nothing else.</p>
+  <div class="figs"><figure><img src="assets/examples/3d-materials.webp" alt="Four balls: brushed aluminium, lime frosted glass, porcelain, unglazed ceramic" loading="lazy"><figcaption class="lbl">Aluminium · Lime glass · Porcelain · Ceramic</figcaption></figure></div>
+  <dl>
+    <dt>Brushed aluminium</dt><dd>the industry icons and the coins; brushing 0.4</dd>
+    <dt>Lime frosted glass</dt><dd>the Lansy squircle; 80% transmission, renders to #9CDE45</dd>
+    <dt>Porcelain</dt><dd>the palm on the squircle</dd>
+    <dt>Ceramic, unglazed</dt><dd>to try: calm, matte surfaces</dd>
+  </dl>
+  <ul>
+    <li><b>Materials come from BlenderKit,</b> free ones, applied as they are; their files live in <code>3d/dl/mats</code>.</li>
+    <li><b>Lime is calibrated:</b> a lime render is measured and lands on <code>#9CDE45</code>, never a brighter or a paler green.</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <h2>The objects</h2>
+  <div class="figs c2">
+    <figure><img src="assets/examples/3d-lansy-icon.webp" alt="The Lansy icon: lime frosted glass with a porcelain palm" loading="lazy"><figcaption class="lbl">The Lansy icon · glass and porcelain</figcaption></figure>
+    <figure><img src="assets/examples/3d-coin-ring.webp" alt="Ten aluminium coins with the industry icons in a ring" loading="lazy"><figcaption class="lbl">The coins · aluminium</figcaption></figure>
+  </div>
+  <div class="figs"><figure><img src="assets/examples/3d-icons.webp" alt="The industry icons in brushed aluminium: retail, clinics, cafés, schools, hotels" loading="lazy"><figcaption class="lbl">The industry icons · aluminium</figcaption></figure></div>
+  <ul>
+    <li><b>An industry icon is a Hugeicons line icon</b> (stroke 2.4 on its 24 grid) turned into round tubes. The same mesh stands alone or sits in relief on a coin.</li>
+    <li><b>Never generate the logo or an icon</b> with an image model, and never redraw them: build them from the files.</li>
+    <li><b>Small sizes keep the flat icon.</b> In a tab or a chip use the Hugeicons line icon, its stroke as heavy as the letters next to it.</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Light and motion</h2>
+  <div class="figs c2">
+    <figure><video autoplay muted loop playsinline preload="metadata" poster="https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/icon-spin-poster.webp" data-src="https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/icon-spin" aria-label="The coffee icon turning"></video><figcaption class="lbl">The turn · 5 s loop</figcaption></figure>
+    <figure><video autoplay muted loop playsinline preload="metadata" poster="https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/ring-swirl-poster.webp" data-src="https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/ring-swirl" aria-label="The coins turning one after the other round the ring"></video><figcaption class="lbl">The swirl · 6 s loop</figcaption></figure>
+  </div>
+  <ul>
+    <li><b>One studio:</b> BlenderKit's material-preview light, the same for every render, so a material looks as on its preview.</li>
+    <li><b>Renders on transparency,</b> laid on a flat brand ground: Lime, Primary Dark, Card or white. The object casts no shadow on the ground.</li>
+    <li><b>Facing left.</b> When a render must face the other way, turn the scene in 3D; never flip the picture.</li>
+    <li><b>One way of moving:</b> the Lansy icon's own turn: a rest, one full turn about the vertical axis, a small overshoot, a settle. Every animation is built from it.</li>
+  </ul>
+  <h3>In a layout</h3>
+  <ul>
+    <li><b>One 3D object per layout:</b> one icon, or one coin, or the ring. The full set of icons lives only in their strip.</li>
+    <li><b>No marker or blob inside the render;</b> the text and the blob stay on the page.</li>
+  </ul>
+  <a class="lab" href="index.html?view=canvas">See it in use ↗</a>
+</div></section>
+<footer><div class="wrap"><span class="lbl">Lansy · Design tools · Internal 2026</span><a class="lbl" href="index.html#agents">For agents ↗</a></div></footer>
+<script>
+// WebM with alpha for Chrome and Firefox, HEVC with alpha (.mov) for Safari
+document.querySelectorAll('video[data-src]').forEach(v=>{const ua=navigator.userAgent, safari=/Safari/.test(ua)&&!/Chrome|Chromium|Android/.test(ua);
+  v.src=v.dataset.src+'.'+(safari?'mov':'webm'); v.play().catch(()=>{});});
+</script>
+</body>
+</html>

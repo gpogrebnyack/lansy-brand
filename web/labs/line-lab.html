@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lab · Lansy design tools</title>
+<link rel="icon" href="../assets/icon/lansy-icon-ink.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:Struve;src:url(../fonts/Struve-Regular.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Struve;src:url(../fonts/Struve-Medium.woff2) format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:Struve;src:url(../fonts/Struve-Semibold.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:Supermarker;src:url(../fonts/Supermarker-MediumItalic.woff2) format('woff2');font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:Supermarker;src:url(../fonts/Supermarker-Italic.woff2) format('woff2');font-weight:400;font-style:italic;font-display:swap}
+:root{--ink:#201F1D;--text2:#75736F;--grey:#8D8A86;--line:#E9E6E0;--sand:#F2EFE9;--paper:#FCF9F3;--n-card:linear-gradient(180deg,#F2EFE9 0%,#FCF9F3 100%)}
+*{box-sizing:border-box;margin:0}
+*,::before,::after{font-feature-settings:'ss10'}
+body{background:#fff;color:var(--ink);font-family:Struve,system-ui,sans-serif;font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.lbl{font:500 11px/1.6 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--grey)}
+.app{max-width:1200px;margin:0 auto}
+.head .back{display:inline-block;margin-bottom:14px;color:var(--text2);text-decoration:none}.head h1{font-size:28px;font-weight:600;letter-spacing:-.01em}
+.btn{height:34px;padding:0 14px;border-radius:999px;border:0;background:var(--ink);color:#fff;font:500 13px Struve,sans-serif;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+
+.stage{padding:104px 40px 72px;display:flex;flex-direction:column;gap:24px}
+.card{border-radius:24px;background:var(--n-card);padding:24px 28px;position:relative}
+.card>.lbl{display:block;margin-bottom:14px}
+.padhd{display:flex;align-items:center;justify-content:space-between;margin:-6px 0 14px}.padhd .lbl{margin:0}
+.pad{position:relative;height:320px;border-radius:16px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);touch-action:none;cursor:crosshair;overflow:hidden}
+.pad canvas{position:absolute;inset:0;width:100%;height:100%}
+.pad .tip{position:absolute;left:16px;bottom:12px;font-size:13px;color:var(--grey);pointer-events:none}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tile{border-radius:16px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);padding:14px 16px 10px}
+.tile canvas{display:block;width:100%;height:220px}
+.scenes figure.wide{grid-column:1/-1}.scenes figure.wide .sq{aspect-ratio:2/1}
+.scenes{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.scenes figure{margin:0;position:relative}
+/* a post's settings hide behind a button that shows on hover (always on touch); the panel floats over the post */
+.gear{position:absolute;top:12px;right:12px;z-index:3;height:34px;padding:0 14px;border-radius:999px;border:0;background:rgba(255,255,255,.92);box-shadow:0 1px 0 var(--line),0 6px 20px rgba(32,31,29,.12);font:500 13px Struve,sans-serif;color:var(--ink);cursor:pointer;opacity:0;transition:opacity .15s}
+.scenes figure:hover .gear{opacity:1}@media (hover:none){.gear{opacity:1}}
+/* the panel docks to the bottom of the screen, so the post stays in view while it is tuned */
+.scenes figure .knobs{display:none;position:fixed;left:0;right:0;bottom:0;z-index:20;max-height:42vh;overflow:auto;padding:14px max(24px,calc((100vw - 1200px)/2 + 40px)) 18px;border-radius:20px 20px 0 0;background:#fff;box-shadow:0 0 0 1px var(--line),0 -12px 36px rgba(32,31,29,.14);gap:4px 28px}
+.khead{flex:1 1 100%;display:flex;align-items:center;gap:8px;margin-bottom:6px}.khead .lbl{margin-right:auto}.kcopy{height:32px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit;cursor:pointer}.kclose{height:32px;padding:0 14px;border-radius:999px;border:0;background:var(--ink);color:#fff;font:500 13px Struve,sans-serif;cursor:pointer}
+.scenes figure.open .knobs{display:flex}.scenes figure.open .knobs .f{flex:1 1 calc(50% - 14px)}.scenes figure.open .knobs .prow{flex:1 1 100%}
+@media (max-width:700px){.scenes figure.open .knobs .f{flex:1 1 100%}}.scenes figcaption{margin:12px 0 4px}
+.sq{display:block;width:100%;aspect-ratio:1;border-radius:16px;box-shadow:0 0 0 1px var(--line)}
+.postctl{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}.postctl .row{display:flex;align-items:center;gap:12px;color:var(--text2);font-size:13px}.postctl .row>span{flex:0 0 72px}
+.postctl input[type=text]{flex:1;max-width:520px;height:34px;padding:0 12px;border-radius:10px;border:0;box-shadow:inset 0 0 0 1px var(--line);background:#fff;font:400 14px Struve,sans-serif;color:var(--ink)}
+.seg{display:flex;flex-wrap:wrap;gap:6px}.seg button{height:30px;padding:0 12px;border-radius:999px;border:0;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font:500 13px Struve,sans-serif;color:var(--ink);cursor:pointer}.seg button.on{background:var(--ink);color:#fff;box-shadow:none}
+.knobs{display:flex;flex-wrap:wrap;gap:4px 20px}.knobs .f{flex:1 1 100%}.knobs .prow{flex:1 1 100%;display:flex;align-items:center;gap:8px;margin:2px 0 4px;color:var(--text2);font-size:13px}.prow>span{flex:0 0 72px}.f{display:flex;align-items:center;gap:8px;color:var(--text2);font-size:13px}.f span{flex:0 0 72px}#k-all .f{flex:none}.f input{flex:1;min-width:0;accent-color:var(--ink)}.f output{font:500 11px "JetBrains Mono",monospace;min-width:24px}
+@media (max-width:1000px){.tiles,.scenes{grid-template-columns:1fr}.tile canvas{height:260px}.stage{padding:20px 16px 56px}}
+html.solo body>*:not(.solo-badge){display:none!important}html.solo,html.solo body{background:#fff;overflow:hidden}
+html.solo body>canvas.solo-c{display:block!important;position:fixed;left:0;top:0;width:100vw;height:100vw;border-radius:0;box-shadow:none}html.solo body>canvas.solo-c.wide{height:50vw}html.solo body>canvas#solo{height:100vh}html.clear,html.clear body{background:transparent!important}
+</style>
+</head>
+<body>
+<script src="../nav.js"></script>
+<div class="app">
+
+<main class="stage">
+  <header class="head"><h1>Lab: the pen and the blobs</h1></header>
+  <section class="card"><div class="padhd"><span class="lbl">Draw</span><button class="btn ghost" id="clear">Clear</button></div><div class="pad" id="pad"><canvas id="cv"></canvas><span class="tip">Draw with a mouse or a stylus</span></div></section>
+  <section class="card"><span class="lbl">Our shapes</span><div class="tiles" id="tiles"></div></section>
+  <section class="card"><div class="padhd"><span class="lbl">Random blobs</span><span><button class="btn ghost" id="showpath">Show path</button> <button class="btn" id="reroll">New blobs</button></span></div><div class="tiles" id="rtiles"></div></section>
+  <section class="card"><span class="lbl">Square post</span>
+
+    <div class="scenes" id="scenes">
+    </div></section>
+</main>
+</div>
+
+<script>
+const QS=new URLSearchParams(location.search), SOLO=QS.get('solo');
+if(SOLO||QS.has('shape'))document.documentElement.classList.add('solo');
+if(QS.has('clear'))document.documentElement.classList.add('clear');   // export on transparency (the page's own ground shows through)
+const $=id=>document.getElementById(id), INK='#201F1D', PAD_REF=120;   // the pad counts as a shape 120 px tall
+// the pen, fixed after the lab (2026-10-12): width as % of the shape's height, angle °, nib thickness and roundness, end lean °
+const PEN={w:27,a:35,t:.12,r:8,l:45};
+const strokes=[], SMOOTH=.5;   // a stroke is a list of [x, y, pressure]; smoothing stays at the Working value
+
+// ---- geometry
+const smooth=(pts,k)=>{if(k<=0||pts.length<3)return pts; const n=Math.round(1+k*6), out=[];   // moving average over ±n points; ends stay put
+  for(let i=0;i<pts.length;i++){let x=0,y=0,p=0,c=0; for(let j=Math.max(0,i-n);j<=Math.min(pts.length-1,i+n);j++){x+=pts[j][0];y+=pts[j][1];p+=pts[j][2];c++;} out.push([x/c,y/c,p/c]);}
+  out[0]=pts[0]; out[out.length-1]=pts[pts.length-1]; return out;};
+const resample=(pts,step)=>{const out=[pts[0]]; let acc=0;
+  for(let i=1;i<pts.length;i++){const [x0,y0,p0]=pts[i-1],[x1,y1,p1]=pts[i], d=Math.hypot(x1-x0,y1-y0); if(!d)continue; let t=step-acc;
+    while(t<=d){const u=t/d; out.push([x0+(x1-x0)*u,y0+(y1-y0)*u,p0+(p1-p0)*u]); t+=step;} acc=d-(t-step);}
+  if(out.length<2)out.push(pts[pts.length-1]); return out;};
+const hull=P=>{P=P.slice().sort((a,b)=>a[0]-b[0]||a[1]-b[1]); const cr=(o,a,b)=>(a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]), L=[],U=[];
+  for(const p of P){while(L.length>1&&cr(L[L.length-2],L[L.length-1],p)<=0)L.pop(); L.push(p);}
+  for(const p of P.reverse()){while(U.length>1&&cr(U[U.length-2],U[U.length-1],p)<=0)U.pop(); U.push(p);} return L.slice(0,-1).concat(U.slice(0,-1));};
+const poly=(ctx,P)=>{ctx.beginPath(); ctx.moveTo(P[0][0],P[0][1]); for(const q of P.slice(1))ctx.lineTo(q[0],q[1]); ctx.closePath(); ctx.fill();};
+
+// broad nib: a W×T nib held at angle a, swept along the path; each step fills the hull of the nib at both points.
+// The nib's outline is a superellipse |x|^n + |y|^n = 1: a rectangle's corners leave facets on every bend, a squircle's don't
+function drawNib(ctx,pts,W,a,T,n){const ca=Math.cos(a),sa=Math.sin(a), K=40, unit=[];
+  for(let i=0;i<K;i++){const th=i/K*2*Math.PI, c=Math.cos(th), s=Math.sin(th); unit.push([Math.sign(c)*Math.abs(c)**(2/n),Math.sign(s)*Math.abs(s)**(2/n)]);}
+  const nib=([x,y])=>{const w=W/2, t=w*T; return unit.map(([u,v])=>[x+ca*u*w-sa*v*t,y+sa*u*w+ca*v*t]);};
+  // clean ends: near each end the nib print is clipped by the cut line (through the end point, along the pen angle), so nothing
+  // sticks out past it. Clipping the print, not erasing the canvas, can't bite other parts of the stroke (a closed loop, a crossing)
+  const cuts=endCuts(pts,a), dist=[0];
+  for(let i=1;i<pts.length;i++) dist.push(dist[i-1]+Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]));
+  const total=dist[dist.length-1];
+  const print=i=>{let P=nib(pts[i]); for(const c of cuts){const from=c.start?dist[i]:total-dist[i]; if(from<W*1.5) P=clip(P,c);} return P;};
+  let prev=print(0); for(let i=1;i<pts.length;i++){const cur=print(i); if(prev.length>2&&cur.length>2) poly(ctx,hull([...prev,...cur])); prev=cur;}
+  // where the end cut lies ahead of the nib's own edge, the stroke would stop short of it and leave a step; so each end is carried
+  // straight on along its direction and cut there: the end is always one flat edge
+  for(const c of cuts){const e=c.start?0:pts.length-1, P=nib(pts[e]), Q=P.map(([x,y])=>[x+c.d[0]*W*2,y+c.d[1]*W*2]), H=clip(hull([...P,...Q]),c);
+    if(H.length>2) poly(ctx,H);}}
+
+// the cut at an end: square to the stroke, turned toward the pen angle by at most `lean`. A cut right along the pen angle would run
+// almost lengthwise on strokes near that angle and leave a long wedge. Returns the end point, the cut's direction c and outward normal m
+function endCut(pts,e,b,a,lean){const [x,y]=pts[e], dx=x-pts[b][0], dy=y-pts[b][1], L=Math.hypot(dx,dy)||1, d=[dx/L,dy/L];
+  const sq=Math.atan2(d[0],-d[1]);   // the square cut's direction (the stroke's normal)
+  const diff=((a-sq)%Math.PI+1.5*Math.PI)%Math.PI-Math.PI/2;   // the pen angle relative to it, folded into ±90° (a line has no direction)
+  const t=sq+Math.sign(diff)*Math.min(Math.abs(diff),lean), c=[Math.cos(t),Math.sin(t)];
+  let m=[-c[1],c[0]]; if(m[0]*d[0]+m[1]*d[1]<0) m=[-m[0],-m[1]]; return {x,y,c,m,d};}
+function endCuts(pts,a){const n=pts.length-1, k=Math.min(4,n), lean=PEN.l*Math.PI/180;
+  return [Object.assign(endCut(pts,0,k,a,lean),{start:true}),Object.assign(endCut(pts,n,n-k,a,lean),{start:false})];}
+// keep the part of a convex polygon on the inner side of a cut (Sutherland–Hodgman against one half-plane)
+function clip(P,{x,y,m}){const f=p=>(p[0]-x)*m[0]+(p[1]-y)*m[1], out=[];
+  for(let i=0;i<P.length;i++){const p=P[i], q=P[(i+1)%P.length], fp=f(p), fq=f(q);
+    if(fp<=0) out.push(p); if((fp<0&&fq>0)||(fp>0&&fq<0)){const t=fp/(fp-fq); out.push([p[0]+(q[0]-p[0])*t,p[1]+(q[1]-p[1])*t]);}}
+  return out;}
+
+const layer=document.createElement('canvas'), lx=layer.getContext('2d');
+// the pen width is a share of the shape's height (refH, in screen pixels), so a shape looks the same at any size
+function render(ctx,pts,refH=PAD_REF){if(pts.length<2)return; const W=PEN.w/100*refH, a=PEN.a*Math.PI/180;
+  const P=resample(smooth(pts,SMOOTH),Math.max(.8,W/24)), c=ctx.canvas;
+  if(layer.width!==c.width||layer.height!==c.height){layer.width=c.width; layer.height=c.height;}
+  lx.setTransform(ctx.getTransform()); lx.save(); lx.setTransform(1,0,0,1,0,0); lx.clearRect(0,0,layer.width,layer.height); lx.restore();
+  lx.fillStyle=INK; drawNib(lx,P,W,a,PEN.t,PEN.r);
+  ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.drawImage(layer,0,0); ctx.restore();}
+
+// ---- the drawing pad
+const cv=$('cv'), cx=cv.getContext('2d'); let cur=null;
+function size(c){const r=c.getBoundingClientRect(), d=Math.min(2,devicePixelRatio||1); c.width=r.width*d; c.height=r.height*d; c.getContext('2d').setTransform(d,0,0,d,0,0);}
+function redraw(){cx.save(); cx.setTransform(1,0,0,1,0,0); cx.clearRect(0,0,cv.width,cv.height); cx.restore(); for(const s of strokes) render(cx,s); if(cur) render(cx,cur);}
+const at=e=>{const r=cv.getBoundingClientRect(); return [e.clientX-r.left,e.clientY-r.top,.5];};
+cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId); cur=[at(e)]; $('pad').querySelector('.tip').style.display='none';});
+cv.addEventListener('pointermove',e=>{if(!cur)return; for(const ev of (e.getCoalescedEvents?e.getCoalescedEvents():[e])) cur.push(at(ev)); redraw();});
+cv.addEventListener('pointerup',()=>{if(cur&&cur.length>1)strokes.push(cur); cur=null; redraw();});
+
+// ---- set shapes: sampled from SVG paths, drawn with the same pen at the same width
+const SHAPES=[['Landing scribble A','../assets/line/scribble-a.svg'],['Landing scribble B','../assets/line/scribble-b.svg'],
+  ['Underline',null,'M10 70 C 80 58, 170 56, 250 66']];   // our three: the landing's two scribbles and the line (a liked generated blob is kept in assets/line/blob-1876.svg)
+const sample=(d,n=260)=>{const p=document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('d',d); const L=p.getTotalLength(), out=[];
+  for(let i=0;i<=n;i++){const q=p.getPointAtLength(L*i/n); out.push([q.x,q.y,.5]);} return out;};
+const tiles=[], SQ={file:'../assets/line/blob-1876.svg'};   // the post's blob: the kept 1876
+
+// ---- random blobs: variations of the two landing scribbles, not invented gestures. Guessing a hand from parameters kept giving
+// something else (bricks, then wings); the references already hold the hand: its turns, the bow of each stroke, the rhythm.
+// A variation takes A or B as drawn and changes it smoothly: a small turn and stretch, a slow wave in the swing along the travel
+// (strokes longer here, shorter there), a gentle warp of the whole, sometimes a trimmed start, sometimes a curved flick for an end
+function rng(seed){let a=seed>>>0||1; return ()=>{a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296;};}
+function blob(seed){const r=rng(seed), R=(a,b)=>a+(b-a)*r(), pen=PEN.a*Math.PI/180, rotPre=(()=>{const q=rng(seed^0x9e3779b9)(); return (q*30-15)*Math.PI/180;})(), base=tiles[r()<.5?0:1].pts.map(p=>[p[0],p[1]]), N=base.length;
+  // the stroke direction (cross): the main axis of the path's tangents; the travel (along) is square to it
+  let sxx=0,sxy=0,syy=0; for(let i=1;i<N;i++){const dx=base[i][0]-base[i-1][0], dy=base[i][1]-base[i-1][1], L=Math.hypot(dx,dy)||1, x=dx/L, y=dy/L; sxx+=x*x; sxy+=x*y; syy+=y*y;}
+  const th=.5*Math.atan2(2*sxy,sxx-syy), c=[Math.cos(th),Math.sin(th)], a=[-c[1],c[0]];
+  const cx=base.reduce((m,p)=>m+p[0],0)/N, cy=base.reduce((m,p)=>m+p[1],0)/N;
+  let uv=base.map(([x,y])=>[(x-cx)*a[0]+(y-cy)*a[1],(x-cx)*c[0]+(y-cy)*c[1]]);
+  const us=uv.map(q=>q[0]), u0=Math.min(...us), u1=Math.max(...us), span=u1-u0||1;
+  // a slow wave in the swing, a stretch along the travel, a gentle warp
+  const amp=R(.12,.3), freq=R(.6,1.4), ph=R(0,6.3), su=R(.85,1.25), sv=R(.9,1.15), warp=R(-.18,.18), lift=R(-.12,.12);
+  uv=uv.map(([u,v])=>{const t=(u-u0)/span, g=1+amp*Math.sin(2*Math.PI*freq*t+ph); return [u*su, v*sv*g + warp*span*Math.sin(Math.PI*t) + lift*u];});
+  // the turns: where the swing (v) reverses — local extremes, read on a light smoothing so wobble isn't taken for a turn
+  const vs=uv.map((q,i)=>{let m=0,c=0; for(let j=Math.max(0,i-4);j<=Math.min(N-1,i+4);j++){m+=uv[j][1];c++;} return m/c;}), turns=[];
+  for(let i=2;i<N-2;i++) if((vs[i]-vs[i-1])*(vs[i+1]-vs[i])<0) turns.push(i);
+  // a wobble in the scribble reads as two turns close in swing; it made the 'last whole stroke' a tiny hook at the end. Drop any pair of
+  // neighbouring turns whose swing between them is under a third of the median swing (strokes vary in length; wobbles are far smaller)
+  {const sw=i=>Math.abs(vs[turns[i]]-vs[turns[i-1]]); const all=[]; for(let i=1;i<turns.length;i++)all.push(sw(i)); all.sort((p,q)=>p-q); const med=all[all.length>>1]||0;
+    for(let changed=true;changed;){changed=false; for(let i=1;i<turns.length;i++)if(sw(i)<med*.33){turns.splice(i-1,2); changed=true; break;}}}
+  // trim the start, sometimes — always at a turn, as if the hand set off from there (a cut mid-stroke left a stub and a hairline)
+  let from=0; if(r()<.4){const pick=R(.04,.16); if(turns.length>2) from=turns[pick<.1?0:1];}
+  // a lead-in (start to the first turn) longer than a third of the travel would read as a stray tail: shorten it
+  const t0=turns.find(i=>i>from); if(t0!=null){let L=0, k=t0; while(k>from){L+=Math.hypot(uv[k][0]-uv[k-1][0],uv[k][1]-uv[k-1][1]); if(L>span*su*.33) break; k--;} from=Math.max(from,k);}
+  // a lead-out (the last turn to the end) longer than a third of the travel is shortened too
+  let to=N; const tl=[...turns].reverse().find(i=>i<N-1&&i>from); if(tl!=null){let L=0, k=tl; while(k<N-1){L+=Math.hypot(uv[k+1][0]-uv[k][0],uv[k+1][1]-uv[k][1]); if(L>span*su*.33) break; k++;} to=Math.min(N,k+1);}
+  let P=uv.slice(from,to);
+  // replace the end with a flick, sometimes. A broad nib's width follows the direction, so a tail that bends changes width on the way;
+  // the references' tails run nearly straight. So the flick bends by a few degrees at most, and runs at least 45° off the pen edge
+  // a flick carries the last stroke on: it leaves along the stroke's own tangent and turns by 25° at most (a hand doesn't swing
+  // round to a new direction for a flourish). If every direction in that range would put the pen on its hairline edge, no flick
+  // the end: always cut inside the last whole stroke (between its two turns). The scribble's own tail, turned and warped by the
+  // variation, could point anywhere and stop reading as the hand's movement; past the cut the stroke either just ends, or flicks on
+  const tp=turns.map(i=>i-from).filter(i=>i>0&&i<P.length-1), endCut=R(.5,.85);
+  // measured along the stroke, not by point count: points crowd at the turns, so a cut at half the points left a stub of a third
+  if(tp.length>=2){const tA=tp[tp.length-2], tB=tp[tp.length-1], seg=i=>Math.hypot(P[i+1][0]-P[i][0],P[i+1][1]-P[i][1]);
+    let L=0; for(let i=tA;i<tB;i++)L+=seg(i); let k=tA, run=0; while(k<tB&&run+seg(k)<L*endCut){run+=seg(k); k++;} P=P.slice(0,k+1);}
+  // the ends: a run along the pen's edge draws as a hairline sliver, and a tight turn in the last few points as a little hook. Trim
+  // both from each end (up to 20% of the points): a segment within 25° of the edge, or one turning more than 70° from the next
+  {const pageA=(u0_,v0_,u1_,v1_)=>Math.atan2(v1_-v0_,u1_-u0_), penUV=Math.atan2(a[1],a[0])+rotPre-pen;
+    const edge=i=>{const t=pageA(P[i][0],P[i][1],P[i+1][0],P[i+1][1]), d=((t-penUV)%Math.PI+Math.PI)%Math.PI; return Math.min(d,Math.PI-d)<25*Math.PI/180;};
+    const bend=i=>{const t1=pageA(P[i][0],P[i][1],P[i+1][0],P[i+1][1]), t2=pageA(P[i+1][0],P[i+1][1],P[i+2][0],P[i+2][1]); let d=Math.abs(t2-t1)%(2*Math.PI); return Math.min(d,2*Math.PI-d)>70*Math.PI/180;};
+    const cap=Math.floor(P.length*.2); let h=0; while(h<cap&&P.length-h>8&&(edge(h)||bend(h)))h++; let t_=P.length-2; while(P.length-2-t_<cap&&t_>h+6&&(edge(t_)||(t_>0&&bend(t_-1))))t_--;
+    P=P.slice(h,t_+2);}
+  // a stub: after the trims the piece past the last turn can come out far shorter than the strokes, a step at the end of the blob.
+  // Then the end moves back inside the stroke before it (at 60% of its length), which reads as a stroke the hand just stopped
+  {const sv=P.map((q,i)=>{let m=0,n=0; for(let j=Math.max(0,i-4);j<=Math.min(P.length-1,i+4);j++){m+=P[j][1];n++;} return m/n;}), tv=[];
+    for(let i=2;i<P.length-2;i++) if((sv[i]-sv[i-1])*(sv[i+1]-sv[i])<0) tv.push(i);
+    const seg=i=>Math.hypot(P[i+1][0]-P[i][0],P[i+1][1]-P[i][1]), len=(i,j)=>{let L=0; for(let k=i;k<j;k++)L+=seg(k); return L;};
+    if(tv.length>=3){const pieces=[]; for(let i=1;i<tv.length;i++)pieces.push(len(tv[i-1],tv[i])); pieces.sort((x,y)=>x-y); const med=pieces[pieces.length>>1];
+      const tA=tv[tv.length-2], tB=tv[tv.length-1];
+      if(len(tB,P.length-1)<med*.5){const L=len(tA,tB); let k=tA, run=0; while(k<tB&&run+seg(k)<L*.6){run+=seg(k); k++;} P=P.slice(0,k+1);}
+      // the same at the start: a lead-in far shorter than the strokes starts instead inside the stroke after it
+      const t0=tv[0], t1=tv[1]; if(len(0,t0)<med*.5){const L=len(t0,t1); let k=t1, run=0; while(k>t0&&run+seg(k-1)<L*.6){run+=seg(k-1); k--;} P=P.slice(k);}}}
+  if(r()<.55){const Q=P, q=Q[Q.length-1], p=Q[Q.length-6]||Q[0];
+    // a (u,v) direction t lands on the page at angle(a) − t + turn (v is a turned −90°), so the pen sits at angle(a) + turn − pen in t
+    // how far a (u,v) direction runs from the pen's edge on the page (0 = along the edge, a hairline; 90° = full width)
+    const penUV=Math.atan2(a[1],a[0])+rotPre-pen, offUV=t=>{const d=((t-penUV)%Math.PI+Math.PI)%Math.PI; return Math.min(d,Math.PI-d);};
+    // shorter and straighter than before: long bent flicks read as a second shape stuck on
+    const t0=Math.atan2(q[1]-p[1],q[0]-p[0]), dev=R(-.2,.2), tries=[dev,dev*.5,0,.2,-.2].map(x=>t0+x), t=tries.find(x=>offUV(x)>=Math.PI/4);
+    if(t!=null){P=Q; const L=span*R(.18,.3), d0=[Math.cos(t0),Math.sin(t0)], d=[Math.cos(t),Math.sin(t)];
+      const m=[q[0]+d0[0]*L*.45,q[1]+d0[1]*L*.45], e=[q[0]+d[0]*L,q[1]+d[1]*L];   // first along the stroke, then easing into t
+      for(let i=1;i<=40;i++){const t2=i/40, w0=(1-t2)**2, w1=2*t2*(1-t2), w2=t2*t2; P.push([w0*q[0]+w1*m[0]+w2*e[0], w0*q[1]+w1*m[1]+w2*e[1]]);}}}
+  // back to the page, with the small turn picked above
+  const rot=rotPre, cr=Math.cos(rot), sr=Math.sin(rot);
+  let S=P.map(([u,v])=>{const x=u*a[0]+v*c[0], y=u*a[1]+v*c[1]; return [x*cr-y*sr, x*sr+y*cr, .5];});
+  // a last pass on the page itself: whatever the variation did, an end that runs within 25° of the pen's edge draws a hairline
+  // sliver or a thin strip of a tail — trim it (up to a quarter of the points from each end), judged over a few points, not one
+  {const along=i=>{const j=Math.min(S.length-1,i+3), t=Math.atan2(S[j][1]-S[i][1],S[j][0]-S[i][0]), d=((t-pen)%Math.PI+Math.PI)%Math.PI; return Math.min(d,Math.PI-d)<25*Math.PI/180;};
+    const cap=Math.floor(S.length*.25); let h=0; while(h<cap&&along(h))h++; let e=S.length-4; while(S.length-4-e<cap&&e>h+8&&along(e))e--; S=S.slice(h,e+4);}
+  const xs=S.map(q=>q[0]), ys=S.map(q=>q[1]), x0=Math.min(...xs), y0=Math.min(...ys);
+  return {pts:S, vb:[x0,y0,Math.max(...xs)-x0,Math.max(...ys)-y0]};}
+const rtiles=[];
+function reroll(){$('rtiles').innerHTML=''; rtiles.length=0;
+  for(let i=0;i<9;i++){const seed=Math.floor(Math.random()*1e6), b=blob(seed), el=document.createElement('div'); el.className='tile';
+    el.innerHTML=`<span class="lbl">Seed ${seed}</span><canvas></canvas>`; $('rtiles').append(el); rtiles.push({c:el.querySelector('canvas'),...b});}
+  drawTiles();}
+async function buildTiles(){for(const [name,file,d0] of SHAPES){let d=d0, vb=[0,0,260,130];
+    if(file){const t=await fetch(file).then(r=>r.text()); d=t.match(/ d="([^"]+)"/)[1]; vb=t.match(/viewBox="([^"]+)"/)[1].split(/\s+/).map(Number);}
+    const el=document.createElement('div'); el.className='tile'; el.innerHTML=`<span class="lbl">${name}</span><canvas></canvas>`; $('tiles').append(el);
+    tiles.push({c:el.querySelector('canvas'),pts:sample(d),vb});}}
+function drawTiles(){if(document.documentElement.classList.contains('solo'))return;   // export mode: the tiles are hidden (0 px)
+  for(const t of [...tiles,...rtiles]){size(t.c); const r=t.c.getBoundingClientRect(), x=t.c.getContext('2d'), pad=30, k=Math.min((r.width-2*pad)/t.vb[2],(r.height-2*pad)/t.vb[3]);
+    const ox=(r.width-t.vb[2]*k)/2-t.vb[0]*k, oy=(r.height-t.vb[3]*k)/2-t.vb[1]*k;
+    const pts=t.pts.map(([a,b,p])=>[ox+a*k,oy+b*k,p]); render(x,pts,t.vb[3]*k);   // the pen scales with the shape: the share of its height stays the same
+    if(SHOWPATH&&rtiles.includes(t)){const P=smooth(pts,SMOOTH); x.strokeStyle='#9CDE45'; x.lineWidth=1.5; x.lineJoin=x.lineCap='round';   // the path the pen follows
+      x.beginPath(); P.forEach(([a,b],i)=>i?x.lineTo(a,b):x.moveTo(a,b)); x.stroke(); x.fillStyle='#9CDE45'; x.beginPath(); x.arc(P[0][0],P[0][1],4,0,7); x.fill();}}   // the dot marks the start
+  drawSquare();}
+let SHOWPATH=false;
+// ---- posts. A scene: the blob filled with the café, blurred a little so the person stays the subject, and Omar in it:
+// 'in' — his head comes up over the blob's top edge; 'inside' — the blob clips him whole; 'over' — he stands in front, cut by the frame
+const IMG={}; for(const [k,f] of [['bg','cafe-bg'],['omar','omar-cut'],['pair','pair-cut'],['store','store-bg'],['retail','retail'],['office','office'],['cafe','cafe'],['hotel','hotel'],['barista','barista-cut'],['guest','guest-cut'],['manager','manager-cut']]){const im=new Image(); im.onload=()=>drawSquare(); im.src=`../assets/photo/${f}.webp`; IMG[k]=im;}
+const BLUR=3;   // blur in px of a 560 px square
+// who stands in the blob: one person (Omar, in the café) or two in a conversation (a sales associate and a customer, in a store;
+// generated with Codex, keyed off green). Per head, as shares of the cutout: the neck's row, the neck's columns, the head's columns
+const CASTS={one:{img:'omar', bg:'bg', heads:[{y:.43, neck:[.37,.61], head:[0,1]}]},
+  three:{img:'barista', bg:'bg'},
+  guest:{img:'guest', bg:'bg', heads:[{y:.27, neck:[.36,.62], head:[.26,.72]}]},   // the ghutra is the head: free above the neck row across its width manager:{img:'manager', bg:'hotel'},   // generated with Codex, keyed off green: in front of the blob only ('over')   // a barista, generated with Codex: in front of the blob only ('over'), no head data yet
+  two:{img:'pair', bg:'store', split:.461, heads:[{y:.345, neck:[.16,.28], head:[.07,.34], side:-1}, {y:.30, neck:[.62,.80], head:[.58,.85], side:1}]}};
+// two people: the cutout splits between them at `split`; `close` (% of the cutout's width) moves each one toward the other
+const dxOf=(h,O,ow)=>h.side?-h.side*(O.close||0)/100*ow:0;
+function drawPeople(g,C,P,ol,oy,ow,oh,O){if(!C.split){g.drawImage(P,ol,oy,ow,oh); return;}
+  const iw=P.naturalWidth, ih=P.naturalHeight, sp=C.split, k=(O.close||0)/100*ow;
+  g.drawImage(P,sp*iw,0,(1-sp)*iw,ih,ol+sp*ow-k,oy,(1-sp)*ow,oh);   // the right one first; the left one's gesturing hand stays in front
+  g.drawImage(P,0,0,sp*iw,ih,ol+k,oy,sp*ow,oh);}
+const BGS={white:'#FFFFFF', floor:[['#F2EFE9',0],['#FCF9F3',.6],['#FFFFFF',1]], card:[['#F2EFE9',0],['#FCF9F3',1]], lime:'#9CDE45', dark:'#33694F'};
+const POST={bg:'lime'};   // the background of the post being drawn (each post has its own): the two surface gradients or the two greens
+const LOGO={}; for(const k of ['ink','white']){const im=new Image(); im.onload=()=>drawSquare(); im.src=`../assets/logo/lansy-logo-${k}.svg`; LOGO[k]=im;}
+const onDark=()=>POST.bg==='dark';   // white type and logo on Primary Dark only; ink everywhere else, lime included
+const M=.06;   // the margin, 6% of the square on every side
+// sizes and positions in % of the square; blob: its width and centre; omar: his height, centre x and a nudge in y
+const POSTS=[   // people: their height, centre x and a nudge in y, in % of the square; shape: the blob; fill: what is inside it
+  {id:'above', layout:'above', cast:'one', name:'One person · headline on top', mode:'over', hl:'0', bg:'dark', shape:'a', fill:'lime', blob:{size:93,x:54,y:59}, people:{size:71,x:53,y:-2}},
+  {id:'below2', layout:'below', cast:'two', name:'Two talking · headline below', mode:'in', hl:'0', bg:'lime', shape:'kept', fill:'photo', blob:{size:86,x:52,y:41}, people:{size:64,x:53,y:9,close:8}},
+  {id:'anton', layout:'below', cast:'one', name:'One person out of the blob · Meet Anton', mode:'in', bg:'lime', shape:'a', fill:'dark', hsize:'regular', head:['Meet Anton,','*still curious*'], blob:{size:90,x:50,y:45}, people:{size:71,x:51,y:17}},
+  {id:'hero', layout:'hero', wide:true, name:'Small blobs · the hero principle, 2:1', bg:'floor', fill:'lime', count:'two3', head:'out', py:3, small:129, ppl:136, pin:120, blobs:[{cast:'one',shape:'b'},{cast:'two',shape:'kept'}]},
+  {id:'line', layout:'line', name:'Factoid', hl:'0', bg:'lime', ink:'lime', thick:60},
+  {id:'quote', layout:'quote', name:'Quote', hl:'0', bg:'lime', ink:'white', thick:55, avatar:'on'}];
+if(SOLO==='spec')POSTS.push({id:'spec', layout:'spec', name:'Marker specimen', wide:true, bg:'floor', ink:'lime', thick:60});
+if(SOLO&&QS.get('set')){const merge=(t,f)=>{for(const k in f){if(f[k]&&typeof f[k]==='object'&&!Array.isArray(f[k])){t[k]=t[k]||{}; merge(t[k],f[k]);} else t[k]=f[k];}}; merge(POSTS.find(p=>p.id===SOLO),JSON.parse(QS.get('set')));}   // thick: the line's width, % of the type size   // small: a blob's height, % of the type size; ppl: the people's height, % of the blob's
+// the blob: the landing's scribbles A and B, the kept generated blob 1876, or a new one from the generator
+const shapeOf=o=>({a:tiles[0], b:tiles[1], kept:SQ, gen:o.gen})[o.shape]||SQ;   // people: height, centre x, nudge y
+function cover(g,img,x,y,w,h){if(!img.naturalWidth)return; const k=Math.max(w/img.naturalWidth,h/img.naturalHeight), dw=img.naturalWidth*k, dh=img.naturalHeight*k; g.drawImage(img,x+(w-dw)/2,y+(h-dh)/2,dw,dh);}
+function paintBg(x,S,H=S){if(POST.bg==='none')return; const v=BGS[POST.bg]; if(typeof v==='string')x.fillStyle=v; else{const g=x.createLinearGradient(0,0,0,H); for(const [c,t] of v)g.addColorStop(t,c); x.fillStyle=g;} x.fillRect(0,0,S,H);}
+const blit=(dst,src)=>{dst.save(); dst.setTransform(1,0,0,1,0,0); dst.drawImage(src.canvas,0,0); dst.restore();};   // layers share the post's pixel size
+function layerOf(c){const z=document.createElement('canvas'); z.width=c.width; z.height=c.height; const g=z.getContext('2d'), S=c.getBoundingClientRect().width; g.setTransform(c.width/S,0,0,c.width/S,0,0); return g;}
+// a shape (the kept blob or a scribble) placed by its width and centre, drawn with the pen into a mask
+// the pen part-way: the path up to a share u of its length (not of its points, so the pen moves at an even pace), the last point on the cut
+function partial(pts,u){if(!(u<1))return pts; const L=[0]; for(let i=1;i<pts.length;i++)L.push(L[i-1]+Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]));
+  const T=L[L.length-1]*Math.max(0,u); let i=1; while(i<pts.length-1&&L[i]<T)i++; const t=(T-L[i-1])/((L[i]-L[i-1])||1), a=pts[i-1], b=pts[i];
+  return [...pts.slice(0,i),[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]]];}
+function shapeMask(c,S,sh,w,cx,cy){const g=layerOf(c), vb=sh.vb, k=w/Math.max(vb[2],vb[3]), ox=cx-(vb[0]+vb[2]/2)*k, oy=cy-(vb[1]+vb[3]/2)*k;
+  const pts=partial(sh.pts,+(QS.get('upto')??1));   // ?upto=0..1: the pen part-way along the path (frames of the blob being drawn)
+  render(g,pts.map(([a,q,p])=>[ox+a*k,oy+q*k,p]),vb[3]*k);
+  const e=PEN.w/100*vb[3]*k;   // the pen reaches past the path by up to half its width: the fill's box takes a whole width on each side
+  return {g, box:[ox+vb[0]*k-e,oy+vb[1]*k-e,vb[2]*k+2*e,vb[3]*k+2*e]};}
+// a photo inside a shape
+function photoIn(x,c,S,sh,img,w,cx,cy,blur=0){const {g,box}=shapeMask(c,S,sh,w,cx,cy), b=layerOf(c), e=3*blur;
+  blit(b,g); b.globalCompositeOperation='source-in';
+  if(typeof img==='string'){const v=BGS[img]; if(typeof v==='string')b.fillStyle=v; else{const gr=b.createLinearGradient(0,box[1],0,box[1]+box[3]); for(const [cl,t] of v)gr.addColorStop(t,cl); b.fillStyle=gr;} b.fillRect(box[0],box[1],box[2],box[3]);}   // a colour: flat, or a surface gradient over the blob's height
+  else{if(blur)b.filter=`blur(${blur}px)`; cover(b,img,box[0]-e,box[1]-e,box[2]+2*e,box[3]+2*e); b.filter='none';}
+  blit(x,b); return g;}
+// between(): drawn over the blob, under the people (the headline)
+function scene(x,c,S,o,between){const d=c.width/S, B=o.blob, C=CASTS[o.cast], P=IMG[C.img], mask=photoIn(o.phase==='people'?layerOf(c):x,c,S,shapeOf(o),o.fill==='photo'?IMG[o.place||C.bg]:o.fill,S*B.size/100,S*B.x/100,S*B.y/100,BLUR*S/560);
+  between&&between(); if(o.phase==='place'||o.noppl)return;   // noppl: the blob alone (frames before the people come in)   // phases: 'place' draws only the blob, 'people' only the people
+  const O=o.people, oh=S*O.size/100, ow=oh*P.naturalWidth/P.naturalHeight, ol=S*O.x/100-ow/2;
+  if(o.mode==='over'){drawPeople(x,C,P,ol,S-oh*.96+S*O.y/100,ow,oh,O); return;}   // in front of the blob, the photo's bottom past the frame
+  const f=layerOf(c);
+  if(o.mode==='inside'){drawPeople(f,C,P,ol,S*B.y/100-.42*oh+S*O.y/100,ow,oh,O);}   // the neck near the blob's middle; the blob crops the rest
+  else{// out of the blob: each neck enters the blob at its top edge; above that, over the head's columns, nothing clips
+    const md=mask.getImageData(0,0,c.width,c.height).data, top=cx=>{const X=Math.round(cx*d); for(let Y=0;Y<c.height;Y++)if(md[(Y*c.width+X)*4+3]>128)return Y/d; return S;};
+    const oy0=C.heads.reduce((a,h)=>a+top(ol+dxOf(h,O,ow)+ow*(h.neck[0]+h.neck[1])/2)-h.y*oh,0)/C.heads.length+S*O.y/100;
+    drawPeople(f,C,P,ol,oy0,ow,oh,O); mask.setTransform(d,0,0,d,0,0); mask.fillStyle=INK;
+    // the blob holds the people only by its lower edge: within its columns, everything above that edge is free. Its top and side edges
+    // have notches, and a body crossing one would lose a triangle there; coming out of the blob means it only cuts them from below
+    {const H=c.height/d, x0=Math.max(0,Math.floor(ol)), x1=Math.min(S,Math.ceil(ol+ow));
+      const bottom=cx=>{const X=Math.round(cx*d); for(let Y=c.height-1;Y>=0;Y--)if(md[(Y*c.width+X)*4+3]>128)return Y/d; return 0;};
+      mask.beginPath(); mask.moveTo(x0,0); for(let X=x0;X<=x1;X++)mask.lineTo(X,bottom(X)); mask.lineTo(x1,0); mask.closePath(); mask.fill();}
+    for(const h of C.heads){const hx=ol+dxOf(h,O,ow); let cut=oy0+h.y*oh;   // the head is always free down to its neck, wherever the blob's edge runs
+      for(let u=h.neck[0];u<=h.neck[1];u+=.02)cut=Math.max(cut,Math.min(top(hx+ow*u),oy0+(h.y+.06)*oh));   // below that, down to the blob's lowest edge under the neck, never past the shoulders
+      mask.fillRect(hx+ow*h.head[0]-S*.02,0,ow*(h.head[1]-h.head[0])+S*.04,cut);}}
+  f.globalCompositeOperation='destination-in'; blit(f,mask); blit(x,f);}
+// type: Struve 500, tracking −2.5% at display sizes; returns the cap height for placing lines by their caps
+function type(x,str,fs,X,Y,align='left',w=500,track=-.025){x.font=`${w} ${fs}px Struve`; if('letterSpacing' in x)x.letterSpacing=`${track*fs}px`;
+  x.fillStyle=onDark()?'#FFFFFF':'#201F1D'; x.textAlign=align; x.textBaseline='alphabetic'; x.fillText(str,X+(align==='left'?-fs*.04:align==='right'?fs*.02:0),Y);
+  const cap=x.measureText('H').actualBoundingBoxAscent; if('letterSpacing' in x)x.letterSpacing='0px'; x.textAlign='left'; return cap;}
+function capOf(x,fs){x.font=`500 ${fs}px Struve`; return x.measureText('H').actualBoundingBoxAscent;}
+function logo(x,S,h,X,Y,align='left'){if(QS.has('nologo'))return; const L=LOGO[onDark()?'white':'ink']; if(!L.naturalWidth)return; const w=h*L.naturalWidth/L.naturalHeight;
+  x.drawImage(L,align==='center'?X-w/2:align==='right'?X-w:X,Y,w,h);}   // Y is the box's top; the mark is 88.2% of the box
+// One construction, two arrangements. A 6% margin; the headline "Better / every shift" in two big lines (Struve 500, 15% of the square)
+// on one edge, the logo and the site address on the opposite edge, on one baseline: logo left, site right. The picture fills the middle
+const HFS=.15, LH=.05;   // headline size; the logo's box height (54 px on a 1080 post)
+// headlines, two lines each, with the marker as on the landing's hero: an accent inside a Struve line, never the whole line
+const HEADS={one:[['*Advice* after','every shift'],['Every shift','ends in *advice*']], two:[['Every *guest*','is a lesson'],['*Listen* to','every guest']]}; HEADS.three=HEADS.guest=HEADS.manager=HEADS.one;   // no full stop at the end
+// *word* in a headline is set in the marker, as on the landing's hero: same size, weight (500 → Medium Italic), tracking and baseline
+function rich(x,str,fs,X,Y,draw=true){let cur=X-fs*.04; x.fillStyle=onDark()?'#FFFFFF':'#201F1D'; x.textBaseline='alphabetic';
+  for(const seg of str.split(/(\*[^*]+\*)/).filter(Boolean)){const mk=seg[0]==='*', t=mk?seg.slice(1,-1):seg;
+    x.font=mk?`italic 500 ${fs}px Supermarker`:`500 ${fs}px Struve`; if('letterSpacing' in x)x.letterSpacing=`${-.025*fs}px`; if(draw)x.fillText(t,cur,Y); cur+=x.measureText(t).width;}
+  if('letterSpacing' in x)x.letterSpacing='0px'; return cur-X;}
+// the headline size: 15% of the square, smaller only if a line would run past the margins
+const headFs=(x,S,lines,o)=>o&&o.hsize==='regular'?S*.11:Math.min(...lines.map(t=>(S-2*S*M)/rich(x,t,100,0,0,false)*100))>=S*HFS?S*HFS:S*.11;   // two sizes only: large (15%) when it fits, else regular (11%)
+function postBelow(x,c,S,o){const m=S*M, lh=S*LH, [h1,h2]=o.head||HEADS[o.cast][o.hl], fs=headFs(x,S,[h1,h2],o); scene(x,c,S,o); if(o.bare)return;   // bare: the scene alone (previews)
+  logo(x,S,lh,m,m); site(x,S,S-m,m+lh*.882,'right');
+  rich(x,h1,fs,m,S-m-fs); rich(x,h2,fs,m,S-m);}
+// headline on top: its first cap height on the top margin; it goes behind Omar, so his head may cross it. The logo's mark and the site
+// stand on the bottom margin (the y of 'lansy' descends below it, like a letter)
+function postAbove(x,c,S,o){const m=S*M, lh=S*LH, [h1,h2]=o.head||HEADS[o.cast][o.hl], fs=headFs(x,S,[h1,h2],o), cap=capOf(x,fs);
+  if(o.bare){scene(x,c,S,o); return;}   // bare: the scene alone (previews)
+  scene(x,c,S,o,()=>{rich(x,h1,fs,m,m+cap); rich(x,h2,fs,m,m+cap+fs);});   // the headline over the blob, under the person
+  logo(x,S,lh,m,S-m-lh*.882); site(x,S,S-m,S-m,'right');}
+// the site address: body text, Struve 500, 3% of the square (32 px on a 1080 post), paired with the logo
+function site(x,S,X,Y,align){if(QS.has('nologo'))return; x.font=`500 ${S*.03}px Struve`; x.fillStyle=onDark()?'#FFFFFF':'#201F1D'; x.textAlign=align; x.fillText('lansy.ai',X,Y); x.textAlign='left';}
+// Small blobs, the hero principle: the headline fills the square; small blobs stand inside its lines like words, made the way our big
+// ones are — a blurred place inside, the people coming up out of the blob. Text runs over them. Two blobs sit on opposite sides (one
+// opening the first line on the left, one closing a line on the right); above each is free space for the heads — the top margin, or a
+// short line. The marker is one
+// phrase inside the text ("becomes advice"), set as on the landing's hero: same size, weight (500 → Medium Italic), tracking and baseline as the Struve
+// heads rise only into free space: the first line's blob into the space above the block, a later blob under the end of a shorter line
+const HEROS={
+  one:[[{t:'Every guest'},{b:1}],[{t:'conversation'},{m:'becomes'}],[{m:'advice'},{t:'for your team,'}],[{t:'every shift'}]],
+  two:[[{t:'Every guest'},{b:1}],[{t:'conversation'},{m:'becomes'},{b:0}],[{m:'advice'},{t:'for your team,'}],[{t:'every shift'}]],
+  // the second blob inside a line: letters stand above it, so its person stays inside the blob unless asked otherwise
+  two2:[[{t:'Every guest'},{b:1}],[{t:'conversation'},{b:0,inner:1},{m:'becomes'}],[{m:'advice'},{t:'for your team,'}],[{t:'every shift'}]],
+  two3:[[{t:'Every guest'},{b:1}],[{t:'conversation'},{m:'becomes'}],[{m:'advice'},{t:'for'},{b:0,inner:1},{t:'your team,'}],[{t:'every shift'}]]}, GAP=.22;
+function postHero(x,c,S,o,HH=S){const W=S, m=HH*M, lh=HH*LH, ink=onDark()?'#FFFFFF':'#201F1D', LINES=o.lines||HEROS[o.count];   // a wide post: margins and logo by its short side; o.lines overrides the text, o.bare drops logo and site
+  const font=(fs,mk)=>{x.font=mk?`italic 500 ${fs}px Supermarker`:`500 ${fs}px Struve`; if('letterSpacing' in x)x.letterSpacing=`${-.025*fs}px`;};
+  const tw=(t,fs,mk)=>{font(fs,mk); const w=x.measureText(t).width; if('letterSpacing' in x)x.letterSpacing='0px'; return w;};
+  const bh=fs=>fs*o.small/100, bw=(b,fs)=>{const vb=shapeOf(b).vb; return bh(fs)*vb[2]/vb[3];};   // a blob's height and width at a type size
+  const lineW=(L,fs)=>L.reduce((a,k,i)=>a+(i?fs*GAP:0)+(k.b!=null?bw(o.blobs[k.b],fs)*.9:tw(k.t||k.m,fs,!!k.m)),0);
+  // the type size fits the widest line and the height under the logo; the block stands on the bottom margin
+  // o.size fixes the type size as a share of the height (heroes all render at one size); otherwise it fits the post
+  const fs=o.size?HH*o.size:Math.min((HH-2*m-(o.bare?0:lh+HH*.12))/(LINES.length-1+.75+(o.bare?o.small/100*.6:0)),...LINES.map(L=>(W-2*m)/lineW(L,100)*100)), cap=capOf(x,fs), xh=x.measureText('x').actualBoundingBoxAscent, place=[];
+  LINES.forEach((L,i)=>{let X=m; const base=HH-m-(LINES.length-1-i)*fs;
+    L.forEach((k,j)=>{if(j)X+=fs*GAP; if(k.b!=null){const b=o.blobs[k.b], w=bw(b,fs); place.push({b,cx:X+w*.45,cy:base-xh/2,w,inner:k.inner}); X+=w*.9;} else{place.push({...k,X,base}); X+=tw(k.t||k.m,fs,!!k.m);}});});
+  // each blob is a small scene in its line: its place blurred inside, behind the letters; its people come up out of it, over the letters
+  const blobs=place.filter(p=>p.b).map(p=>{const b=p.b, h=bh(fs), sz=Math.max(p.w,h), inner=p.inner&&o.head!=='out';
+    return {mode:inner?'inside':'in', cast:b.cast, shape:b.shape, gen:b.gen, fill:o.fill, blob:{size:sz/S*100,x:p.cx/S*100,y:p.cy/S*100}, people:{size:h*(inner?o.pin:o.ppl)/100/S*100,x:p.cx/S*100,y:o.py*h/100/S*100,close:8}};});   // py: a nudge down, % of the blob's height
+  for(const b of blobs)scene(x,c,S,{...b,phase:'place'});   // the places behind the letters…
+  for(const p of place)if(!p.b){font(fs,!!p.m); x.fillStyle=ink; x.fillText(p.t||p.m,p.X-fs*.04,p.base); if('letterSpacing' in x)x.letterSpacing='0px';}
+  if(!o.noppl)for(const b of blobs)scene(x,c,S,{...b,phase:'people'});   // …the people over them, as in the headline-on-top post
+  if(!o.bare){logo(x,S,lh,m,m); site(x,HH,W-m,m+lh*.882,'right');}}   // logo and site on top, across from each other
+// Factoid, an info card built like the quote: centred, no logo. The number is the hero (Struve 500, 24% of the square, −4%); under it one
+// short line says what it means, with a phrase in the marker and our highlighter inside it; at the foot the Lansy icon (5.5%) and the
+// source in mono (2.8%). Highlighter colour: lime on light grounds, white on Lime
+const INKS={lime:'#9CDE45', dark:'#33694F', paper:'#FCF9F3', white:'#FFFFFF'};   // highlighter colours
+const FACTS=[{num:'4 380', text:'conversations *turned into advice* in a single day', src:'Lansy data · 12 cafés, Dubai'},
+  {num:'87%', text:'of shifts *got a tip* before the next one started', src:'Lansy data · October 2026'}];
+const hiInk=o=>POST.bg==='lime'&&o.ink==='lime'?INKS.white:INKS[o.ink];   // a lime highlighter vanishes on Lime: there it is white
+let MARKS=[];   // where marker phrases landed in the last marked() call: baseline, ends, size (for the construction guides)
+function marked(x,c,S,o,T,fs,top,bottom,font,track,L,dry=false){   // centred rich text with highlighter, wrapped to the margins; returns its height
+  const m=S*(o.margin??M), ink=onDark()?'#FFFFFF':'#201F1D';
+  const toks=T.split(/(\*[^*]+\*)/).filter(Boolean).flatMap(t=>t[0]==='*'?t.slice(1,-1).split(/\s+/).map(w=>({m:w})):t.trim().split(/\s+/).map(w=>({t:w})));
+  const fnt=mk=>{x.font=mk?`italic ${font} ${fs}px Supermarker`:`${font} ${fs}px Struve`; if('letterSpacing' in x)x.letterSpacing=`${track*fs}px`;};
+  const wid=k=>{fnt(!!k.m); const w=x.measureText(k.t||k.m).width; if('letterSpacing' in x)x.letterSpacing='0px'; return w;};
+  fnt(false); const sp=x.measureText(' ').width; if('letterSpacing' in x)x.letterSpacing='0px'; const rows=[[]]; let X=0;
+  for(const k of toks){if(k.t==='//'){rows.push([]); X=0; continue;}   // '//' forces a line break
+    const w=wid(k), glue=k.t&&/^[.,;:!?”]/.test(k.t); if(!glue&&X&&X+sp+w>S-2*m){rows.push([]); X=0;} else if(X&&!glue)X+=sp; rows[rows.length-1].push({...k,X,w}); X+=w;}
+  const cap=capOf(x,fs), H=cap+(rows.length-1)*fs*L, y0=bottom?bottom-H:top; if(dry)return H;
+  rows.forEach((r,i)=>{const W=r.length?r[r.length-1].X+r[r.length-1].w:0, dx=o.align==='left'?m:m+(S-2*m-W)/2, base=y0+cap+i*fs*L, mk=r.filter(k=>k.m);
+    if(mk.length){MARKS.push({base,x0:dx+mk[0].X,x1:dx+mk[mk.length-1].X+mk[mk.length-1].w,fs});}
+    if(mk.length&&!o.noline){const X0=dx+mk[0].X-fs*.08, w=mk[mk.length-1].X+mk[mk.length-1].w-mk[0].X+fs*.16, u=tiles[2], xs=u.pts.map(p=>p[0]), a=Math.min(...xs), b=Math.max(...xs), k=w/(b-a), ym=u.pts.reduce((s_,p)=>s_+p[1],0)/u.pts.length;
+      const up=partial(u.pts,+(QS.get('upto')??1));   // ?upto: the pen part-way along the line
+      const g=layerOf(c); render(g,up.map(([px,py,pp])=>[X0+(px-a)*k,base-fs*.14+(py-ym)*Math.min(k,fs/40),pp]),fs*o.thick/100/(PEN.w/100));
+      g.globalCompositeOperation='source-in'; g.fillStyle=hiInk(o); g.fillRect(0,0,S,S); blit(x,g);}
+    if(!o.notext)for(const k of r){fnt(!!k.m); x.fillStyle=ink; x.fillText(k.t||k.m,dx+k.X-fs*.03,base); if('letterSpacing' in x)x.letterSpacing='0px';}});   // notext: the line alone (a layer for animated previews)
+  return H;}
+function postLine(x,c,S,o){const m=S*M, ink=onDark()?'#FFFFFF':'#201F1D', F=o.fact||FACTS[o.hl];   // fact: {num, text, src} from ?set
+  // the number and its line form one group, centred in the room above the source
+  const nf=S*.24, nc=capOf(x,nf), tf=S*.068, gap=S*.05, foot=S-m-S*.07;
+  x.font=`500 ${tf}px Struve`; const probe=marked(x,c,S,o,F.text,tf,0,0,500,-.02,1.12,true);   // measure only
+  const H=nc+gap+probe, y0=m+(foot-m-H)/2;
+  x.font=`500 ${nf}px Struve`; if('letterSpacing' in x)x.letterSpacing=`${-.04*nf}px`; x.fillStyle=ink; x.textAlign='center'; x.fillText(F.num,S/2,y0+nc); x.textAlign='left'; if('letterSpacing' in x)x.letterSpacing='0px';
+  marked(x,c,S,o,F.text,tf,y0+nc+gap,0,500,-.02,1.12);
+  // the source: the icon (5.5%, 59 px at 1080, over the 32 px minimum) and a mono line, centred on the bottom margin
+  const is=S*.055, lf=S*.028; x.font=`500 ${lf}px "JetBrains Mono"`; if('letterSpacing' in x)x.letterSpacing=`${.06*lf}px`; const lw=x.measureText(F.src.toUpperCase()).width, gx=(S-(is+lf*.6+lw))/2;
+  const ic=ICON[onDark()?'white':'ink']; if(ic.naturalWidth)x.drawImage(ic,gx,S-m-is,is,is);
+  x.fillStyle=ink; x.textBaseline='middle'; x.fillText(F.src.toUpperCase(),gx+is+lf*.6,S-m-is/2); x.textBaseline='alphabetic'; if('letterSpacing' in x)x.letterSpacing='0px';}
+const ICON={}; for(const [k,f] of [['ink','icon/lansy-icon-ink'],['white','logo/lansy-mark-white']]){const im=new Image(); im.onload=()=>drawSquare(); im.src=`../assets/${f}.svg`; ICON[k]=im;}
+// Quote, an info card like the factoid — no logo or site. Centred: the quote in typographic quotes, Struve 500 (−2%, leading 1.12), centred in the room above the
+// speaker; one phrase in it in the marker with our highlighter behind the lower half of its letters, on every ground (the same
+// technique as the factoid, no separate underline). The phrase always shares its line
+// with plain Struve. The speaker at the foot, centred: a round avatar, name and role
+// quotes of about five lines at the card's size
+const QUOTES=["After every shift I get one tip on how I talked to guests. It's *like a coach* at the counter.",
+  "I used to guess what went wrong. Now *I hear it* the next morning."], WHO={name:'Omar Haddad', role:'Barista, Dubai'};
+function postQuote(x,c,S,o){const m=S*M, dk=onDark(), ink=dk?'#FFFFFF':'#201F1D', lh=S*LH, T='“'+(o.quote||QUOTES[o.hl])+'”', who=o.who||WHO;   // quote, who: from ?set
+  const toks=T.split(/(\*[^*]+\*)/).filter(Boolean).flatMap(t=>t[0]==='*'?t.slice(1,-1).split(/\s+/).map(w=>({m:w})):t.trim().split(/\s+/).map(w=>({t:w})));
+  const font=(fs,mk)=>{x.font=mk?`italic 500 ${fs}px Supermarker`:`500 ${fs}px Struve`; if('letterSpacing' in x)x.letterSpacing=`${-.02*fs}px`;};
+  const wid=(k,fs)=>{font(fs,!!k.m); const w=x.measureText(k.t||k.m).width; if('letterSpacing' in x)x.letterSpacing='0px'; return w;};
+  const lay=fs=>{font(fs,false); const sp=x.measureText(' ').width, rows=[[]]; let X=0; if('letterSpacing' in x)x.letterSpacing='0px';
+    for(const k of toks){const w=wid(k,fs), glue=k.t&&/^[.,;:!?”]/.test(k.t); if(!glue&&X&&X+sp+w>S-2*m){rows.push([]); X=0;} else if(X&&!glue)X+=sp; rows[rows.length-1].push({...k,X,w}); X+=w;}
+    return rows.map(r=>{const W=r.length?r[r.length-1].X+r[r.length-1].w:0; return r.map(k=>({...k,X:k.X+(S-2*m-W)/2}));});};   // centred
+  const shares=rows=>rows.every(r=>!r.some(k=>k.m)||r.some(k=>!k.m));   // the marker never has a line to itself
+  const av=o.avatar==='on', D=S*.11, spk=av?D+S*.075:S*.075, top=m, foot=S-m-spk-S*.05, L=1.12;
+  let lo=S*.03, hi=S*.098; for(let i=0;i<24;i++){const f=(lo+hi)/2, r=lay(f); if(capOf(x,f)+(r.length-1)*f*L+f*.25<=foot-top)lo=f; else hi=f;}   // 9.8% of the square (106 px at 1080), smaller only if it must
+  let fs=lo; for(let i=0;i<40&&!shares(lay(fs));i++)fs*=.985;
+  const rows=lay(fs), cap=capOf(x,fs), blockH=cap+(rows.length-1)*fs*L, y0=top+(foot-top-blockH)/2;   // the quote centred in its room
+  rows.forEach((row,i)=>{const base=y0+cap+i*fs*L, mk=row.filter(k=>k.m);
+    if(mk.length){const X0=m+mk[0].X-fs*.08, w=mk[mk.length-1].X+mk[mk.length-1].w-mk[0].X+fs*.16, u=tiles[2], xs=u.pts.map(p=>p[0]), a=Math.min(...xs), b=Math.max(...xs), k=w/(b-a), ym=u.pts.reduce((s_,p)=>s_+p[1],0)/u.pts.length;
+      const yc=base-fs*.14, th=o.thick;   // behind the lower half of the letters
+      const g=layerOf(c); render(g,partial(u.pts,+(QS.get('upto')??1)).map(([px,py,pp])=>[X0+(px-a)*k,yc+(py-ym)*Math.min(k,fs/40),pp]),fs*th/100/(PEN.w/100));   // ?upto: the pen part-way
+      g.globalCompositeOperation='source-in'; g.fillStyle=hiInk(o); g.fillRect(0,0,S,S); blit(x,g);}
+    for(const k of row){font(fs,!!k.m); x.fillStyle=ink; x.fillText(k.t||k.m,m+k.X-fs*.03,base); if('letterSpacing' in x)x.letterSpacing='0px';}});
+  // the speaker, centred on the bottom margin: the avatar above, then name (Struve 600) and role (text-2)
+  x.textAlign='center'; const cx=S/2;
+  // the avatar: the café in a circle, Omar's shoulders inside it and his head coming up out of its top, as from our blobs
+  if(av){const cy=S-m-S*.075-D/2, P=IMG.omar, iw=P.naturalWidth, ih=P.naturalHeight, k=D*1.05/(.66*iw), oy=cy-D/2-D*.28;
+    x.save(); x.beginPath(); x.arc(cx,cy,D/2,0,7); x.clip(); x.filter=`blur(${S*.003}px)`; cover(x,IMG.bg,cx-D/2-4,cy-D/2-4,D+8,D+8); x.filter='none'; x.restore();
+    const f=layerOf(c); f.drawImage(P,cx-iw*k/2,oy,iw*k,ih*k); f.globalCompositeOperation='destination-in'; f.beginPath(); f.arc(cx,cy,D/2,0,7);
+    f.rect(cx-D*.36,0,D*.72,cy); f.fill(); blit(x,f);}   // kept: the circle, plus everything above its centre over the head's width
+  // name and role in the text colour, told apart by weight; text-2 grey only on the neutral grounds (it muddies Lime and Dark)
+  const quiet=POST.bg==='floor'||POST.bg==='card';
+  x.font=`600 ${S*.032}px Struve`; x.fillStyle=ink; x.fillText(who.name,cx,S-m-S*.036);
+  x.font=`400 ${S*.028}px Struve`; x.fillStyle=quiet?'#75736F':ink; x.fillText(who.role,cx,S-m); x.textAlign='left';}   // an info card: no logo or site, as the factoid
+// a marker specimen, export only (?solo=spec): one phrase on a ground, 2:1; guides=1 draws how the line is built
+function postSpec(x,c,S,o,HH=S){const fs=HH*(o.size||(o.guides?.26:.17)), T=o.text||(o.guides?'is *a lesson*':'Every guest *is a lesson*'); MARKS=[];
+  const tr=o.track??-.02, H=marked(x,c,S,o,T,fs,0,0,500,tr,1.12,true); marked(x,c,S,o,T,fs,(HH-H)/2,0,500,tr,1.12);   // track: heroes use the h1's −2.5%
+  if(!o.guides)return; const g='#8D8A86', mk=MARKS[0]; if(!mk)return; x.save(); x.strokeStyle=g; x.fillStyle=g; x.lineWidth=Math.max(1,S*.0012);
+  const lab=(t,X,Y,al='left')=>{x.font=`500 ${S*.0115}px "JetBrains Mono"`; if('letterSpacing' in x)x.letterSpacing=`${S*.0007}px`; x.textAlign=al; x.fillText(t.toUpperCase(),X,Y); x.textAlign='left'; if('letterSpacing' in x)x.letterSpacing='0px';};
+  const hl=(y,t,below)=>{x.setLineDash([S*.004,S*.004]); x.beginPath(); x.moveTo(S*.04,y); x.lineTo(S*.96,y); x.stroke(); x.setLineDash([]); lab(t,S*.96,below?y+S*.016:y-S*.006,'right');};
+  const B=mk.base, F=mk.fs; hl(B,'baseline',1); hl(B-F*.14,'centre · 0.14 em'); hl(B-F*.14-F*o.thick/200,'top · '+o.thick+'% thick');
+  for(const [X,al,t] of [[mk.x0-F*.08,'right','0.1 em'],[mk.x1+F*.08,'left','0.1 em']]){x.beginPath(); x.moveTo(X,B-F*.9); x.lineTo(X,B+F*.25); x.stroke(); lab(t,al==='right'?X-S*.006:X+S*.006,B+F*.22,al);}
+  for(const X of [mk.x0,mk.x1]){x.setLineDash([S*.002,S*.003]); x.beginPath(); x.moveTo(X,B-F*.9); x.lineTo(X,B+F*.25); x.stroke(); x.setLineDash([]);}
+  x.restore();}
+const DRAW={below:postBelow, above:postAbove, hero:postHero, line:postLine, quote:postQuote, spec:postSpec};   // by layout
+function drawSquare(){if(!SQ.pts||!tiles[1]||Object.values(IMG).some(i=>!i.naturalWidth))return;
+  for(const o of POSTS)for(const b of [o,...(o.blobs||[])])if(b.shape==='gen'&&b.seed&&!b.gen)b.gen=blob(b.seed);   // defaults keep a generated blob by its seed
+  for(const o of POSTS){if(SOLO&&o.id!==SOLO)continue; const c=$('sq-'+o.id); size(c); const r=c.getBoundingClientRect(), S=r.width, x=c.getContext('2d'); POST.bg=o.bg; paintBg(x,S,r.height); DRAW[o.layout](x,c,S,o,r.height);} if(SOLO)document.documentElement.dataset.ready='1';}   // S: the width; a wide post also gets its height
+function seg(id,key,opts){const el=$(id); el.innerHTML=opts.map(([v,l])=>`<button data-v="${v}"${POST[key]===v?' class="on"':''}>${l}</button>`).join('');
+  el.onclick=e=>{const b=e.target.closest('button'); if(!b)return; POST[key]=b.dataset.v; el.querySelectorAll('button').forEach(z=>z.classList.toggle('on',z===b)); drawSquare();};}
+Promise.all([document.fonts.load('500 20px "JetBrains Mono"'),document.fonts.load('500 40px Struve'),document.fonts.load('400 40px Struve'),document.fonts.load('italic 500 40px Supermarker'),document.fonts.load('italic 400 40px Supermarker')]).then(()=>drawSquare());
+function knob(host,obj,key,label,min,max){const el=document.createElement('label'); el.className='f'; el.innerHTML=`<span>${label}</span><input type="range" min="${min}" max="${max}" step="1" value="${obj[key]}"><output>${obj[key]}</output>`;
+  el.querySelector('input').oninput=e=>{obj[key]=+e.target.value; el.querySelector('output').textContent=obj[key]; drawSquare();}; $(host).append(el);}
+$('scenes').innerHTML=POSTS.map(o=>`<figure${o.wide?' class="wide"':''}><canvas class="sq" id="sq-${o.id}"></canvas><button class="gear" type="button">Settings</button><figcaption class="lbl">${o.name}</figcaption><div class="knobs" id="k-${o.id}"></div></figure>`).join('');
+if(SOLO){const c=$('sq-'+SOLO); c.classList.add('solo-c'); if(POSTS.find(p=>p.id===SOLO).wide)c.classList.add('wide'); document.body.append(c);
+  const bn=POSTS.find(p=>p.id===SOLO).badge; if(bn){const sc=document.createElement('script'); sc.src='ui/badges.js'; sc.onload=()=>{addBadge(document.body,bn,innerWidth,innerWidth*.06,innerWidth*.06); document.body.lastElementChild.classList.add('solo-badge');}; document.head.appendChild(sc);}}   // an industry badge on the top margin, from the posts' shared file
+if(QS.has('shape')){const c=document.createElement('canvas'); c.id='solo'; c.className='solo-c'; document.body.append(c);}
+$('scenes').addEventListener('click',e=>{const g=e.target.closest('.gear'); if(!g)return; const f=g.closest('figure'), was=f.classList.contains('open');
+  document.querySelectorAll('.scenes figure.open').forEach(x=>x.classList.remove('open')); f.classList.toggle('open',!was);
+  if(!was)scrollTo({top:f.getBoundingClientRect().top+scrollY-16,behavior:'smooth'});});   // the post to the top, above the panel
+const shut=()=>document.querySelectorAll('.scenes figure.open').forEach(f=>f.classList.remove('open'));
+$('scenes').addEventListener('click',e=>{if(e.target.closest('.kclose'))shut();
+  const cp=e.target.closest('.kcopy'); if(cp){const o=POSTS.find(p=>p.id===cp.dataset.id), keep=['bg','fill','shape','seed','mode','blob','people','hsize','head','hl'], out={}; keep.forEach(k=>{if(o[k]!==undefined)out[k]=o[k];});   // the settings to send back: they go into the post's render line
+    navigator.clipboard?.writeText(JSON.stringify(out)).then(()=>{cp.textContent='Copied'; setTimeout(()=>cp.textContent='Copy settings',1500);});}});   // Close lives on the panel
+document.addEventListener('click',e=>{if(!e.composedPath().some(n=>n.matches&&n.matches('.scenes figure')))shut();});   // the path, not the target: a switch repaints its buttons, so the clicked one is gone by now   // the docked panel is inside its figure, so clicks in it keep it open addEventListener('keydown',e=>{if(e.key==='Escape')shut();});
+function pick(host,o,key,label,opts,after){const row=document.createElement('div'); row.className='prow'; row.innerHTML=`<span>${label}</span>`; const el=document.createElement('div'); el.className='seg'; row.append(el); $(host).append(row);
+  const paint=()=>{el.innerHTML=opts.map(([v,l])=>`<button data-v="${v}"${o[key]===v?' class="on"':''}>${typeof l==='function'?l():l}</button>`).join('');};
+  el.onclick=e=>{const b=e.target.closest('button'); if(!b)return; o[key]=b.dataset.v; after&&after(b.dataset.v); paint(); drawSquare();}; paint();}
+const newBlob=o=>{o.seed=Math.floor(Math.random()*1e6); o.gen=blob(o.seed);};   // pressing New again rolls another
+function knobs(){for(const o of POSTS){if(o.layout==='spec')continue; const h='k-'+o.id, O=o.people; $(h).innerHTML=`<div class="khead"><span class="lbl">${o.name}</span><button class="kcopy" type="button" data-id="${o.id}">Copy settings</button><button class="kclose" type="button">Close</button></div>`;
+  // the highlighter lives on light grounds and on Lime (a white highlighter there); not on Dark — no version of it read well there
+  pick(h,o,'bg','Background',[['floor','Floor'],['card','Card'],['lime','Lime'],...(o.layout==='quote'||o.layout==='line'?[]:[['dark','Dark']])]);
+  if(o.layout==='quote'){pick(h,o,'hl','Quote',QUOTES.map((l,i)=>[String(i),l.replace(/\*/g,'').slice(0,34)+'…'])); pick(h,o,'ink','Line',[['white','White'],['lime','Lime'],['paper','Paper']]); pick(h,o,'avatar','Photo',[['on','With photo'],['off','Without']]); knob(h,o,'thick','Thickness',20,120); continue;}
+  if(o.layout==='line'){pick(h,o,'hl','Fact',FACTS.map((f,i)=>[String(i),f.num+' · '+f.text.replace(/\*/g,'').slice(0,26)+'…'])); pick(h,o,'ink','Line',[['lime','Lime'],['white','White'],['paper','Paper']]); knob(h,o,'thick','Thickness',20,120); continue;}
+  if(o.layout==='hero'){pick(h,o,'count','Blobs',[['one','One'],['two','Two · Omar at the end'],['two2','Omar · conversation | becomes'],['two3','Omar · for | your team']]); pick(h,o,'head','Inner head',[['in','Inside the blob'],['out','Out of it']]); pick(h,o,'fill','Blob fill',[['photo','Photo'],['floor','Floor'],['card','Card'],['lime','Lime'],['dark','Dark']]);
+    o.blobs.forEach((b,i)=>pick(h,b,'shape',i?'Two people':'One person',[['a','A'],['b','B'],['kept','1876'],['gen',()=>b.gen?`New · ${b.seed}`:'New']],v=>{if(v==='gen')newBlob(b);}));
+    knob(h,o,'small','Blob height',80,260); knob(h,o,'ppl','People',60,260); knob(h,o,'pin','Inner person',60,260); knob(h,o,'py','People Y',-60,60); continue;}
+  pick(h,o,'hl','Headline',HEADS[o.cast].map((l,i)=>[String(i),l.join(' ').replace(/\*/g,'')]));
+  pick(h,o,'shape','Blob',[['a','A'],['b','B'],['kept','1876'],['gen',()=>o.gen?`New · ${o.seed}`:'New']],v=>{if(v==='gen')newBlob(o);});
+  pick(h,o,'fill','Blob fill',[['photo','Photo'],['floor','Floor'],['card','Card'],['lime','Lime'],['dark','Dark']]);
+  knob(h,o.blob,'size','Blob size',30,140); knob(h,o.blob,'x','Blob X',0,100); knob(h,o.blob,'y','Blob Y',0,100);
+  knob(h,O,'size','People size',20,120); knob(h,O,'x','People X',10,90); knob(h,O,'y','People Y',-30,30); if('close' in O)knob(h,O,'close','Closer',0,20);}}
+knobs();
+function all(){redraw(); drawTiles();}
+$('clear').onclick=()=>{strokes.length=0; redraw(); $('pad').querySelector('.tip').style.display='';};
+addEventListener('resize',()=>{size(cv); all();});
+
+$('reroll').onclick=reroll;
+$('showpath').onclick=()=>{SHOWPATH=!SHOWPATH; $('showpath').textContent=SHOWPATH?'Hide path':'Show path'; drawTiles();};
+(async()=>{size(cv); await buildTiles(); reroll();
+  {const t=await fetch(SQ.file).then(r=>r.text()); SQ.pts=sample(t.match(/ d="([^"]+)"/)[1]); SQ.vb=t.match(/viewBox="([^"]+)"/)[1].split(/\s+/).map(Number);}
+  if(QS.has('shape'))drawSolo(); else if(SOLO)drawSquare(); else all();})();
+// ---- export mode, for the brand page's examples (rendered by headless Chrome into PNGs, so they are exactly the lab's):
+//   ?solo=<post id>&set=<json>  one post over the whole window, with the JSON merged into its settings
+//   ?shape=a|b|kept|<seed>&path=1  one shape drawn with the pen, ink on white, the pen's path over it in lime
+function drawSolo(){const c=$('solo'), x=c.getContext('2d'); size(c); const r=c.getBoundingClientRect(), k0=QS.get('shape');
+  const t=k0==='a'?tiles[0]:k0==='b'?tiles[1]:k0==='kept'?SQ:k0==='line'?tiles[2]:blob(+k0), pad=r.width*.12, k=Math.min((r.width-2*pad)/t.vb[2],(r.height-2*pad)/t.vb[3]);
+  x.fillStyle='#FFFFFF'; x.fillRect(0,0,r.width,r.height); const ox=(r.width-t.vb[2]*k)/2-t.vb[0]*k, oy=(r.height-t.vb[3]*k)/2-t.vb[1]*k, pts=t.pts.map(([a,b,p])=>[ox+a*k,oy+b*k,p]);
+  render(x,pts,t.vb[3]*k);
+  if(QS.get('path')){const P=smooth(pts,SMOOTH); x.strokeStyle='#9CDE45'; x.lineWidth=r.width*.004; x.lineJoin=x.lineCap='round'; x.beginPath(); P.forEach(([a,b],i)=>i?x.lineTo(a,b):x.moveTo(a,b)); x.stroke(); x.fillStyle='#9CDE45'; x.beginPath(); x.arc(P[0][0],P[0][1],r.width*.012,0,7); x.fill();}
+  document.documentElement.dataset.ready='1';}
+</script>
+</body>
+</html>

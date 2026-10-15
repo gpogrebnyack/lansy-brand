@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blob · Lansy design tools</title>
+<link rel="icon" href="assets/icon/lansy-icon-ink.svg" type="image/svg+xml">
+<link rel="alternate" type="text/markdown" href="brand.md#blob" title="Blob rules for agents">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="page.css?v=20">
+</head>
+<body>
+<script src="nav.js"></script>
+<header class="intro"><div class="plate">
+  <div class="wrap">
+    <h1 class="drawn"><span class="sr">A place for people to come out of</span><img src="assets/examples/blob-hero.webp" style="--w:10.75;--cap:0.621" alt=""></h1>
+    <p class="lead">A scribble drawn with our pen. It holds the place where a conversation happens, and the people come out of it.</p>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <h2>The shape</h2>
+  <p>A blob is a path swept by a broad nib. The same path with the same pen always gives the same blob.</p>
+  <div class="figs c3">
+    <figure><img src="assets/examples/blob-shape-a.webp" alt="Blob A with its path" loading="lazy"><figcaption class="lbl">A · scribble-a.svg</figcaption></figure>
+    <figure><img src="assets/examples/blob-shape-b.webp" alt="Blob B with its path" loading="lazy"><figcaption class="lbl">B · scribble-b.svg</figcaption></figure>
+    <figure><img src="assets/examples/blob-shape-kept.webp" alt="Blob 1876 with its path" loading="lazy"><figcaption class="lbl">1876 · blob-1876.svg</figcaption></figure>
+  </div>
+  <ul>
+    <li><b>Draw it only with the pen from the lab,</b> from a path in <code>assets/line</code>. Never a generic brush, never by hand, never by an image model.</li>
+    <li><b>New shapes come from the lab's generator,</b> variations of A and B. Keep one by its seed and save its path as an asset.</li>
+  </ul>
+  <h3>The pen</h3>
+  <dl>
+    <dt>Nib</dt><dd>broad, superellipse n = 8</dd>
+    <dt>Width</dt><dd>27% of the shape's height</dd>
+    <dt>Thickness</dt><dd>0.12 of the width</dd>
+    <dt>Angle</dt><dd>35°</dd>
+    <dt>Ends</dt><dd>cut square, leaning up to 45° toward the pen</dd>
+    <dt>Path smoothing</dt><dd>0.5</dd>
+  </dl>
+  <h3>The generator</h3>
+  <p>It takes A or B and varies it by a seed. The same seed always gives the same blob: to keep one, note its seed and save its path to <code>assets/line</code>.</p>
+  <figure class="gen"><iframe id="genf" title="A blob from the generator, its path in lime" loading="lazy"></iframe>
+    <figcaption><span class="lbl" id="gseed"></span><span class="gctl"><label class="sw"><input type="checkbox" id="gpath" checked><i></i>Path</label><button type="button" id="gnext">Another seed</button></span></figcaption></figure>
+  <script>(()=>{const f=document.getElementById('genf'), l=document.getElementById('gseed'), pth=document.getElementById('gpath'); let seed;
+    const show=()=>{f.src='labs/line-lab.html?shape='+seed+(pth.checked?'&path=1':''); l.textContent='Seed '+seed;};
+    const go=()=>{seed=Math.floor(Math.random()*1e6); show();};
+    document.getElementById('gnext').onclick=go; pth.onchange=show; go();})();</script>
+</div></section>
+
+<section><div class="wrap">
+  <h2>The place and the people</h2>
+  <p>The blob is the place where a conversation happens. The people in it are real cut-outs, and they always relate to the blob in one of two ways.</p>
+  <h3>Out of the blob, or in front of it</h3>
+  <ul>
+    <li><b>Out of the blob.</b> The person stands inside and comes up over its top edge. The blob cuts them only along its lower edge; above that line, over the head and shoulders, nothing is cut. The neck enters the blob at its top edge.</li>
+    <li><b>In front of the blob.</b> The person stands over it and is cut by the bottom of the frame, never by the blob.</li>
+    <li><b>Never cut the top.</b> The whole head, hair included, stays inside the frame and below the top margin. Only the bottom of a person is ever cut: by the blob or by the frame.</li>
+  </ul>
+  <div class="figs c2">
+    <figure><img src="assets/examples/blob-out-colour.webp" alt="A barista coming out of a lime blob on Primary Dark" loading="lazy"><figcaption class="lbl">Out of it · cut by the blob</figcaption></figure>
+    <figure><img src="assets/examples/blob-out-lime.webp" alt="Anton coming out of a dark blob on Lime, the whole head in the frame" loading="lazy"><figcaption class="lbl">Out of it · the head whole</figcaption></figure>
+  </div>
+  <h3>The fill</h3>
+  <ul>
+    <li><b>A colour:</b> the other green, never the ground's own. Lime blob on Primary Dark, Primary Dark blob on Lime.</li>
+    <li><b>Or the place itself:</b> a photo of where the conversation happens — the café for a barista, the store for a sales associate, the lobby for the front desk — blurred by 0.5% of the picture's width, so the person stays the subject. Never a sharp photo, never a place that doesn't match the person.</li>
+  </ul>
+  <div class="figs c2">
+    <figure><img src="assets/examples/blob-out-photo.webp" alt="Two people in conversation coming out of a blob filled with a blurred store" loading="lazy"><figcaption class="lbl">The place · blurred</figcaption></figure>
+    <figure><img src="assets/examples/blob-fill-colour.webp" alt="The same blob filled with a colour" loading="lazy"><figcaption class="lbl">A colour · the other green</figcaption></figure>
+  </div>
+  <h3>Size and place</h3>
+  <ul>
+    <li><b>The blob</b> takes 75–95% of the picture's width.</li>
+    <li><b>The person</b> is 60–75% of the picture's height: large enough that the face reads at feed size. The face sits in the upper half; the head never goes above the top margin.</li>
+    <li><b>Placement:</b> centred on the blob, or shifted away from the text so the face stays clear. The text sits on the opposite margin.</li>
+    <li><b>Layers:</b> ground, blob, text, people. A head may cross the text; the text never covers a face.</li>
+    <li><b>Two people</b> are in a conversation: turned to each other, close enough to touch, cut by the blob as one.</li>
+    <li><b>One or two blobs</b> per picture.</li>
+  </ul>
+  <h3>Small blobs in a line of text</h3>
+  <ul>
+    <li><b>Size:</b> 1.3–1.7× the type size. It stands in a line like a word, on the baseline.</li>
+    <li><b>Its people</b> rise only into free space: above the text, or under the end of a shorter line. They never cover a word.</li>
+    <li><b>One per line,</b> two per picture at most.</li>
+  </ul>
+  <div class="figs"><figure><img src="assets/examples/blob-small.webp" alt="Small blobs standing in lines of text" loading="lazy"><figcaption class="lbl">Small · in a line of text</figcaption></figure></div>
+  <h3>Don't</h3>
+  <ul>
+    <li>Cut a head or hair by the top of the frame or by the blob.</li>
+    <li>Fill the blob with a sharp photo, or with the ground's own colour.</li>
+    <li>Mirror a person, or let an image model draw the blob.</li>
+    <li>Put a person so small the face doesn't read, or let the text cover a face.</li>
+  </ul>
+  <a class="lab" href="index.html?view=canvas">See it in use ↗</a>
+</div></section>
+<footer><div class="wrap"><span class="lbl">Lansy · Design tools · Internal 2026</span><a class="lbl" href="index.html#agents">For agents ↗</a></div></footer>
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lansy · Design tools</title>
+<link rel="icon" href="assets/icon/lansy-icon-ink.svg" type="image/svg+xml">
+<link rel="alternate" type="text/markdown" href="brand.md" title="Lansy brand rules for agents">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:Struve;src:url(fonts/Struve-Regular.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Struve;src:url(fonts/Struve-Medium.woff2) format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:Struve;src:url(fonts/Struve-Semibold.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:Supermarker;src:url(fonts/Supermarker-MediumItalic.woff2) format('woff2');font-weight:500;font-style:italic;font-display:swap}
+
+/* the same tokens as the landing (lansy-site/web/index.html) */
+:root{--ink:#201F1D;--dark:#2A2926;--text2:#75736F;--grey:#8D8A86;--line:#E9E6E0;--sand:#F2EFE9;--paper:#FCF9F3;--bg:#fff;
+  --lime:#9CDE45;--green:#33694F;
+  --n-floor:linear-gradient(180deg,#F2EFE9 0%,#FCF9F3 60%,#FFFFFF 100%);--n-card:linear-gradient(180deg,#F2EFE9 0%,#FCF9F3 100%);
+  --floor:160px;--pad:40px}
+*{box-sizing:border-box;margin:0}
+*,::before,::after{font-feature-settings:'ss10'}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{background:var(--bg);color:var(--ink);font-family:Struve,system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1320px;margin:0 auto;padding:0 var(--pad)}
+.lbl{font:500 12px/1.6 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--grey)}
+h1{font-size:clamp(48px,5vw,72px);line-height:1.04;font-weight:500;letter-spacing:-.025em}
+h2{font-size:clamp(40px,3.9vw,56px);line-height:1.08;font-weight:400;letter-spacing:-.015em}
+h3{font-size:24px;line-height:1.25;font-weight:600;letter-spacing:-.01em}
+.lead{max-width:680px;font-size:18px;line-height:1.5;color:var(--text2)}   /* the hero only: section heads are a label and a heading */
+.hero .lead{margin-top:28px}
+.note{font-size:15px;line-height:1.45;color:var(--text2)}
+
+
+/* hero: built like the inner pages' heroes (page.css): a Card plate, the breadcrumb on top, the headline at the shared hero size
+   and depth below the breadcrumb */
+.hero{padding:16px 0 0}
+.plate{margin:0 16px;border-radius:32px;background:var(--n-card);padding:112px 0 56px;text-align:center}   /* page-wide, 16px from the edges; the text inside stays on the layout */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero h1{max-width:11em;margin:0 auto}
+.hero .lead{margin:28px auto 0;max-width:760px;font-size:20px;line-height:1.45}
+.plan{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:40px}
+.plan a,.plan span{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:999px;background:#fff;font-size:15px;color:var(--ink);text-decoration:none;box-shadow:0 1px 2px rgba(32,31,29,.06);transition:box-shadow .15s}
+.plan a:hover{box-shadow:0 1px 2px rgba(32,31,29,.06),inset 0 0 0 1px var(--line)}
+.plan i{width:7px;height:7px;border-radius:50%;background:var(--lime)}
+.plan span.soon{background:transparent;color:var(--grey);box-shadow:inset 0 0 0 1px var(--line)}.plan .soon i{background:var(--line)}
+
+section.floor{padding-top:var(--floor)}
+.hd{margin-bottom:56px}
+.hd h2{margin-top:0}
+.grp{margin-top:64px}
+.grp>.lbl{margin-bottom:20px}
+
+/* colour */
+.sw{position:relative;display:flex;flex-direction:column;justify-content:flex-start;border:0;padding:0;background:none;text-align:left;font:inherit;color:inherit;cursor:pointer}   /* flex: a button centres its content vertically otherwise */
+.chip{border-radius:24px;display:flex;flex-direction:column;justify-content:space-between;padding:28px;transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.sw:hover .chip{transform:translateY(-2px)}
+.sw:focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:26px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.duo .chip{min-height:200px;padding:24px 28px}
+.duo .meta{margin-top:0;color:inherit;opacity:.72}.duo .meta b{color:inherit}.duo .use{color:inherit;opacity:.8}
+.chip .nm{font-size:24px;font-weight:600;letter-spacing:-.01em}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font:500 12px/1.6 "JetBrains Mono",monospace;letter-spacing:.04em;text-transform:uppercase;color:var(--grey)}
+.meta b{font-weight:500;color:var(--ink)}
+.use{margin-top:8px;font-size:15px;line-height:1.45;color:var(--text2)}
+.pal{display:grid;grid-template-columns:repeat(9,1fr);gap:12px 16px;margin-top:48px}   /* seven neutrals, then the two surfaces made of them */
+.pal>.lbl.n{grid-column:span 7}.pal>.lbl.s{grid-column:span 2}
+.pal .chip{aspect-ratio:1;padding:0;border-radius:20px}.pal .chip.edge{box-shadow:inset 0 0 0 1px var(--line)}
+.pal .nm{font-size:17px;font-weight:600;margin-top:12px}.pal .meta{margin-top:2px}.pal .use{margin-top:2px}
+
+/* type */
+.spec{display:grid;grid-template-columns:1.1fr 1fr;gap:24px}
+.card{border-radius:24px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);padding:32px}   /* cards are outlined; fills are for plates */
+.big{font-size:clamp(120px,15vw,220px);line-height:.9;font-weight:500;letter-spacing:-.04em}
+.glyphs{font-size:28px;line-height:1.35;letter-spacing:-.01em;word-break:break-all}
+.weights{display:flex;flex-direction:column;gap:2px}
+.weights div{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid rgba(32,31,29,.08)}
+.weights div:first-child{border-top:0}
+.weights span:first-child{font-size:30px;letter-spacing:-.015em}
+.spec .col{display:flex;flex-direction:column;gap:16px}
+.sup-l{margin:24px 0 4px}
+.sup{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:12px 24px}
+.sup .note{grid-column:1/-1}
+.aa-c{display:flex;flex-direction:column;justify-content:space-between;gap:32px}
+.mono-s{font:500 18px/1.4 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase}
+.ar-s{font:500 28px/1.3 "IBM Plex Sans Arabic",sans-serif;direction:rtl}
+
+/* logo */
+.lplate{--h:clamp(64px,8vw,112px);position:relative;border-radius:24px;padding:20px 24px;min-height:clamp(420px,38vw,520px);display:grid;grid-template-rows:auto 1fr auto;gap:16px;transition:background .3s,color .3s}
+.lplate.w{--bg:var(--paper);background:var(--n-card);color:var(--ink)}.lplate.l{--bg:var(--lime);background:var(--lime);color:var(--ink)}.lplate.g{--bg:var(--green);background:var(--green);color:#fff}.lplate.k{--bg:var(--ink);background:var(--ink);color:#fff}
+.lplate svg path{transition:fill .3s}
+.seg{justify-self:start;display:flex;gap:2px;padding:4px;border-radius:999px;background:color-mix(in srgb,currentColor 7%,transparent)}
+.seg button{border:0;background:none;color:inherit;font:500 14px/1 Struve,sans-serif;padding:8px 14px;border-radius:999px;opacity:.6;cursor:pointer;white-space:nowrap}
+.seg button:hover{opacity:.9}.seg button[aria-selected=true]{opacity:1;background:color-mix(in srgb,currentColor 12%,transparent)}
+.lstage{display:grid;place-items:center}
+.zone{position:relative;padding:calc(var(--h) * .441)}   /* half the mark: 60 of the logo's 136 units */
+.zone svg{display:block;height:var(--h);width:auto}
+.lplate[data-v=clear] .zone svg{background:var(--bg)}
+.lplate[data-v=clear] .zone{outline:1px dashed color-mix(in srgb,currentColor 50%,transparent);background:repeating-linear-gradient(45deg,color-mix(in srgb,currentColor 9%,transparent) 0 6px,transparent 6px 12px)}
+.lplate[data-v=clear] .zone::after{content:"x";position:absolute;top:calc(var(--h) * .22);left:50%;transform:translate(-50%,-50%);font:500 12px "JetBrains Mono",monospace}
+.lmin{display:none;align-items:flex-start;gap:48px}.lmin div{display:flex;flex-direction:column;align-items:flex-start;gap:10px}.lmin .lbl{color:inherit;opacity:.6}
+.lplate[data-v=min] .zone{display:none}.lplate[data-v=min] .lmin{display:flex}
+.lfoot{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.lfoot .lbl{color:inherit;opacity:.6}.lnote{margin-top:6px;font-size:15px;line-height:1.45;max-width:64ch}
+.gsw{display:flex;gap:8px;flex:none}
+.gsw button{color:inherit;width:22px;height:22px;border-radius:50%;border:0;padding:0;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(32,31,29,.14);outline-offset:3px}
+.gsw button[aria-checked=true]{outline:2px solid currentColor}
+
+/* icon */
+.igrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px}
+.igrid .card{display:flex;flex-direction:column;gap:20px}
+.igrid .stage{flex:1;min-height:200px;display:grid;place-items:center}
+.ico-flat{width:168px;height:168px;display:block}
+.ico-3d{width:220px;height:220px;display:block}
+.sizes{display:flex;align-items:flex-end;justify-content:center;gap:22px}
+.sizes figure{display:flex;flex-direction:column;align-items:center;gap:10px}
+.sizes img{display:block}
+.sizes figcaption{font:500 11px "JetBrains Mono",monospace;color:var(--grey)}
+.geo{width:220px;height:220px;display:block}
+
+/* techniques: the landing's industry cards, 5:7 — a row of four on desktop, a swipe and snap on the phone */
+.track{--bleed:max(var(--pad),calc((100vw - 1320px) / 2 + var(--pad)));display:flex;gap:20px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;
+  margin:-8px calc(-1 * var(--bleed));padding:8px var(--bleed);scroll-padding:0 var(--bleed)}   /* 8px of room so a lifted card is not clipped */
+.track::-webkit-scrollbar{display:none}
+@media (min-width:901px){.track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:-8px 0;padding:8px 0;overflow:visible}.track .tq{width:auto;min-width:0}}   /* a row of four on desktop; a swipe on the phone */
+.tq{position:relative;flex:none;width:calc((100vw - var(--bleed)) / 3.2 - 20px);min-width:300px;aspect-ratio:5/7;border-radius:24px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);overflow:hidden;scroll-snap-align:start;
+  display:flex;flex-direction:column;padding:32px;color:var(--ink);text-decoration:none;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.tq:hover{transform:translateY(-4px)}
+.tq .badge{align-self:flex-start;display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:999px;background:var(--sand);font:500 italic 27px/1 Supermarker,Struve,sans-serif;letter-spacing:-.01em}
+
+.tq .vis{flex:1;min-height:0;position:relative;display:grid;place-items:center;margin:16px -32px;overflow:hidden}
+.tq p{font-size:17px;line-height:1.5;color:var(--text2);max-width:320px}
+.tq .soon{margin-top:12px}
+.tq.lime{background:var(--lime);box-shadow:none}.tq.lime .badge{background:#fff}.tq.lime p,.tq.lime .lbl{color:var(--ink)}.tq.lime .lbl{opacity:.6}   /* on Lime: the line turns white, secondary text keeps the ink */
+.tq.surf{background:var(--n-card);box-shadow:none}.tq.surf .badge{background:#fff}   /* the dots live on the Card surface */
+.tq.dark{background:var(--green);box-shadow:none;color:#fff}.tq.dark .badge{background:#fff;color:var(--ink)}.tq.dark p,.tq.dark .lbl{color:#fff}.tq.dark .lbl{opacity:.6}
+/* previews drawn by the lab (scripts/export-examples.sh); the marker's in two layers, text over its line */
+.tq .v-ly{position:relative;display:block;width:78%}.tq .v-ly img{display:block;width:100%;height:auto}.tq .v-ly .ly-line{position:absolute;inset:0}
+.tq .v-bl{display:block;width:86%;height:auto}   /* the blob 10% bigger than the marker's text block */
+.tq .v-mk img:not(.ly-line){position:relative}   /* the text over the line; the box keeps the text's height */
+
+.v-mk{font:500 italic clamp(40px,4.4vw,60px)/1.05 Supermarker,sans-serif;text-align:center;letter-spacing:-.01em}
+.v-mk mark{color:inherit;background:linear-gradient(transparent 52%,var(--lime) 52%,var(--lime) 92%,transparent 92%);padding:0 .08em}
+.v-ln{width:62%;color:var(--ink)}.v-ln svg{display:block;width:100%;height:auto;overflow:visible}.v-ln path{stroke-width:5;vector-effect:non-scaling-stroke}   /* the landing's scribble, as a line */
+.v-dt{position:absolute;inset:0;width:100%;height:100%;display:block}
+.v-3d{width:62%;height:auto;display:block;animation:float 6s ease-in-out infinite alternate}.v-3d.spin{width:70%;aspect-ratio:1;animation:none}   /* the 3D card: the turning aluminium coffee icon */
+@keyframes float{from{transform:translateY(-6px) rotate(-2deg)}to{transform:translateY(6px) rotate(2deg)}}
+@media (prefers-reduced-motion:reduce){.v-3d{animation:none}}
+
+/* for agents: the landing's privacy bento grid — wide + narrow, then narrow + wide — with text only */
+.hd.center{text-align:center}
+.bento{display:grid;gap:24px}
+.brow{display:grid;gap:24px;grid-template-columns:708fr 468fr}.brow.r2{grid-template-columns:468fr 708fr}
+.bc{position:relative;border-radius:24px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);overflow:hidden;display:flex;flex-direction:column;color:var(--ink);text-decoration:none;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.bc:hover{transform:translateY(-4px)}
+.bc .tx{padding:32px 32px 24px}
+.bc .tx .lbl{color:var(--grey)}
+.bc p{font-size:18px;line-height:1.45;color:var(--ink);max-width:420px}
+.bc .go{position:absolute;right:28px;top:28px;font-size:20px;line-height:1;color:var(--grey);transition:color .2s,transform .2s}
+.bc:hover .go{color:var(--ink);transform:translate(2px,-2px)}
+/* text only: no pictures in these cards */
+.bc{height:auto;min-height:200px}
+.bc .tx{flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:32px;padding-bottom:32px}   /* the file on top, what it holds at the bottom */
+
+footer{margin-top:var(--floor);padding:40px 0 48px;border-top:1px solid var(--line)}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
+footer svg{height:27.2px;width:auto;color:var(--ink);display:block}
+
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:12px 18px;border-radius:999px;background:var(--ink);color:#fff;font-size:15px;transition:opacity .2s,transform .3s cubic-bezier(.2,.8,.2,1);z-index:20}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:900px){
+  :root{--floor:96px;--pad:16px}
+  html{scroll-padding-top:72px}
+  h1{font-size:40px}h2{font-size:34px;font-weight:600;line-height:1.15}
+  .hero{padding:8px 0 0}.plate{margin:0 8px;padding:96px 0 32px;border-radius:24px}
+  .spec{grid-template-columns:1fr}
+  .duo{grid-template-columns:1fr}.pal{grid-template-columns:repeat(3,1fr);gap:12px}.pal .use{display:none}.pal>.lbl.n,.pal>.lbl.s{grid-column:1/-1}.pal>.n{order:1}.pal>.lbl.s{order:2;margin-top:16px}.pal>.s{order:3}
+  .hd{margin-bottom:32px}
+  .igrid{grid-template-columns:1fr}
+  .tq{padding:24px}.tq .vis{margin:12px -24px}.tq .badge{height:40px;padding:0 18px;font-size:23px}
+  .brow,.brow.r2{grid-template-columns:1fr;gap:20px}.bento{gap:20px}.bc{min-height:180px}.bc .tx{padding:24px}.bc .go{right:24px;top:24px}  .card{padding:24px}.chip{padding:20px}
+  .lplate{--h:48px;min-height:400px}.gsw button{width:28px;height:28px}.lfoot{flex-direction:column;align-items:flex-start}.seg button{padding:8px 10px}
+}
+
+/* the flip: a switch in the bar turns the page over to the canvas (labs/canvas.html) and back — the guide's face turns edge-on,
+   then the canvas turns in from the other side, about the screen's centre */
+.hero .hico{display:block;width:128px;height:auto;margin:0 auto 8px;filter:drop-shadow(0 18px 22px rgba(51,105,79,.25))}   /* the updated Lansy icon over the headline */
+.hero a.inuse{display:inline-flex;align-items:center;gap:8px;height:52px;margin-top:36px;padding:0 24px 0 20px;border-radius:999px;background:var(--ink);color:#fff;text-decoration:none;font:500 17px/1 Struve,sans-serif}.hero a.inuse svg{flex:none}.hero a.inuse:hover{background:#000}
+.front{backface-visibility:hidden}
+.back{position:fixed;inset:0;z-index:5;background:#fff;visibility:hidden;backface-visibility:hidden}.back iframe{display:block;width:100%;height:100%;border:0}
+html.canvas-on,html.canvas-on body{overflow:hidden}
+html.canvas-on .tb a.on{background:none;color:var(--text2)}   /* on the canvas only Canvas is chosen */
+</style>
+</head>
+<body>
+<script src="nav.js"></script>
+
+<div class="front" id="front">
+
+<header class="hero"><div class="plate">
+  <div class="wrap">
+    <img class="hico" src="labs/3d/renders/lansy-icon-new.webp?v=2" alt="The Lansy icon in lime frosted glass">
+    <h1>What Lansy’s visual language is made of</h1>
+    <p class="lead">A working showcase of the brand: colour, type, logo and icon, then techniques. Every decision is tested on real examples, and agents read it from files.</p>
+    <a class="lab inuse" href="?view=canvas"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4371 12.5061C23.4219 7.00258 22.0614 3.26685 16.9548 3C13.2433 3.07086 9.41471 5.07063 6.35871 8.16433C3.79408 10.7606 1.26891 14.479 2.1959 18.018C2.40059 18.7994 2.79969 19.3318 3.43015 19.8328C5.12441 21.1791 6.7874 21.2976 9.99031 20.5113C13.2339 19.5257 15.2448 18.0408 16.9404 16.5217M16.9404 16.5217C16.9421 16.5201 16.9439 16.5185 16.9457 16.5169C16.9489 16.5141 16.9468 16.5087 16.9425 16.5087C16.9393 16.5087 16.937 16.512 16.9381 16.515C16.9389 16.5173 16.9396 16.5195 16.9404 16.5217ZM16.9404 16.5217C17.3108 17.6169 17.0762 18.5944 16.4385 20.5113"/></svg>See it in use</a>
+  </div>
+</div></header>
+
+<main>
+<!-- colour -->
+<section class="floor" id="colour"><div class="wrap">
+  <div class="hd"><div><h2>Colour</h2></div></div>
+
+  <div class="duo">
+    <button class="sw" data-hex="#9CDE45" data-name="Primary Light"><div class="chip" style="background:#9CDE45"><span class="nm">Primary Light</span><div><div class="meta"></div><p class="use">Buttons, plates, live dots. Text on it: ink.</p></div></div></button>
+    <button class="sw" data-hex="#33694F" data-name="Primary Dark"><div class="chip" style="background:#33694F;color:#fff"><span class="nm">Primary Dark</span><div><div class="meta"></div><p class="use">Accent text, dark plates. Text on it: white.</p></div></div></button>
+  </div>
+
+  <div class="pal">
+    <div class="lbl n">Neutrals</div><div class="lbl s">Surfaces</div>
+    <button class="sw n" data-hex="#201F1D" data-name="Ink"><div class="chip" style="background:#201F1D"></div><div class="nm">Ink</div><div class="meta"></div><p class="use">Text, buttons</p></button>
+    <button class="sw n" data-hex="#2A2926" data-name="Dark"><div class="chip" style="background:#2A2926"></div><div class="nm">Dark</div><div class="meta"></div><p class="use">Dark surfaces</p></button>
+    <button class="sw n" data-hex="#75736F" data-name="Text 2"><div class="chip" style="background:#75736F"></div><div class="nm">Text 2</div><div class="meta"></div><p class="use">Leads, captions</p></button>
+    <button class="sw n" data-hex="#8D8A86" data-name="Grey"><div class="chip" style="background:#8D8A86"></div><div class="nm">Grey</div><div class="meta"></div><p class="use">Mono labels</p></button>
+    <button class="sw n" data-hex="#E9E6E0" data-name="Line"><div class="chip" style="background:#E9E6E0"></div><div class="nm">Line</div><div class="meta"></div><p class="use">Rules, outlines</p></button>
+    <button class="sw n" data-hex="#F2EFE9" data-name="Sand"><div class="chip" style="background:#F2EFE9"></div><div class="nm">Sand</div><div class="meta"></div><p class="use">Cards, plates</p></button>
+    <button class="sw n" data-hex="#FCF9F3" data-name="Paper"><div class="chip edge" style="background:#FCF9F3"></div><div class="nm">Paper</div><div class="meta"></div><p class="use">Light surfaces</p></button>
+    <div class="sf s"><div class="chip edge" style="background:var(--n-floor)"></div><div class="nm">Floor</div><div class="meta"><span>Sand → white</span></div><p class="use">Whole sections</p></div>
+    <div class="sf s"><div class="chip edge" style="background:var(--n-card)"></div><div class="nm">Card</div><div class="meta"><span>Sand → paper</span></div><p class="use">Cards, plates</p></div>
+  </div>
+</div></section>
+
+<!-- type -->
+<section class="floor" id="type"><div class="wrap">
+  <div class="hd"><div><h2>Type</h2></div></div>
+
+  <div class="spec">
+    <div class="card aa-c"><div class="lbl">Struve</div><div class="big">Aa</div>
+      <div class="glyphs">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 →·%&amp;?!</div></div>
+    <div class="col">
+      <div class="card weights">
+        <div><span style="font-weight:400">Every conversation</span><span class="lbl">400 · Regular</span></div>
+        <div><span style="font-weight:500">Every conversation</span><span class="lbl">500 · Medium</span></div>
+        <div><span style="font-weight:600">Every conversation</span><span class="lbl">600 · Semibold</span></div>
+      </div>
+      <div class="lbl sup-l">Supporting</div>
+      <div class="card sup"><div class="lbl">JetBrains Mono · 500</div><div class="mono-s">Live · 3 786 heard today</div><p class="note">Labels only: 11–12, uppercase, 6% tracking.</p></div>
+      <div class="card sup"><div class="lbl">IBM Plex Sans Arabic · 400–600</div><div class="ar-s">كل محادثة مهمة</div><p class="note">Arabic only.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- logo and icon -->
+<section class="floor" id="logo"><div class="wrap">
+  <div class="hd"><div><h2>Logo and icon</h2></div></div>
+  <div class="lplate l" id="ltile" data-v="grounds">
+    <div class="seg" role="tablist" aria-label="View">
+      <button role="tab" aria-selected="true" data-v="grounds">Grounds</button>
+      <button role="tab" aria-selected="false" data-v="clear">Clear space</button>
+      <button role="tab" aria-selected="false" data-v="min">Minimum size</button>
+    </div>
+    <div class="lstage">
+      <div class="zone"><svg data-logo="full" viewBox="0 0 432 136"></svg></div>
+      <div class="lmin">
+        <div><svg data-logo="full" viewBox="0 0 432 136" style="height:27.2px;width:auto"></svg><span class="lbl">Logo · 27 px</span></div>
+        <div><svg data-logo="mark" viewBox="0 0 120 120" style="height:24px;width:24px;margin-bottom:3.2px"></svg><span class="lbl">Mark · 24 px</span></div>
+      </div>
+    </div>
+    <div class="lfoot">
+      <div><span class="lbl" id="lcap">On lime · ink</span><p class="lnote" id="lnote">Ink on lime and light grounds. White on Primary Dark and ink.</p></div>
+      <div class="gsw" role="radiogroup" aria-label="Ground">
+        <button role="radio" aria-checked="true" data-g="l" data-cap="On lime · ink" aria-label="Lime" style="background:#9CDE45"></button>
+        <button role="radio" aria-checked="false" data-g="g" data-cap="On Primary Dark · white" aria-label="Primary Dark" style="background:#33694F"></button>
+        <button role="radio" aria-checked="false" data-g="k" data-cap="On ink · white" aria-label="Ink" style="background:#201F1D"></button>
+        <button role="radio" aria-checked="false" data-g="w" data-cap="On light · ink" aria-label="Light" style="background:#F2EFE9"></button>
+      </div>
+    </div>
+  </div>
+  <div class="igrid" id="icon">
+    <div class="card"><div class="lbl">Flat · ink</div><div class="stage"><img class="ico-flat" src="assets/icon/lansy-icon-ink.svg" alt="Lansy icon"></div>
+      <div class="sizes"><figure><img src="assets/icon/lansy-icon-ink.svg" width="24" height="24" alt=""><figcaption>24</figcaption></figure><figure><img src="assets/icon/lansy-icon-ink.svg" width="32" height="32" alt=""><figcaption>32</figcaption></figure><figure><img src="assets/icon/lansy-icon-ink.svg" width="64" height="64" alt=""><figcaption>64</figcaption></figure></div></div>
+    <div class="card"><div class="lbl">3D · lime</div><div class="stage"><img class="ico-3d" src="assets/icon/lansy-icon-3d.webp?v=2" alt="Lansy 3D icon"></div>
+      <p class="note">1024 × 1024 with alpha. Lime frosted glass on #9CDE45, a porcelain palm.</p></div>
+    <div class="card"><div class="lbl">Shape</div><div class="stage"><svg class="geo" id="geo" viewBox="-8 -8 136 136" aria-label="Squircle against a rounded square"></svg></div>
+      <p class="note">Solid: our squircle. Dashes: a plain 24% corner. Ours turns with no kink.</p></div>
+  </div>
+</div></section>
+
+<!-- techniques -->
+<section class="floor" id="techniques"><div class="wrap">
+  <div class="hd"><h2>Techniques</h2></div>
+  <div class="track" id="ttrack">
+    <a class="tq lime" href="marker.html"><span class="badge">Marker</span>
+      <div class="vis"><div class="v-ly v-mk" role="img" aria-label="Every text has one phrase that matters most, the phrase in the marker over our line"><img class="ly-line" src="assets/examples/marker-card-line.webp?v=2" alt=""><img src="assets/examples/marker-card-text.webp?v=2" alt=""></div></div>
+      <p>A hand-written phrase in the text, our line under it.</p><span class="lbl soon">Open ↗</span></a>
+    <a class="tq dark" href="blob.html"><span class="badge">Blob</span>
+      <div class="vis"><img class="v-pv v-bl" src="assets/examples/blob-card.webp?v=4" alt="Two people coming out of a blob drawn by our pen"></div>
+      <p>A scribble drawn with our pen; people come out of it.</p><span class="lbl soon">Open ↗</span></a>
+    <a class="tq surf" href="dots.html"><span class="badge">Dots</span>
+      <div class="vis"><canvas class="v-dt" id="dots" aria-label="A voice line in dots, on an arc"></canvas></div>
+      <p>One small dot draws a voice, a day of talks, the Gulf on the globe.</p><span class="lbl soon">Open ↗</span></a>
+    <a class="tq" href="3d.html"><span class="badge">3D</span>
+      <div class="vis"><video class="v-3d spin" autoplay muted loop playsinline preload="auto" poster="https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/icon-spin-poster.webp" aria-label="The coffee icon in brushed aluminium, turning"></video></div>
+      <p>Our icons in aluminium and lime glass; one studio, one turn.</p><span class="lbl soon">Open ↗</span></a>
+  </div>
+</div></section>
+
+<!-- for agents -->
+<section class="floor" id="agents"><div class="wrap">
+  <div class="hd center"><h2>For agents</h2></div>
+  <div class="bento">
+    <div class="brow">
+      <a class="bc" href="brand.md"><div class="tx"><span class="lbl">brand.md</span><p>The rules: hard ones first, then exact values for each element.</p></div><span class="go">↗</span></a>
+      <a class="bc" href="llms.txt"><div class="tx"><span class="lbl">llms.txt</span><p>The entry point: where to start reading and where everything lives.</p></div><span class="go">↗</span></a>
+    </div>
+    <div class="brow r2">
+      <a class="bc" href="tokens.json"><div class="tx"><span class="lbl">tokens.json</span><p>Every value as W3C tokens: colours, fonts, sizes, the pen, the line, dots, 3D.</p></div><span class="go">↗</span></a>
+      <a class="bc" href="assets/manifest.json"><div class="tx"><span class="lbl">assets/manifest.json</span><p>Every asset: its file, the grounds it goes on, its minimum size.</p></div><span class="go">↗</span></a>
+    </div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><svg data-logo="full" viewBox="0 0 432 136"></svg><span class="lbl">Internal · 2026</span><a class="lbl" href="#agents" style="text-decoration:none">For agents ↗</a></div></footer>
+</div>
+<div class="back" id="back" aria-hidden="true"><iframe title="The whole style on one canvas" loading="lazy"></iframe></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(async()=>{
+  // the logo paths, one source for every logo on the page
+  const P=await fetch('assets/logo/paths.json').then(r=>r.json());
+  const g=ds=>'<g fill="currentColor">'+ds.map(d=>`<path d="${d}"/>`).join('')+'</g>';
+  document.querySelectorAll('[data-logo]').forEach(s=>{s.innerHTML=g(s.dataset.logo==='mark'?P.mark:[...P.mark,...P.word]);});
+  // the icon's squircle against a plain rounded square (radius 24% of the side), both 120 wide
+  const geo=document.getElementById('geo');
+  geo.innerHTML=`<rect x="0" y="0" width="120" height="120" rx="28.8" fill="none" stroke="#8D8A86" stroke-width="1" stroke-dasharray="3 3"/>
+    <path d="${P.mark[0].split(/[Zz]/)[0]}Z" fill="none" stroke="#201F1D" stroke-width="1.5"/>`;
+})();
+
+// logo: one plate, the ground switches inside it
+(()=>{const t=document.getElementById('ltile'), c=document.getElementById('lcap'), n=document.getElementById('lnote'),
+  gs=[...t.querySelectorAll('.gsw button')], vs=[...t.querySelectorAll('.seg button')],
+  NOTE={grounds:'Ink on lime and light grounds. White on Primary Dark and ink.',
+        clear:'x = half the mark’s height, kept clear on every side (proposal). No text or edges inside it.',
+        min:'The mark is at least 24 px, alone or inside the logo. Smaller, and the fingers merge.'};
+  gs.forEach(b=>b.onclick=()=>{t.classList.remove('w','l','g','k'); t.classList.add(b.dataset.g); c.textContent=b.dataset.cap; gs.forEach(x=>x.setAttribute('aria-checked',x===b));});
+  vs.forEach(b=>b.onclick=()=>{t.dataset.v=b.dataset.v; n.textContent=NOTE[b.dataset.v]; vs.forEach(x=>x.setAttribute('aria-selected',x===b));});})();
+
+// colour: the HEX under each swatch; a click copies it
+document.querySelectorAll('.sw').forEach(b=>{
+  const h=b.dataset.hex;
+  b.querySelector('.meta').innerHTML=`<span><b>${h}</b></span>`;
+  b.setAttribute('aria-label',`${b.dataset.name} ${h}, copy`);
+  b.addEventListener('click',()=>{navigator.clipboard?.writeText(h).then(()=>toast(`${h} copied`),()=>toast(h));});
+});
+let tt; const toast=t=>{const e=document.getElementById('toast'); e.textContent=t; e.classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>e.classList.remove('on'),1400);};
+
+// the dots card: the landing's voice line (privacy bento), one 2.4px dot about 7px apart, laid on an arc as if it ran around the planet
+// seen from slightly above: columns at equal angles crowd toward the ends, and the ends drop and fade with depth
+(()=>{const cv=document.getElementById('dots'), ctx=cv.getContext('2d'), RAD=Math.PI/180, G=7, S=110*RAD, TILT=.16; let W,H,Rx,n,rows,raf=0;
+  function size(){const r=cv.getBoundingClientRect(), d=Math.min(2,devicePixelRatio||1); W=r.width; H=r.height; if(!W)return; cv.width=W*d; cv.height=H*d; ctx.setTransform(d,0,0,d,0,0);
+    Rx=(W-64)/2/Math.sin(S/2); n=Math.floor(S/(G/Rx)); rows=Math.min(16,Math.floor((H-48)/G/2));}
+  function draw(t){ctx.clearRect(0,0,W,H); ctx.fillStyle='#201F1D'; const cy=Math.round(H*.46);
+    for(let c=0;c<=n;c++){const u=c/n, th=-S/2+u*S, z=Math.cos(th), x=W/2+Rx*Math.sin(th), base=cy+TILT*Rx*(1-z);
+      // speech: phrases with short pauses, an overall swell toward the middle, and fast syllable flicker
+      const phrase=Math.max(0,Math.sin(u*Math.PI*3.2+t/1700))**.7, swell=Math.sin(Math.PI*u)**.8;
+      const syl=.35+.65*Math.abs(Math.sin(c*.83+t/240)*.6+Math.sin(c*.29-t/430)*.4), amp=phrase*swell*syl*rows;
+      for(let r=-Math.floor(amp);r<=Math.floor(amp);r++){const vz=1-Math.abs(r)/(rows+1); ctx.globalAlpha=.12+.3*vz*(.35+.65*z); ctx.beginPath(); ctx.arc(x,base+r*G,2.4,0,7); ctx.fill();}
+      if(amp<1){ctx.globalAlpha=.12*(.5+.5*z); ctx.beginPath(); ctx.arc(x,base,2.4,0,7); ctx.fill();}}
+    ctx.globalAlpha=1; raf=requestAnimationFrame(draw);}
+  size(); addEventListener('resize',size);
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){draw(0);cancelAnimationFrame(raf);return;}
+  new IntersectionObserver(es=>{if(es[0].isIntersecting){if(!raf){size();raf=requestAnimationFrame(draw);}}else{cancelAnimationFrame(raf);raf=0;}}).observe(cv);})();
+
+
+// the flip between the guide and the canvas: phase one turns the guide edge-on about the screen's centre, phase two turns the
+// canvas in from the other side; the guide keeps its scroll; ?view=canvas opens on the canvas
+(()=>{const sw=document.querySelector('.flip'), front=document.getElementById('front'), back=document.getElementById('back'), fr=back.querySelector('iframe'), D=320, P='perspective(1800px) ';
+  let on=false, busy=false, y=0;
+  const turn=(el,a,b,ease)=>el.animate([{transform:P+`rotateY(${a}deg)`},{transform:P+`rotateY(${b}deg)`}],{duration:D,easing:ease,fill:'forwards'}).finished;
+  async function set(v){if(busy||v===on)return; busy=true; on=v; sw.setAttribute('aria-pressed',v);
+    if(v&&!fr.src)fr.src='labs/canvas.html';
+    if(v){y=scrollY; front.style.transformOrigin=`50% ${y+innerHeight/2}px`;
+      await turn(front,0,90,'cubic-bezier(.5,0,.9,.5)'); front.style.visibility='hidden'; document.documentElement.classList.add('canvas-on');
+      back.style.visibility='visible'; back.setAttribute('aria-hidden','false'); await turn(back,-90,0,'cubic-bezier(.1,.5,.5,1)');}
+    else{await turn(back,0,-90,'cubic-bezier(.5,0,.9,.5)'); back.style.visibility='hidden'; back.setAttribute('aria-hidden','true');
+      document.documentElement.classList.remove('canvas-on'); scrollTo(0,y); front.style.transformOrigin=`50% ${y+innerHeight/2}px`; front.style.visibility='visible';
+      await turn(front,90,0,'cubic-bezier(.1,.5,.5,1)');}
+    const u=new URL(location); v?u.searchParams.set('view','canvas'):u.searchParams.delete('view'); history.replaceState(null,'',u); busy=false;}
+  sw.addEventListener('click',()=>set(!on));
+  document.querySelectorAll('a.inuse').forEach(a=>a.addEventListener('click',e=>{e.preventDefault(); set(true);}));   // the hero's button opens the canvas the same way
+  document.querySelectorAll('.tb a[aria-current]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault(); on?set(false):scrollTo({top:0,behavior:'smooth'});}));   // Core is this page: turn back from the canvas, or go to the top
+  if(new URLSearchParams(location.search).get('view')==='canvas'){fr.src='labs/canvas.html'; on=true; sw.setAttribute('aria-pressed',true); front.style.visibility='hidden';
+    document.documentElement.classList.add('canvas-on'); back.style.visibility='visible'; back.setAttribute('aria-hidden','false');}})();
+
+// the 3D card's turning icon: WebM with alpha for Chrome and Firefox, HEVC with alpha (.mov) for Safari, as in the 3D lab
+document.querySelectorAll('video.spin').forEach(v=>{const ua=navigator.userAgent, safari=/Safari/.test(ua)&&!/Chrome|Chromium|Android/.test(ua);
+  v.src='https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/icon-spin.'+(safari?'mov':'webm'); v.play().catch(()=>{});});   // videos live on Cloudflare R2
+</script>
+</body>
+</html>

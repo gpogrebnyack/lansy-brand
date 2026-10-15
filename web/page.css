@@ -1,0 +1,80 @@
+/* technique pages: text first, figures from the lab */
+@font-face{font-family:Struve;src:url(fonts/Struve-Regular.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Struve;src:url(fonts/Struve-Medium.woff2) format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:Struve;src:url(fonts/Struve-Semibold.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:Supermarker;src:url(fonts/Supermarker-Italic.woff2) format('woff2');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:Supermarker;src:url(fonts/Supermarker-MediumItalic.woff2) format('woff2');font-weight:500;font-style:italic;font-display:swap}
+:root{--ink:#201F1D;--text2:#75736F;--grey:#8D8A86;--line:#E9E6E0;--sand:#F2EFE9;--paper:#FCF9F3;--lime:#9CDE45;--green:#33694F;--pad:40px}
+*{box-sizing:border-box;margin:0}
+*,::before,::after{font-feature-settings:'ss10'}
+body{background:#FFFFFF;color:var(--ink);font-family:Struve,system-ui,sans-serif;font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 var(--pad)}
+.lbl{font:500 12px/1.6 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--grey)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:28px 0}
+.top a{text-decoration:none;color:var(--text2);font-size:15px}
+.top img{height:27.2px;display:block}
+header.intro{padding:16px 0 8px}
+h1{margin-top:16px;font-size:clamp(48px,5vw,72px);line-height:1.04;font-weight:500;letter-spacing:-.025em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* hero on inner pages: the hero sits on its own plate (Card gradient), set apart from the content on white. Its first line is the
+   breadcrumb (shadcn Breadcrumb: an ordered list, chevron separators, the current page marked aria-current) in the label style */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* a technique may put itself in the hero: its headline drawn by the lab, the text kept in the h1 for readers and agents */
+/* drawn hero headlines share one type size: the lab renders them all at 240 px; --w is the image's width in those ems, so the
+   picture's type equals the h1 size (72 px), and on narrow screens every hero shrinks alike (the widest fits 11.5 em) */
+h1.drawn{margin-top:24px;container-type:inline-size}
+h1.drawn{--em:min(72px, 100cqw / 11.5)}
+/* --cap: where the first line's capitals start in the image, in those ems. Every hero puts its first line at the same depth below the
+   breadcrumb (0.62 em, the blob hero's, whose people rise above the text), so headlines line up from page to page */
+h1.drawn img{display:block;height:auto;width:calc(var(--w) * var(--em));margin-top:calc((0.62 - var(--cap, 0.62)) * var(--em))}
+.plate{margin:0 16px;border-radius:32px;background:linear-gradient(180deg,#F2EFE9 0%,#FCF9F3 100%);padding:64px 0 56px}   /* page-wide, 16px from the edges; the text inside stays on the layout */
+.lead{margin-top:28px;max-width:760px;font-size:20px;line-height:1.45;color:var(--text2)}
+.mk{font-family:Supermarker,Struve,sans-serif;font-style:italic}
+section{padding:72px 0 0}
+section>.wrap>.lbl{display:block}
+h2{margin-top:12px;font-size:clamp(34px,3.4vw,48px);line-height:1.1;font-weight:400;letter-spacing:-.015em}
+h3{margin-top:48px;font-size:24px;line-height:1.25;font-weight:600;letter-spacing:-.01em}
+p,ul,ol{max-width:720px}
+.wrap>p{margin-top:16px}
+ul,ol{margin-top:16px;padding-left:22px}
+li{margin-top:8px}
+li::marker{color:var(--grey)}
+code{font:500 15px "JetBrains Mono",monospace;background:var(--sand);padding:1px 6px;border-radius:6px}
+.figs{display:grid;gap:24px;margin-top:28px}
+.figs.c2{grid-template-columns:repeat(2,1fr)}.figs.c3{grid-template-columns:repeat(3,1fr)}
+.figs figure{margin:0}
+.figs img{display:block;width:100%;height:auto;border-radius:16px;box-shadow:0 0 0 1px var(--line)}
+.figs figcaption{margin-top:10px}
+.figs .no figcaption::before{content:"✕  ";color:var(--ink)}
+dl{display:grid;grid-template-columns:224px 1fr;margin-top:20px;max-width:720px;border-bottom:1px solid var(--line)}   /* a rule over each row, the text measure wide */
+dt,dd{margin:0;padding:12px 0;border-top:1px solid var(--line)}
+dt{color:var(--text2);padding-right:24px}dd{font:500 15px/1.6 "JetBrains Mono",monospace;padding-top:14px}
+.gen{margin:28px 0 0;max-width:720px}
+.gen iframe{display:block;width:100%;aspect-ratio:3/2;border:0;border-radius:16px;box-shadow:0 0 0 1px var(--line);background:#fff}
+.gen figcaption{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:10px}
+.gen button{height:40px;padding:0 18px;border:0;border-radius:999px;background:var(--sand);color:var(--ink);font:500 15px Struve,sans-serif;cursor:pointer}.gen button:hover{background:var(--line)}
+.lab{display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:999px;background:var(--ink);color:#FFFFFF;text-decoration:none;font-weight:500;font-size:16px;margin-top:28px}
+footer{padding:96px 0 56px}footer .wrap{display:flex;justify-content:space-between;gap:16px}footer a{text-decoration:none}footer a:hover{color:var(--ink)}
+@media (max-width:800px){.plate{margin:0 8px;padding:36px 0 32px;border-radius:24px}:root{--pad:16px}.figs.c2,.figs.c3{grid-template-columns:1fr}dl{grid-template-columns:1fr}dd{border-top:0;padding-top:0}header.intro{padding:8px 0 32px}header.intro .plate{padding-top:80px}section{padding-top:48px}}
+/* one plate, the ground switched inside it (as the logo on the main page) */
+.gview{margin:28px 0 0}.gview figcaption{margin-top:10px}
+.gplate{position:relative;aspect-ratio:2/1;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px var(--line);color:var(--ink)}
+.gplate img{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity .3s}
+.gplate[data-g=lime] img[data-g=lime],.gplate[data-g=dark] img[data-g=dark],.gplate[data-g=light] img[data-g=light]{opacity:1}
+.gplate[data-g=dark]{color:#fff}
+.gsw{position:absolute;right:20px;bottom:16px;display:flex;gap:8px}
+.gsw button{color:inherit;width:22px;height:22px;border-radius:50%;border:0;padding:0;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(32,31,29,.14);outline-offset:3px}
+.gsw button[aria-checked=true]{outline:2px solid currentColor}
+@media (max-width:800px){.gsw button{width:28px;height:28px}}
+.gctl{display:flex;align-items:center;gap:16px}
+/* a switch (shadcn Switch): a pill track, the thumb slides right when on */
+.sw{display:inline-flex;align-items:center;gap:10px;font-size:15px;cursor:pointer;user-select:none}
+.sw input{position:absolute;opacity:0;width:1px;height:1px}
+.sw i{position:relative;width:36px;height:20px;border-radius:999px;background:var(--line);transition:background .2s}
+.sw i::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(32,31,29,.2);transition:transform .2s}
+.sw input:checked+i{background:var(--ink)}.sw input:checked+i::after{transform:translateX(16px)}
+.sw input:focus-visible+i{outline:2px solid var(--ink);outline-offset:2px}
+/* the industry chip (marker.html): the landing's pill, as labs/ui/badges.js draws it on posts */
+.ichips{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;padding:28px;border-radius:24px;background:var(--lime)}
+.ichip{display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 20px 0 15px;border-radius:999px;background:#FFFFFF;color:#201F1D;font:400 italic 26px/1 Supermarker,Struve,sans-serif;letter-spacing:-.01em;white-space:nowrap}.ichip svg{flex:none}

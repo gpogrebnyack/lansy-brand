@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Canvas · Lansy design tools</title>
+<link rel="icon" href="../assets/icon/lansy-icon-ink.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../page.css?v=18">
+<style>@font-face{font-family:Supermarker;src:url(../fonts/Supermarker-BoldItalic.woff2) format("woff2");font-weight:700;font-style:italic;font-display:swap}
+/* a Figma-like canvas: the whole "In use" style in one frame, to pan and zoom. Layout on a strict grid, every row edge shared:
+   padding 64, gap 24, rows 720; the left half (1464) holds the 720 squares and the 2:1 hero, the right half (1464)
+   splits into 472 + 968; then a 472 column for the dots */
+html,body{height:100%;margin:0;overflow:hidden;background:#FFFFFF}
+body{font-family:Struve,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+#view{position:fixed;inset:0;touch-action:none;cursor:default;user-select:none;-webkit-user-select:none}
+#view.grab{cursor:grab}#view.grabbing{cursor:grabbing}
+#world{position:absolute;left:0;top:0;transform-origin:0 0}
+.frame{position:absolute}
+.frame>.name{position:absolute;left:0;top:-30px;font:500 15px/1 Struve,sans-serif;color:var(--grey);white-space:nowrap}
+.b{position:absolute;overflow:hidden;border-radius:36px;background:var(--sand);color:var(--ink);padding:40px;box-sizing:border-box}
+.b img,.b video{display:block}
+.b.img{padding:0}.b.img>img{width:100%;height:100%;object-fit:cover}
+/* row 1 */
+.b.cta{background:var(--green);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;gap:32px;text-align:center}
+.b.cta video{position:absolute;height:44.2%;aspect-ratio:1;left:50%;top:4.9%;transform:translateX(-50%)}
+.b.cta h4{position:relative;margin:0;font:600 38px/1.1 Struve,sans-serif;letter-spacing:-.01em}
+.b.cta .btn{position:relative;display:block;height:76px;border-radius:999px;background:#fff;color:var(--ink);font:500 24px/76px Struve,sans-serif}
+.chips{position:absolute;display:flex;gap:14px}
+.tab{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;font:400 italic 36px/1 Supermarker,Struve,sans-serif;letter-spacing:-.01em;white-space:nowrap}
+.tab svg{flex:none;width:34px;height:34px}.tab.on{background:var(--lime)}.tab.plain{color:var(--text2);box-shadow:inset 0 0 0 1.5px var(--line)}
+.b.brand{background:var(--lime);padding:0}
+.b.brand img{position:absolute;left:50%;top:50%;height:79.2%;transform:translate(-50%,-50%)}
+/* row 2 */
+.b.story{background:var(--green);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
+.b.story .coin{position:relative;z-index:2;height:108px;width:auto;align-self:flex-start}
+.b.story .tx{position:relative;z-index:3;max-width:46%}
+.b.story h5{margin:0 0 16px;font:600 38px/1.1 Struve,sans-serif;letter-spacing:-.01em}
+.b.story p{margin:0;font:400 23px/1.4 Struve,sans-serif;opacity:.85}
+.b.story .more,.b.post .more{display:inline-flex;margin-top:22px;font:500 20px/1 Struve,sans-serif}
+.b.story .blob{position:absolute;width:62%;right:-6%;top:14%}
+.b.story .person{position:absolute;z-index:1;height:96%;right:8%;bottom:0;transform:scaleX(-1)}
+.b.post{background:linear-gradient(180deg,#F2EFE9 0%,#FCF9F3 100%)}
+.b.post .pt{position:relative;z-index:2;margin:0;font:600 38px/1.1 Struve,sans-serif;letter-spacing:-.01em}
+.b.post .ico{position:absolute;height:52%;right:10%;bottom:8%}
+.b.rubrics{background:#fff;box-shadow:inset 0 0 0 1.5px var(--line);padding:18px 56px;display:flex;justify-content:space-around;align-items:center;gap:14px}
+.b.rubrics img{flex:1;min-width:0;height:150px;object-fit:contain}
+/* row 3 */
+.b.ph{background:linear-gradient(180deg,#F2EFE9 0%,#FCF9F3 100%);display:grid;place-items:center;color:var(--text2);font-size:18px}
+.b.hero{background:var(--lime);display:grid;place-items:center;text-align:center;padding:0}
+.b.hero .bg{position:absolute;width:100%;height:100%;left:0;top:0;object-fit:contain;max-width:none}   /* the whole ring, no text */
+.b.hero h5{position:relative;z-index:1;margin:0;font:600 58px/1.1 Struve,sans-serif;letter-spacing:-.01em}
+.mkl{position:relative;display:inline-block;font-family:Supermarker,Struve,sans-serif;font-style:italic;font-weight:700}
+.mkl .ul{position:absolute;left:-.1em;width:calc(100% + .2em);top:.26em;height:.9em;max-width:none;z-index:0}.mkl>span{position:relative;z-index:1}
+/* row 4: dots */
+.b.dots{background:linear-gradient(180deg,#F2EFE9 0%,#FCF9F3 100%);padding:0;display:flex;flex-direction:column;align-items:stretch}   /* as the landing's privacy cards: the picture, then the text */
+.b.dots .il{position:relative;flex:1}.b.dots canvas{position:absolute;inset:0;width:100%;height:100%}
+.b.dots .tx{padding:0 44px 44px}.b.dots h3{margin:0;font:600 28px/1.3 Struve,sans-serif}.b.dots p{margin:10px 0 0;font:400 22px/1.45 Struve,sans-serif;color:#75736F}
+.b.dots .more{display:inline-flex;margin-top:22px;font:500 20px/1 Struve,sans-serif;color:var(--ink)}
+.b.dots.top .tx{padding:44px 44px 0}   /* text on top, the picture below it, bleeding off the bottom */
+.b.dots.lime{background:var(--lime)}.b.dots.lime p{color:rgba(32,31,29,.66)}
+.b.dots.dark{background:var(--green);color:#fff}.b.dots.dark p{color:rgba(255,255,255,.72)}.b.dots.dark .more{color:#fff}
+.b.dots .uae{position:absolute;z-index:1;display:flex;align-items:center;gap:10px;height:46px;padding:0 20px 0 16px;border-radius:999px;background:#fff;color:var(--ink);font:500 19px/1 Struve,sans-serif;white-space:nowrap;transform:translate(22px,-50%);box-shadow:0 10px 24px rgba(32,31,29,.18)}
+.b.dots .uae i{width:12px;height:12px;border-radius:50%;background:var(--lime)}
+.b.pat{padding:52px 44px}.b.pat canvas{position:absolute;inset:0;width:100%;height:100%}
+.b.pat.lime{background:var(--lime)}.b.pat.dark{background:var(--green);color:#fff}.b.pat.card{background:linear-gradient(180deg,#F2EFE9 0%,#FCF9F3 100%)}.b.pat.white{background:#fff;box-shadow:inset 0 0 0 1.5px var(--line)}
+.b.pat h4{position:relative;z-index:1;margin:0;font:600 46px/1.08 Struve,sans-serif;letter-spacing:-.015em}
+.b.pat .chip{position:relative;z-index:1;display:inline-flex;align-items:center;gap:10px;height:56px;margin-bottom:24px;padding:0 22px 0 16px;border-radius:999px;background:#fff;font:400 italic 30px/1 Supermarker,Struve,sans-serif;letter-spacing:-.01em}   /* the industry chip, as in the chips row */
+.b.pat .chip svg{width:30px;height:30px}
+.b.pat .num{display:block;margin-bottom:6px;font:600 104px/1 Struve,sans-serif;letter-spacing:-.03em}
+/* built as the factoid (canvas/factoid.webp): centred, a big number, one short line, no marker (too small for it) */
+.b.pat.fact{text-align:center;padding:64px 32px}.b.pat.fact h4{font:500 31px/1.3 Struve,sans-serif;letter-spacing:-.01em}.b.pat.fact .num{font:500 124px/1 Struve,sans-serif;letter-spacing:-.035em;margin-bottom:22px}
+.b.pat footer{position:absolute;z-index:1;left:44px;right:44px;bottom:40px;display:flex;justify-content:space-between;align-items:center;font:500 18px/1 Struve,sans-serif}.b.pat footer img{height:30px;width:auto}
+.b.pat .tag{position:absolute;z-index:2;right:16px;top:16px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.85);color:var(--grey);font:500 13px/1 "JetBrains Mono",monospace;letter-spacing:.04em;text-transform:uppercase}
+.b.dots .cap,.b.ph .cap{position:absolute;left:40px;bottom:36px;font:500 14px/1 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--grey)}
+/* the UI over the canvas */
+.ui{position:fixed;z-index:2;display:flex;align-items:center;gap:2px;padding:4px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px var(--line),0 6px 20px rgba(32,31,29,.08);font:500 13px/1 Struve,sans-serif;color:var(--ink)}
+.ui a,.ui button{display:inline-flex;align-items:center;height:32px;padding:0 12px;border:0;border-radius:8px;background:none;color:inherit;font:inherit;text-decoration:none;cursor:pointer}
+.ui a:hover,.ui button:hover{background:var(--sand)}
+.ui .z{min-width:52px;justify-content:center;font-variant-numeric:tabular-nums}
+#tl{left:16px;top:16px}#br{right:16px;bottom:16px}
+.embed #tl{display:none}
+.clean .ui{display:none}   /* ?clean: no controls, for exporting cards as pictures */
+#help{left:16px;bottom:16px;color:var(--grey);background:none;box-shadow:none;padding:0;font-size:12px}
+</style>
+</head>
+<body>
+<script src="../nav.js"></script>
+<div class="ui" id="br"><button id="zout" aria-label="Zoom out">−</button><button class="z" id="zv" title="Zoom to 100%">100%</button><button id="zin" aria-label="Zoom in">+</button><button id="fit" title="Zoom to fit (1)">Fit</button></div>
+<div class="ui" id="help">Drag or scroll to move · ⌘/Ctrl + scroll or pinch to zoom · 0 — 100%, 1 — fit</div>
+<div id="view"><div id="world">
+<div class="frame" id="f-inuse" style="left:0;top:0;width:3576px;height:2336px">
+  <!-- row 1 · y 64 -->
+  <div class="b img" style="left:64px;top:64px;width:1464px;height:720px"><img src="canvas/hero.webp" alt="Every guest conversation becomes advice for your team, every shift"></div>
+  <article class="b cta" style="left:1552px;top:64px;width:472px;height:720px"><video class="spin" autoplay muted loop playsinline preload="auto" poster="https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/icon-spin-poster.webp" aria-label="The coffee icon in brushed aluminium, turning"></video><h4>Start with one counter. The team gets its first advice tomorrow.</h4><span class="btn">Start a pilot</span></article>
+  <div class="chips" style="left:2048px;top:64px;width:968px;height:72px" id="chips"></div>
+  <div class="b brand" style="left:2048px;top:160px;width:968px;height:624px"><img src="3d/renders/lansy-icon-new.webp?v=2" alt="The Lansy icon: lime frosted glass with a porcelain palm"></div>
+  <!-- row 2 · y 808 -->
+  <div class="b img" style="left:560px;top:808px;width:720px;height:720px"><img src="canvas/factoid.webp" alt="4 380 conversations turned into advice in a single day"></div>
+  <div class="b img" style="left:1304px;top:808px;width:720px;height:720px"><img src="canvas/lesson.webp" alt="Every guest is a lesson"></div>
+  <article class="b story" style="left:2048px;top:1032px;width:968px;height:496px"><img class="coin" src="3d/renders/rubric-schools-r.webp" alt="The schools icon in brushed aluminium"><div class="tx"><h5>A coach<br>for every barista</h5><p>After each shift, one tip from his own conversations at the counter.</p><span class="more">Learn more ↗</span></div><img class="blob" src="3d/blob-a-lime.svg" alt=""><img class="person" src="../assets/photo/omar-cut.webp" alt="A barista"></article>
+  <article class="b post" style="left:3040px;top:1032px;width:472px;height:496px"><p class="pt">Every order<br>becomes advice</p><span class="more">Learn more ↗</span><img class="ico" src="3d/renders/rubric-retail.webp?v=2" alt="The retail icon in brushed aluminium"></article>
+  <div class="b rubrics" style="left:2048px;top:808px;width:1464px;height:200px"><img src="3d/renders/rubric-retail.webp?v=2" alt="Retail"><img src="3d/renders/rubric-clinics.webp?v=2" alt="Clinics"><img src="3d/renders/rubric-full.webp" alt="Cafés"><img src="3d/renders/rubric-schools.webp?v=2" alt="Schools"><img src="3d/renders/rubric-hotels.webp?v=2" alt="Hotels"></div>
+  <!-- row 3 · y 1552 -->
+  <div class="b img" style="left:560px;top:1552px;width:720px;height:720px"><img src="canvas/quote.webp" alt="A barista's quote"></div>
+  <div class="b img" style="left:1304px;top:1552px;width:720px;height:720px"><img src="canvas/advice.webp" alt="Advice after every shift"></div>
+  <article class="b dots" style="left:2048px;top:1552px;width:472px;height:720px"><div class="il"><canvas id="dots" aria-label="A voice line in dots, on an arc"></canvas></div><div class="tx"><h3>Personal talk stays out</h3><p>A call home, a chat on a break: removed before analysis.</p><span class="more">Learn more ↗</span></div></article>
+  <article class="b hero" style="left:2544px;top:1552px;width:968px;height:720px"><video class="bg spin" data-base="https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/ring-swirl" autoplay muted loop playsinline preload="auto" poster="https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/ring-swirl-poster.webp" aria-label="Ten aluminium coins with our industry icons, turning one after another round the ring"></video></article>
+  <!-- dots: a column of its own on the same rows, x 3040. Technical illustrations (the voice line, the planet) and the pattern
+       (the consent screen's orb), each on its own ground; one dot size for the illustrations, the pattern at 1× and 2× -->
+  <article class="b dots dark" style="left:3040px;top:64px;width:472px;height:720px"><div class="il"><canvas id="p-uae" aria-label="A dotted map of the Gulf"></canvas></div><div class="tx"><h3>Voice stays with us</h3><p>Audio never leaves our servers in the UAE. AI sees only anonymized text.</p><span class="more">Learn more ↗</span></div></article>
+  <!-- the pattern: a static dotted ground for marketing layouts, in the illustrations' dot, spatial: the voice terrain, the dotted blob -->
+  <article class="b dots lime top" style="left:64px;top:808px;width:472px;height:720px"><div class="tx"><h3>The whole day, heard</h3><p>From the morning rush to closing time, every conversation at the counter counts.</p><span class="more">Learn more ↗</span></div><div class="il"><canvas id="p-terrain" aria-label="A day of talks: an equalizer of dots closed into a ring"></canvas></div></article>
+  <article class="b pat card nofoot" style="left:64px;top:1552px;width:472px;height:720px"><canvas id="p-blobppl" aria-label="A barista coming out of the lime blob"></canvas><span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7L6.7602 17.4048C7.06616 19.2134 7.21914 20.1177 7.76007 20.7417C9.21438 22.4194 14.7856 22.4194 16.2399 20.7417C16.7809 20.1177 16.9338 19.2134 17.2398 17.4048L19 7"/><path d="M5 7L5.74278 5.2876C6.35168 3.88385 6.65613 3.18197 7.29101 2.7856C8.88049 1.79324 14.9452 1.68444 16.709 2.7856C17.3439 3.18197 17.6483 3.88385 18.2572 5.2876L19 7"/><path d="M4 7H20"/><ellipse cx="12" cy="14.5" rx="2" ry="2.5"/></svg>Cafés</span><h4>Your team learns<br>from <span class="mkl"><img class="ul" src="3d/underline-lime.svg" alt=""><span>every guest</span></span>,<br>at every counter,<br>after shift</h4></article>
+</div>
+</div></div>
+<script>if(window.top!==window.self)document.documentElement.classList.add('embed');</script>
+<script>if(new URLSearchParams(location.search).has('clean'))document.documentElement.classList.add('clean');</script>
+<script src="canvas/land.js?v=2"></script>
+<script>
+// the industry chips, as in the lab's bento (Hugeicons, stroke matched to the Supermarker stem)
+(()=>{const I={
+  'Cafés':[24,'<path d="M5 7L6.7602 17.4048C7.06616 19.2134 7.21914 20.1177 7.76007 20.7417C9.21438 22.4194 14.7856 22.4194 16.2399 20.7417C16.7809 20.1177 16.9338 19.2134 17.2398 17.4048L19 7"/><path d="M5 7L5.74278 5.2876C6.35168 3.88385 6.65613 3.18197 7.29101 2.7856C8.88049 1.79324 14.9452 1.68444 16.709 2.7856C17.3439 3.18197 17.6483 3.88385 18.2572 5.2876L19 7"/><path d="M4 7H20"/><ellipse cx="12" cy="14.5" rx="2" ry="2.5"/>'],
+  'Retail':[18,'<path d="M2.49264 9.75848C2.75543 7.50675 3.1394 5.81838 3.49547 4.61888C3.78746 3.63533 3.93344 3.14356 4.53212 2.69678C5.1308 2.25 5.74273 2.25 6.96657 2.25H11.0335C12.2573 2.25 12.8693 2.25 13.4679 2.69678C14.0666 3.14356 14.2126 3.63533 14.5046 4.61888C14.8607 5.81838 15.2446 7.50675 15.5074 9.75848C15.8171 12.4123 15.9719 13.7392 15.077 14.7446C14.1821 15.75 12.7319 15.75 9.8313 15.75H8.1687C5.26817 15.75 3.81789 15.75 2.92298 14.7446C2.02808 13.7392 2.18294 12.4123 2.49264 9.75848Z"/><path d="M6.75 5.25C6.75 6.49264 7.75732 7.5 9 7.5C10.2427 7.5 11.25 6.49264 11.25 5.25"/>'],
+  'Clinics':[24,'<path d="M2 12.5625C2 9.46891 2 7.92211 3.02513 6.96106C4.05025 6 5.70017 6 9 6H15C18.2998 6 19.9497 6 20.9749 6.96106C22 7.92211 22 9.46891 22 12.5625V14.4375C22 17.5311 22 19.0779 20.9749 20.0389C19.9497 21 18.2998 21 15 21H9C5.70017 21 4.05025 21 3.02513 20.0389C2 19.0779 2 17.5311 2 14.4375V12.5625Z"/><path d="M9 13.5H15M12 10.5L12 16.5"/><path d="M17 6C17 3.518 16.482 3 14 3H10C7.518 3 7 3.518 7 6"/>'],
+  'Schools':[18,'<path d="M1.49805 5.99958C1.49805 7.00606 7.57023 9.75012 8.98878 9.75012C10.4074 9.75012 16.4796 7.00606 16.4796 5.99958C16.4796 4.99309 10.4074 2.24902 8.98878 2.24902C7.57023 2.24902 1.49805 4.99309 1.49805 5.99958Z"/><path d="M4.49414 8.25L5.43261 12.6001C5.49689 12.8981 5.64527 13.1765 5.89272 13.3541C7.55902 14.5499 10.4181 14.5499 12.0844 13.3541C12.3319 13.1765 12.4803 12.8981 12.5446 12.6001L13.483 8.25"/><path d="M15.3576 7.12451V12.3753M15.3576 12.3753C14.7643 13.4602 14.502 14.0415 14.2355 15.0007C14.1777 15.342 14.2236 15.514 14.4585 15.6667C14.5539 15.7287 14.6686 15.7508 14.7823 15.7508H15.9213C16.0423 15.7508 16.1645 15.7255 16.2642 15.6567C16.4826 15.5059 16.5387 15.3405 16.4796 15.0007C16.246 14.11 15.9485 13.5011 15.3576 12.3753Z"/>'],
+  'Hotels':[24,'<path d="M22 17.5H2"/><path d="M22 21V16C22 14.1144 22 13.1716 21.4142 12.5858C20.8284 12 19.8856 12 18 12H6C4.11438 12 3.17157 12 2.58579 12.5858C2 13.1716 2 14.1144 2 16V21"/><path d="M11 12V10.2134C11 9.83272 10.9428 9.70541 10.6497 9.55538C10.0395 9.24292 9.29865 9 8.5 9C7.70135 9 6.96055 9.24292 6.35025 9.55538C6.05721 9.70541 6 9.83272 6 10.2134L6 12"/><path d="M18 12V10.2134C18 9.83272 17.9428 9.70541 17.6497 9.55538C17.0395 9.24292 16.2987 9 15.5 9C14.7013 9 13.9605 9.24292 13.3503 9.55538C13.0572 9.70541 13 9.83272 13 10.2134L13 12"/><path d="M21 12V7.36057C21 6.66893 21 6.32311 20.8079 5.99653C20.6157 5.66995 20.342 5.50091 19.7944 5.16283C17.5869 3.79978 14.8993 3 12 3C9.10067 3 6.41314 3.79978 4.20558 5.16283C3.65804 5.50091 3.38427 5.66995 3.19213 5.99653C3 6.32311 3 6.66893 3 7.36057V12"/>']};
+  document.getElementById('chips').innerHTML=Object.entries(I).map(([n,[g,p]],i)=>`<span class="tab plain"><svg viewBox="0 0 ${g} ${g}" fill="none" stroke="currentColor" stroke-width="${2.4*g/24}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>${n}</span>`).join('');})();
+
+// the CTA's turning icon: WebM with alpha for Chrome and Firefox, HEVC with alpha (.mov) for Safari
+document.querySelectorAll('video.spin').forEach(v=>{const ua=navigator.userAgent, safari=/Safari/.test(ua)&&!/Chrome|Chromium|Android/.test(ua);
+  v.src=(v.dataset.base||'https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/icon-spin')+'.'+(safari?'mov':'webm'); v.play().catch(()=>{});});   // videos live on Cloudflare R2
+
+// the canvas: pan by drag or scroll, zoom with ⌘/Ctrl + scroll, pinch (trackpad, touch, Safari gestures) or the buttons, around the
+// cursor; 0 = 100 %, 1 = fit (as in Figma). The view is kept in the URL hash, so a reload lands where you were
+const view=document.getElementById('view'), world=document.getElementById('world'), zv=document.getElementById('zv');
+const MIN=.05, MAX=8; let x=0, y=0, k=1;
+function apply(){world.style.transform=`translate(${x}px,${y}px) scale(${k})`; zv.textContent=Math.round(k*100)+'%';
+  clearTimeout(apply.t); apply.t=setTimeout(()=>history.replaceState(null,'',`#${Math.round(x)},${Math.round(y)},${k.toFixed(3)}`),250); dots.resize();}
+function zoomAt(f,cx,cy){const nk=Math.min(MAX,Math.max(MIN,k*f)); x=cx-(cx-x)*nk/k; y=cy-(cy-y)*nk/k; k=nk; apply();}
+function fit(){const fr=[...world.children], W=Math.max(...fr.map(f=>f.offsetLeft+f.offsetWidth)), H=Math.max(...fr.map(f=>f.offsetTop+f.offsetHeight)), p=72;
+  k=Math.min((innerWidth-2*p)/W,(innerHeight-2*p-40)/(H+30)); x=(innerWidth-W*k)/2; y=(innerHeight-H*k)/2+15; apply();}
+view.addEventListener('wheel',e=>{e.preventDefault();
+  if(e.ctrlKey||e.metaKey)zoomAt(Math.exp(-e.deltaY*(e.deltaMode?.05:.0025)*(e.ctrlKey&&!e.metaKey&&Math.abs(e.deltaY)<50?4:1)),e.clientX,e.clientY);
+  else{x-=e.shiftKey&&!e.deltaX?e.deltaY:e.deltaX; y-=e.shiftKey&&!e.deltaX?0:e.deltaY; apply();}},{passive:false});
+// Safari's trackpad pinch
+let gk=1; addEventListener('gesturestart',e=>{e.preventDefault(); gk=1;}); addEventListener('gesturechange',e=>{e.preventDefault(); zoomAt(e.scale/gk,e.clientX,e.clientY); gk=e.scale;});
+// pointers: one drags, two pinch
+const P=new Map(); let last=null;
+view.addEventListener('pointerdown',e=>{view.setPointerCapture(e.pointerId); P.set(e.pointerId,[e.clientX,e.clientY]); view.classList.add('grabbing'); last=null; e.preventDefault();});
+view.addEventListener('pointermove',e=>{if(!P.has(e.pointerId))return; const p0=P.get(e.pointerId);
+  if(P.size===1){x+=e.clientX-p0[0]; y+=e.clientY-p0[1]; P.set(e.pointerId,[e.clientX,e.clientY]); apply(); return;}
+  P.set(e.pointerId,[e.clientX,e.clientY]); const [a,b]=[...P.values()], d=Math.hypot(a[0]-b[0],a[1]-b[1]), m=[(a[0]+b[0])/2,(a[1]+b[1])/2];
+  if(last){x+=m[0]-last.m[0]; y+=m[1]-last.m[1]; zoomAt(d/last.d,m[0],m[1]);} last={d,m};});
+const up=e=>{P.delete(e.pointerId); last=null; if(!P.size)view.classList.remove('grabbing');};
+view.addEventListener('pointerup',up); view.addEventListener('pointercancel',up);
+addEventListener('keydown',e=>{if(e.target.closest('input,textarea'))return; const c=[innerWidth/2,innerHeight/2];
+  if(e.key==='0'&&!e.metaKey&&!e.ctrlKey){x=c[0]-(c[0]-x)/k; y=c[1]-(c[1]-y)/k; k=1; apply();}
+  else if(e.key==='1'||e.key==='!'){fit();}
+  else if(e.key==='='||e.key==='+'){e.preventDefault(); zoomAt(1.25,...c);} else if(e.key==='-'||e.key==='_'){e.preventDefault(); zoomAt(.8,...c);}
+  else if(e.code==='Space')view.classList.add('grab');});
+addEventListener('keyup',e=>{if(e.code==='Space')view.classList.remove('grab');});
+document.getElementById('zin').onclick=()=>zoomAt(1.25,innerWidth/2,innerHeight/2);
+document.getElementById('zout').onclick=()=>zoomAt(.8,innerWidth/2,innerHeight/2);
+document.getElementById('fit').onclick=fit;
+zv.onclick=()=>{const c=[innerWidth/2,innerHeight/2]; x=c[0]-(c[0]-x)/k; y=c[1]-(c[1]-y)/k; k=1; apply();};
+
+// the dots: every dotted picture is a painter on its own canvas, sized by the block's layout box (not the zoomed one) and drawn at
+// a resolution that follows the zoom. Our blocks are ~1.6× the landing's cards, so its dot (2.4 px) and pitches scale by DOT
+const DOT=1.6, RAD=Math.PI/180;
+const painters=[];
+function painter(id,setup,draw){const cv=document.getElementById(id); if(!cv)return; const p={cv,ctx:cv.getContext('2d'),setup,draw,d:0}; painters.push(p);}
+var dots={resize(){const nd=Math.min(4,Math.max(1,Math.ceil(k*(devicePixelRatio||1)*2)/2));
+  for(const p of painters){if(p.d===nd)continue; p.d=nd; p.W=p.cv.offsetWidth; p.H=p.cv.offsetHeight; p.cv.width=p.W*nd; p.cv.height=p.H*nd; p.ctx.setTransform(nd,0,0,nd,0,0); try{p.setup(p);}catch(e){p.broken=true; console.error(p.cv.id,e);}}}};   // one broken picture never stops the others
+const disc=(c,x,y,r)=>{c.beginPath(); c.arc(x,y,r,0,7); c.fill();};
+
+// 1 · the voice line (technical illustration, Card): one dot ~7 px apart, laid on an arc as if it ran around the planet
+painter('dots',p=>{const S=110*RAD, G=7*DOT; p.S=S; p.G=G; p.Rx=(p.W-96)/2/Math.sin(S/2); p.n=Math.floor(S/(G/p.Rx)); p.rows=Math.min(16,Math.floor((p.H-80)/G/2));},
+(p,t)=>{const c=p.ctx, {W,H,S,G,Rx,n,rows}=p, TILT=.16, R0=2.4*DOT; c.clearRect(0,0,W,H); c.fillStyle='#201F1D'; const cy=Math.round(H*.5);
+  for(let i=0;i<=n;i++){const u=i/n, th=-S/2+u*S, z=Math.cos(th), x=W/2+Rx*Math.sin(th), base=cy+TILT*Rx*(1-z);
+    const phrase=Math.max(0,Math.sin(u*Math.PI*3.2+t/1700))**.7, swell=Math.sin(Math.PI*u)**.8;
+    const syl=.35+.65*Math.abs(Math.sin(i*.83+t/240)*.6+Math.sin(i*.29-t/430)*.4), amp=phrase*swell*syl*rows;
+    for(let r=-Math.floor(amp);r<=Math.floor(amp);r++){const vz=1-Math.abs(r)/(rows+1); c.globalAlpha=.12+.3*vz*(.35+.65*z); disc(c,x,base+r*G,R0);}
+    if(amp<1){c.globalAlpha=.12*(.5+.5*z); disc(c,x,base,R0);}}
+  c.globalAlpha=1;});
+
+// 2 · the planet (technical illustration, Primary Dark): the same dotted land, white on the dark, slowly turning (a turn in
+// two minutes); land points on a Fibonacci sphere ~9 px apart (× DOT), the same 2.4 px dot, depth in alpha
+const isLand=(lat,lon)=>{const c=Math.floor((lon/RAD+180)/2.5), r=Math.floor((90-lat/RAD)/2.5)-4; return r>=0&&r<ROWS.length&&ROWS[r][((c%COLS)+COLS)%COLS]==='1';};
+function planet(id,col,a0,a1,top){painter(id,p=>{p.R=p.W*.95; p.CX=p.W/2; p.CY=p.H*(top??1)+p.R*.08; p.pts=[]; const step=9*DOT, N=Math.round(4*Math.PI*p.R*p.R/(step*step)), ga=Math.PI*(3-Math.sqrt(5));
+  for(let i=0;i<N;i++){const lat=Math.asin(1-2*(i+.5)/N), lon=((i*ga)%(2*Math.PI))-Math.PI; if(isLand(lat,lon))p.pts.push([lat,lon]);}},
+(p,t)=>{const c=p.ctx, {W,H,R,CX,CY}=p, lon0=(40*RAD+t/120000*2*Math.PI)%(2*Math.PI), lat0=-10*RAD, sl=Math.sin(lat0), cl0=Math.cos(lat0);
+  c.clearRect(0,0,W,H); c.fillStyle=col;
+  for(const [la,lo] of p.pts){const dl=lo-lon0, cl=Math.cos(la), z=sl*Math.sin(la)+cl0*cl*Math.cos(dl); if(z<=0)continue;
+    const x=CX+R*cl*Math.sin(dl), y=CY-R*(cl0*Math.sin(la)-sl*cl*Math.cos(dl)); if(y>H+4||y<-4)continue;
+    c.globalAlpha=a0+a1*z; disc(c,x,y,2.4*DOT);}
+  c.globalAlpha=1;});}
+// 2 · a day of conversations (technical illustration, Lime, in Primary Dark): a ring of 24 hours lying in space, slowly turning; from it rise
+// columns of the same dot — the voice line wrapped round the day: busy hours tall, the night quiet, syllables flickering;
+// depth in alpha, the back of the ring fading
+painter('p-terrain',p=>{p.R=p.W*.38; p.cx=p.W/2; p.cy=p.H*.7; p.n=Math.round(2*Math.PI*p.R/(PITCH*1.15));},
+(p,t)=>{const c=p.ctx, {W,H,R,cx,cy,n}=p, TILT=.34, spin=t/1000*2*Math.PI/90, G=PITCH*.95, cols=[];
+  c.clearRect(0,0,W,H); c.fillStyle='#33694F';   // Primary Dark on Lime
+  for(let i=0;i<n;i++){const a=i/n*2*Math.PI, hr=(i/n)*24, th=a+spin, x=cx+R*Math.sin(th), z=Math.cos(th), y=cy+R*TILT*z;
+    // the day's load: a morning and an evening rush, quiet at night; speech flicker on top
+    const load=.08+Math.exp(-(((hr-9.5)/2.2)**2))+.85*Math.exp(-(((hr-18.5)/2.6)**2))+.45*Math.exp(-(((hr-13.5)/1.6)**2));
+    const syl=.35+.65*Math.abs(Math.sin(i*.83+t/240)*.6+Math.sin(i*.29-t/430)*.4), m=Math.round(13*Math.min(1.2,load)*syl);
+    cols.push([z,x,y,m]);}
+  cols.sort((a,b)=>a[0]-b[0]);   // back first
+  for(const [z,x,y,m] of cols){const d=.5+.5*z;
+    c.globalAlpha=.3+.35*d; disc(c,x,y,R1);                                   // the ring itself
+    for(let k=1;k<=m;k++){c.globalAlpha=(.45+.55*d)*(.75+.25*k/13); disc(c,x,y-k*G,R1);}}
+  c.globalAlpha=1;});
+
+
+// the pattern: static dotted grounds for marketing layouts, drawn once per size (no motion). The illustrations' dot (2.4 px × DOT,
+// ~9 px pitch × DOT on the surface), spatial: each is a surface in 3D, its depth in alpha. size 2 doubles the dot and its pitch
+const R1=2.4*DOT, PITCH=9*DOT;
+function still(id,col,draw){painter(id,p=>{const c=p.ctx; c.clearRect(0,0,p.W,p.H); c.fillStyle=col; draw(p,c); c.globalAlpha=1;
+  if(p.cv.closest('.nofoot'))return;
+  // the footer (logo, site) stays legible: the pattern thins out under it, never quite gone
+  c.globalCompositeOperation='destination-out'; const g=c.createLinearGradient(0,p.H-190,0,p.H-70); g.addColorStop(0,'rgba(32,31,29,0)'); g.addColorStop(1,'rgba(32,31,29,.82)');
+  c.fillStyle=g; c.fillRect(0,p.H-190,p.W,190); c.globalCompositeOperation='source-over';},()=>{}); painters[painters.length-1].still=true;}
+// 2b · the Gulf on the globe, still, as the landing's globe opens: a Fibonacci sphere of dots (its slanted rows), land from
+// the landing's masks (the fine Gulf one where it reaches, the coarse world one beyond), the GCC strong, other land faint, the
+// sea empty; the sphere large enough that its curve shows — land squeezes and dims toward the limb. The map on top, the text below
+still('p-uae','#FFFFFF',(p,c)=>{const cell=(lat,lon)=>{const q=Math.floor((lon/RAD-GEO.lon0)/GEO.step), r=Math.floor((GEO.lat1-lat/RAD)/GEO.step); return q<0||r<0||q>=GEO.cols||r>=GEO.rows?-1:r*GEO.cols+q;},
+    bit=(m,i)=>(m[i>>3]>>(7-(i&7)))&1;
+  const lat0=-12*RAD, lon0=52*RAD, GR=p.W*1.3, GX=p.W*.5, GY=p.H*.07+GR, sl=Math.sin(lat0), cl0=Math.cos(lat0);   // the view looks below the Gulf, so it sits up by the globe's top limb
+  const sp=PITCH/GR, N=Math.round(4*Math.PI/(sp*sp)), ga=Math.PI*(3-Math.sqrt(5));
+  for(let i=0;i<N;i++){const la=Math.asin(1-2*(i+.5)/N), lo=((i*ga)%(2*Math.PI))-Math.PI, dl=lo-lon0, cl=Math.cos(la), z=sl*Math.sin(la)+cl0*cl*Math.cos(dl); if(z<=0)continue;
+    const x=GX+GR*cl*Math.sin(dl), y=GY-GR*(cl0*Math.sin(la)-sl*cl*Math.cos(dl)); if(x<-9||x>p.W+9||y<-9||y>p.H+9)continue;
+    const ci=cell(la,lo), land=ci>=0?bit(LANDM,ci):isLand(la,lo); if(!land)continue;
+    c.globalAlpha=(ci>=0&&bit(GCCM,ci)?.75:.22)*(.35+.65*z); disc(c,x,y,R1);}});
+
+var PPL={h:70.5,x:51,y:24};   // the barista: height (% of the card), centre x (%), nudge y (%) — set with the knobs
+
+// 3 · the blob technique (the lab's posts): blob B in lime; the barista comes out of it — inside the blob she shows, below its
+// edge she's cut by it, above its top edge (her head) nothing clips
+(()=>{const bl=new Image(), pp=new Image(); let n=0; const go=()=>{if(++n<2)return;
+  still('p-blobppl','#9CDE45',(p,c)=>{const d=p.cv.width/p.W, W=p.W, H=p.H, bw=W*.94, bh=bw*bl.naturalHeight/bl.naturalWidth, bx=(W-bw)/2, by=H*.965-bh;
+    const K=PPL, ph=H*K.h/100, pw=ph*pp.naturalWidth/pp.naturalHeight, px=W*K.x/100-pw/2, py=by+bh*.97-ph+H*K.y/100;   // PPL: the knobs
+    const L=(f)=>{const z=document.createElement('canvas'); z.width=p.cv.width; z.height=p.cv.height; const g=z.getContext('2d',{willReadFrequently:true}); g.setTransform(d,0,0,d,0,0); f(g); return [z,g];};
+    const [mz,mg]=L(g=>g.drawImage(bl,bx,by,bw,bh));                                  // the blob's own mask
+    const [pz,pg]=L(g=>g.drawImage(pp,px,py,pw,ph));                                  // the person
+    const M=mg.getImageData(0,0,mz.width,mz.height).data, Pi=pg.getImageData(0,0,pz.width,pz.height), Pd=Pi.data, w=mz.width, h=mz.height;
+    for(let x=0;x<w;x++){let top=-1; for(let y=0;y<h;y++)if(M[(y*w+x)*4+3]>128){top=y;break;}
+      for(let y=0;y<h;y++){const o=(y*w+x)*4; if(!Pd[o+3])continue; const inside=M[o+3]>128; if(top<0||(y>=top&&!inside))Pd[o+3]=0;}}   // out of the blob only upward
+    pg.putImageData(Pi,0,0);
+    c.save(); c.setTransform(1,0,0,1,0,0); c.globalAlpha=1;
+    c.drawImage(mz,0,0); c.globalCompositeOperation='source-in'; c.fillStyle='#9CDE45'; c.fillRect(0,0,w,h); c.globalCompositeOperation='source-over';
+    c.drawImage(pz,0,0); c.restore();});
+  dots.resize();}; bl.onload=pp.onload=go; bl.src='canvas/blob-b.svg'; pp.src='canvas/barista-new.webp';})();
+
+dots.resize();
+const stillMotion=matchMedia('(prefers-reduced-motion:reduce)').matches;
+(function frame(t){for(const p of painters)if(!p.still&&!p.broken)try{p.draw(p,t);}catch(e){p.broken=true; console.error(p.cv.id,e);} if(!stillMotion)requestAnimationFrame(frame);})(0);
+
+const h=location.hash.slice(1).split(',').map(Number);
+if(h.length===3&&h.every(v=>isFinite(v))){[x,y,k]=h; apply();} else fit();
+addEventListener('resize',()=>{if(!location.hash)fit();});
+</script>
+</body>
+</html>

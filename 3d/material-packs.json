@@ -1,0 +1,600 @@
+{
+  "generated": "2026-10-12",
+  "brief": "Material packs for soft 3D brand icons (lime #9CDE45, deep green #33694F, warm off-whites). Ranked by fit. [U] = unverified.",
+  "best_picks": [
+    {
+      "name": "Sanctus Library (free tier → $39)",
+      "why": "Free test tier, 1800+ procedural materials, updated for 4.5–5.2, 180 ratings. Base library."
+    },
+    {
+      "name": "Ultimate Plastic Shader + Clay Doh (DoubleGum)",
+      "why": "One master node each for plastic and clay, exact hex colour, Principled-based, 4.x–5.2. Covers soft-touch, candy gloss, clay – the core icon looks."
+    },
+    {
+      "name": "Glass Studio (SkdSam, $10)",
+      "why": "Frosted/clear/coloured glass with dispersion from a HUD, 37 presets, Oct 2026. Closest to a liquid-glass kit."
+    },
+    {
+      "name": "Iridescence (Egret Studios, $14.99)",
+      "why": "2026 thin-film/holographic/anodized system with lighting rigs – accent finish layer."
+    }
+  ],
+  "packs": [
+    {
+      "name": "Sanctus Library – Procedural Materials",
+      "author": "Sanctus",
+      "url": "https://superhivemarket.com/products/sanctus-library-addon---procedural-shaders-collection-for-blender",
+      "image": "https://assets.superhivemarket.com/store/product/173770/image/xlarge-82710ea7d386ddc6eb6d6a223101ea20.jpg",
+      "price": "Free Essential set (100+ assets) / $25 non-commercial / $39 commercial / $150 10-seat",
+      "licence": "Add-on GPL; materials under per-tier licence (commercial tier needed for client work)",
+      "blender": "4.5 – 5.2 (tracks current LTS → latest)",
+      "type": "Procedural add-on library (node groups + material editor, bake-to-PBR)",
+      "inside": "1800+ materials/assets/tools; procedural shaders incl. plastics, glass, metals, fabrics, liquids (Liquid Works expansion), decals, GN generators. 180 ratings.",
+      "looks": [
+        "matte plastic",
+        "glossy plastic",
+        "glass",
+        "brushed metal",
+        "chrome",
+        "fabric",
+        "iridescent [U]",
+        "emissive [U]"
+      ],
+      "hex_editable": "yes – exposed colour inputs in node groups / material editor",
+      "note": "Widest base for a house library; very actively updated. Free tier is enough to test the plastics. Exact looks per category beyond plastic/glass/metal [U].",
+      "rank": 1
+    },
+    {
+      "name": "Ultimate Plastic Shader",
+      "author": "DoubleGum (Rahul Parihar)",
+      "url": "https://superhivemarket.com/products/plastic",
+      "image": "https://assets.superhivemarket.com/store/product/153566/image/xlarge-df09c2dd7a2193f143ad2ccef9e08b34.png",
+      "price": "$25",
+      "licence": "Royalty free",
+      "blender": "4.1 – 5.2",
+      "type": "Procedural single master node + presets (Principled BSDF based)",
+      "inside": "One node for all plastic types (matte, glossy, translucent [U]); sliders for fingerprints, dents, scratches; no UVs. 7 ratings (5★), 600+ sales.",
+      "looks": [
+        "soft-touch matte plastic",
+        "glossy candy plastic",
+        "translucent plastic"
+      ],
+      "hex_editable": "yes – base colour input on the master node",
+      "note": "Cleanest route to soft-touch and glossy toy plastic at exact hex. Turn imperfections down for icon cleanliness.",
+      "rank": 2
+    },
+    {
+      "name": "Clay Doh – Tools & Shaders (Clay 4.Doh)",
+      "author": "DoubleGum (Rahul Parihar)",
+      "url": "https://superhivemarket.com/products/claydoh",
+      "image": "https://assets.superhivemarket.com/store/product/151623/image/xlarge-e2c902603888fb9a3243b81f9861ce81.png",
+      "price": "$30 / $100 / $300 (seat tiers)",
+      "licence": "Royalty free",
+      "blender": "4.4 – 5.2",
+      "type": "Procedural master clay node + GN tools (Principled BSDF)",
+      "inside": "Clay presets (3.Doh + 4.Doh), fingerprints, cracks, sticky textures, stop-motion, Clay Text, Pottery tool. 106 ratings, 11 100+ sales; 4.Doh update Aug 2025.",
+      "looks": [
+        "clay",
+        "plasticine",
+        "soft matte"
+      ],
+      "hex_editable": "yes – single master node colour",
+      "note": "Best-in-class clay. For clean icons dial fingerprints/cracks to near zero to get smooth matte clay.",
+      "rank": 3
+    },
+    {
+      "name": "Glass Studio",
+      "author": "SkdSam",
+      "url": "https://superhivemarket.com/products/glass-studio",
+      "image": "https://assets.superhivemarket.com/store/product/265766/image/xlarge-10bb0535edfe28ee4e96cf976e557774.png",
+      "price": "$10",
+      "licence": "MIT",
+      "blender": "3.6 – 5.2 (Cycles)",
+      "type": "Add-on (radial HUD) generating procedural glass materials",
+      "inside": "37 glass and mirror presets: clear, coloured, frosted; controls for colour, IOR, roughness, transmission, dispersion, coating; procedural frost, fingerprints, dust; save own library. Released 2 Oct 2026 – no reviews yet.",
+      "looks": [
+        "clear glass",
+        "frosted glass",
+        "coloured glass",
+        "dispersion",
+        "mirror/chrome"
+      ],
+      "hex_editable": "yes – colour control in HUD",
+      "note": "Closest thing to a 'liquid/frosted glass' kit for icons. Brand-new: quality unproven [U].",
+      "rank": 4
+    },
+    {
+      "name": "Iridescence – Physical Optics Material System",
+      "author": "Egret Studios LLC",
+      "url": "https://superhivemarket.com/products/iridescence",
+      "image": "https://assets.superhivemarket.com/store/product/263838/image/xlarge-63026b64de4fa827a7ecd613c6a40bd2.jpg",
+      "price": "$14.99 (sale; regular $24.99)",
+      "licence": "GPL",
+      "blender": "4.2 – 5.2 (Cycles + EEVEE Next)",
+      "type": "Add-on, native shader nodes",
+      "inside": "33 presets: holographic foils, soap bubble, oil slick, dichroic glass, nacre, anodized metals, stylised; 8 lighting rigs; bake maps. Published ~Sep 2026.",
+      "looks": [
+        "iridescent",
+        "holographic",
+        "thin-film",
+        "dichroic glass",
+        "anodized aluminium"
+      ],
+      "hex_editable": "partly – structural colour is physics-driven (film thickness/IOR); base tint editable [U]",
+      "note": "Most complete thin-film/holo system. Use as accent layer over lime/green base.",
+      "rank": 5
+    },
+    {
+      "name": "Udin Blender Shaders",
+      "author": "Udin",
+      "url": "https://superhivemarket.com/products/udin-shaders",
+      "image": "https://assets.superhivemarket.com/store/product/205361/image/8002af72df52b2456cd9875e56c8e873.jpg",
+      "price": "Free (60 base materials, all shaders) / $49.99 Pro (980+) / $499.99 Team",
+      "licence": "MIT",
+      "blender": "4.0 – 4.1 listed (newer [U])",
+      "type": "Procedural, product-design (CMF) oriented",
+      "inside": "Plastic 232 (glossy, matte, rough, rubber, speckled, transparent glossy/matte, lens); Carpaint 230 (metallic, matte, satin, pearl, iridescent); Metal 44 (brushed, bead-blasted, anodized); Textile 360; Carbon 96.",
+      "looks": [
+        "soft-touch matte plastic",
+        "glossy plastic",
+        "rubber",
+        "transparent plastic",
+        "anodized aluminium",
+        "brushed metal",
+        "pearlescent paint",
+        "fabric"
+      ],
+      "hex_editable": "yes [U] – base materials are parametric; colour input not explicitly documented",
+      "note": "Industrial-design CMF library – ideal vocabulary for 'device-like' icons. Free tier worth testing first. Check 4.2+/5.x compatibility.",
+      "rank": 6
+    },
+    {
+      "name": "Community Material Pack",
+      "author": "Curtis Holt",
+      "url": "https://curtisjamesholt.gumroad.com/l/community_material_pack",
+      "image": "https://public-files.gumroad.com/b4q3gb0hewyl2budbgz5g1qddfxk",
+      "price": "Free ($0+)",
+      "licence": "CC0",
+      "blender": "Asset-browser .blend (3.x+; 4.x/5.x [U])",
+      "type": "Procedural/Principled materials in one .blend",
+      "inside": "Community-contributed material set for the asset browser; 554 ratings, 5.0★. Exact count and list [U].",
+      "looks": [
+        "plastic [U]",
+        "glass [U]",
+        "metal [U]"
+      ],
+      "hex_editable": "yes – standard Principled materials",
+      "note": "Zero-risk CC0 starting point; contents not listed on page.",
+      "rank": 7
+    },
+    {
+      "name": "52+ Procedural Plastic & Rubber Materials",
+      "author": "Polynex",
+      "url": "https://superhivemarket.com/products/52-procedural-plastic--rubber-materials-for-blender",
+      "image": "https://assets.superhivemarket.com/store/product/251953/image/xlarge-a74159b846a484f16d3525860a4920ad.jpg",
+      "price": "$7.99",
+      "licence": "Royalty free",
+      "blender": "4.0 – 5.0",
+      "type": "Procedural smart materials (no textures, UV optional)",
+      "inside": "52+ presets in Plastic, Rubber, Pattern categories; product-render oriented; soft rubber feel. Published ~Mar 2026.",
+      "looks": [
+        "matte plastic",
+        "glossy plastic",
+        "soft rubber",
+        "textured plastic"
+      ],
+      "hex_editable": "yes – colour controls exposed",
+      "note": "Cheap complement to Ultimate Plastic for rubber/soft-touch variants.",
+      "rank": 8
+    },
+    {
+      "name": "Shaders Plus – Caustics, Thin Film, Dispersion (V4)",
+      "author": "SMOUSE",
+      "url": "https://superhivemarket.com/products/shadersplus",
+      "image": "https://assets.superhivemarket.com/store/product/188632/image/xlarge-7c9b90bc54d6c8f7a7a960f2ecab978a.jpg",
+      "price": "$35 / $49 (tiers; free lite tier listed $0 [U])",
+      "licence": "GPL",
+      "blender": "3.6 – 5.0",
+      "type": "Add-on: shader nodes",
+      "inside": "Real-time fake caustics, spectral dispersion, physically accurate thin-film. 44 ratings, 4600+ sales.",
+      "looks": [
+        "clear glass with dispersion",
+        "caustics",
+        "thin-film iridescent"
+      ],
+      "hex_editable": "yes – glass tint inputs",
+      "note": "Makes glass icons pop (coloured caustics on floor). Effect add-on rather than a look library.",
+      "rank": 9
+    },
+    {
+      "name": "Car Paint Shader (Candy / Flakes / Iridescence)",
+      "author": "SBTien",
+      "url": "https://superhivemarket.com/products/car-paint-shader-flakesiridescence",
+      "image": "https://assets.superhivemarket.com/store/product/244517/image/xlarge-b1e01b9a4e2baf20cb7bc949a3436d87.png",
+      "price": "$5",
+      "licence": "Royalty free",
+      "blender": "4.5 – 5.0 (Cycles; EEVEE without iridescence)",
+      "type": "Procedural node group on one Principled BSDF",
+      "inside": "Base + metallic flakes + clearcoat, candy, pearl, colour-shift flakes; 2026 update split flakes node.",
+      "looks": [
+        "candy plastic/paint",
+        "pearlescent",
+        "metallic flake",
+        "clearcoat gloss"
+      ],
+      "hex_editable": "yes – base and flake colours separate",
+      "note": "Gives glossy 'candy' lime with deep green flake shift. Turn flake scale down for small icons.",
+      "rank": 10
+    },
+    {
+      "name": "Procedural Stylized Gradients Material Pack (#30)",
+      "author": "Ryan King Art",
+      "url": "https://superhivemarket.com/products/propack30",
+      "image": "https://assets.superhivemarket.com/store/product/250691/image/xlarge-7a42775b414dfa5fdc7fa601a7fa3408.jpg",
+      "price": "$10",
+      "licence": "Royalty free (no resale)",
+      "blender": "5.0",
+      "type": "Procedural node groups, asset-browser ready",
+      "inside": "10 stylized gradient materials (noise, swirl, wavy etc.) + 4 example project files.",
+      "looks": [
+        "gradient",
+        "emissive-able gradient",
+        "stylized abstract"
+      ],
+      "hex_editable": "yes – colour stops exposed",
+      "note": "Only dedicated gradient pack found. Pipe into Emission for glowing icons.",
+      "rank": 11
+    },
+    {
+      "name": "SF Metal – Procedural Metal Materials",
+      "author": "Starting Frame",
+      "url": "https://superhivemarket.com/products/sf-metal-procedural-metal",
+      "image": "https://assets.superhivemarket.com/store/product/262667/image/xlarge-cfb36863c6a2f0916ad678e4e3b85b98.png",
+      "price": "$29",
+      "licence": "Royalty free",
+      "blender": "5.2+",
+      "type": "Procedural, single node group",
+      "inside": "9 metals: brushed aluminium, brushed steel, gunmetal, polished chrome, gold, copper, scratched/rusty steel, shipwreck. Brushed grain renders in EEVEE. Published ~Aug 2026.",
+      "looks": [
+        "chrome",
+        "brushed aluminium",
+        "gunmetal"
+      ],
+      "hex_editable": "yes – named sliders incl. tint [U]",
+      "note": "Modern, clean brushed aluminium/chrome. Needs Blender 5.2. No anodized preset – tint brushed aluminium to #33694F.",
+      "rank": 12
+    },
+    {
+      "name": "Woolly Tools & Shaders 2.0",
+      "author": "DoubleGum (Rahul Parihar)",
+      "url": "https://superhivemarket.com/products/woolly",
+      "image": "https://assets.superhivemarket.com/store/product/156934/image/xlarge-c58d4135b1fe5e3699dacc4013c2af57.png",
+      "price": "$35 / $100 / $350",
+      "licence": "Royalty free",
+      "blender": "5.0 – 5.2",
+      "type": "Hair systems + procedural materials + modifiers",
+      "inside": "One-click felt, fur, fuzz hair systems; knit/wool materials; auto base-colour detection. 48 ratings, 2800+ sales.",
+      "looks": [
+        "felt",
+        "fuzz",
+        "wool/knit"
+      ],
+      "hex_editable": "yes – auto base colour from object material",
+      "note": "Best felt/fabric option for tactile icons. Heavier renders (hair).",
+      "rank": 13
+    },
+    {
+      "name": "Ultimate Blender Procedural Material Pack",
+      "author": "Ryan King Art",
+      "url": "https://superhivemarket.com/products/ultimate-materials",
+      "image": "https://assets.superhivemarket.com/store/product/186995/image/27d0ec1b5dcdd9b99fd8d3c96cb0eaa7.jpg",
+      "price": "$79",
+      "licence": "Royalty free (no resale/redistribution)",
+      "blender": "4.5 – 5.2",
+      "type": "Procedural node groups, asset library with catalogs",
+      "inside": "Every Ryan King procedural material, growing with updates (192 at 2023 launch; current count [U]); catalogs incl. Clay, Plastic, Glass, Metal, Abstract, Gradients. 11 ratings, 700+ sales.",
+      "looks": [
+        "clay",
+        "plastic",
+        "clear/frosted glass",
+        "metal",
+        "gradient",
+        "ceramic [U]"
+      ],
+      "hex_editable": "yes – colour inputs on every node group",
+      "note": "Good value if you also want #28 plastics, #30 gradients, #32 frosted glass in one buy.",
+      "rank": 14
+    },
+    {
+      "name": "Vizpak SSS for Blender",
+      "author": "Richard Yot",
+      "url": "https://superhivemarket.com/products/vizpak-sss-for-blender",
+      "image": "https://assets.superhivemarket.com/store/product/177838/image/6fc04a2f528cd743446405debc87e994.jpg",
+      "price": "$50",
+      "licence": "Royalty free",
+      "blender": "3.1 – 4.1 listed (4.2+ [U])",
+      "type": "Physically-based translucent material library (asset browser)",
+      "inside": "50 translucent materials: plastics, rubbers, foods, stones, gems – physically researched SSS.",
+      "looks": [
+        "jelly/gummy",
+        "translucent plastic",
+        "subsurface",
+        "wax/soap [U]"
+      ],
+      "hex_editable": "partly – SSS colour/radius editable but tuned per material",
+      "note": "Only serious SSS/jelly library found. Not updated past 4.1; Principled SSS changed in 4.0 so verify on 4.5/5.x.",
+      "rank": 15
+    },
+    {
+      "name": "Discover3D Starter Pack",
+      "author": "immchez",
+      "url": "https://immchez.gumroad.com/l/jnbqo",
+      "image": "https://public-files.gumroad.com/72wr4q44mcu5bogy93a2i4m1kbg9",
+      "price": "$15 (page price at check; earlier listed $39)",
+      "licence": "Commercial use with credit; no resale",
+      "blender": "4.0+ (built in 4.3)",
+      "type": "Procedural materials + lighting setups",
+      "inside": "10 materials: clay (dry/wet), modelling dough, clear glass, frosted glass, plastic, translucent plastic, metal, damaged metal, concrete, wood; 5 lighting setups; sample scene.",
+      "looks": [
+        "clay",
+        "modelling dough",
+        "frosted glass",
+        "clear glass",
+        "plastic",
+        "translucent plastic"
+      ],
+      "hex_editable": "yes – colour parameter exposed",
+      "note": "Small but almost exactly the icon look list, plus lighting rigs. Credit required.",
+      "rank": 16
+    },
+    {
+      "name": "Holographic Shader Pack",
+      "author": "neoyume",
+      "url": "https://neoyume.gumroad.com/l/holographic_shader_pack",
+      "image": "https://i.ytimg.com/vi/BtqP_lQL5kI/hqdefault.jpg",
+      "price": "Free ($0+)",
+      "licence": "Not stated on page [U]",
+      "blender": "4.2",
+      "type": "Procedural shader presets",
+      "inside": "30 holographic sticker-style shaders; pattern scale, noise scale, tint.",
+      "looks": [
+        "holographic",
+        "iridescent foil"
+      ],
+      "hex_editable": "partly – tint input",
+      "note": "Free stylized holo foil for accents/stickers. og:image is a YouTube thumbnail.",
+      "rank": 17
+    },
+    {
+      "name": "Advanced Material Pack",
+      "author": "heypictures",
+      "url": "https://heypictures.gumroad.com/l/blopwi",
+      "image": "https://public-files.gumroad.com/rj19bp5xezkql5kuobx196mbnpg4",
+      "price": "€2.99+",
+      "licence": "Not stated on page [U]",
+      "blender": "3.0+ (4.x/5.x [U])",
+      "type": "Procedural, asset browser",
+      "inside": "Large mixed set: plastic in 9 colours × glossy/matte/medium/thick/thin-SSS, glass, diamonds, emission with fresnel + animated patterns, ceramic patterns, metals (brushed, anisotropic, powder coat), fabrics, wool. 57 ratings, 5.0★.",
+      "looks": [
+        "glossy plastic",
+        "matte plastic",
+        "SSS plastic",
+        "glass",
+        "emissive fresnel",
+        "ceramic",
+        "brushed metal",
+        "wool/fabric"
+      ],
+      "hex_editable": "yes – grouped node inputs",
+      "note": "Cheap broad sampler; quality uneven but good for quick exploration.",
+      "rank": 18
+    },
+    {
+      "name": "Extreme PBR Nexus",
+      "author": "Andrew_D",
+      "url": "https://superhivemarket.com/products/extreme-pbr-addon-for-blender-279-2",
+      "image": "https://assets.superhivemarket.com/store/product/154644/image/xlarge-9b0ec0d4256b1d238cf0e2b63daf971e.jpg",
+      "price": "$29 – $89 (tiers)",
+      "licence": "Add-on GPL; default library CC0 (per docs)",
+      "blender": "4.0 – 5.2",
+      "type": "Add-on + mostly texture-based PBR library (1 GB base, up to 185 GB Pro)",
+      "inside": "1800+ materials, car paint with flakes, FX layers (wear), texture paint between materials, asset-browser export. 181 ratings, 11 400+ sales.",
+      "looks": [
+        "car paint/candy",
+        "metals",
+        "plastics",
+        "glass",
+        "fabric"
+      ],
+      "hex_editable": "partly – colour override available, but many are photo textures",
+      "note": "Strong for realism/archviz; less suited to clean stylized icons. Listed because it was requested.",
+      "rank": 19
+    },
+    {
+      "name": "NiceGlass – Dispersion Glass Shader",
+      "author": "CG Meerkat",
+      "url": "https://superhivemarket.com/products/niceglass",
+      "image": "https://assets.superhivemarket.com/store/product/215367/image/567fd46c53a9aeb8ece2e40a0bb36c53.png",
+      "price": "$3.99",
+      "licence": "Royalty free",
+      "blender": "4.2 (Cycles)",
+      "type": "Procedural shader + textures",
+      "inside": "Glass shader with continuous dispersion and brighter internal illumination (fixes black patches at low bounces).",
+      "looks": [
+        "clear glass with dispersion",
+        "coloured glass"
+      ],
+      "hex_editable": "yes – tint input",
+      "note": "Cheap fix for dark glass icons at low bounce counts.",
+      "rank": 20
+    },
+    {
+      "name": "BlenderKit (Blendkit) – free tier",
+      "author": "BlenderKit community",
+      "url": "https://www.blenderkit.com/",
+      "image": "https://www.blendkit.com/static/img/blenderkit-logo-hexa_512x512.af0834c3e7f5.png",
+      "price": "Free tier (~26 000 free materials) / Full Plan subscription",
+      "licence": "Per asset: Royalty Free or CC0 – check each",
+      "blender": "Add-on, 4.x–5.x",
+      "type": "Online library via add-on; mixed procedural and texture",
+      "inside": "Huge searchable library incl. many plastic, glass, metal, fabric materials with colour controls; no curated icon set.",
+      "looks": [
+        "plastic",
+        "glass",
+        "metal",
+        "fabric",
+        "iridescent"
+      ],
+      "hex_editable": "varies by asset",
+      "note": "Good for one-off finds; no consistent 'pack'. Image is the BlenderKit logo (site og:image has no URL).",
+      "rank": 21
+    },
+    {
+      "name": "ambientCG",
+      "author": "Lennart Demes",
+      "url": "https://ambientcg.com/",
+      "image": "https://ambientcg.com/api/metaimage-list",
+      "price": "Free",
+      "licence": "CC0",
+      "blender": "Any (PBR textures)",
+      "type": "Texture-based PBR",
+      "inside": "2000+ PBR materials up to 8K; few clean plastics; mostly real-world surfaces (fabric, metal, leather).",
+      "looks": [
+        "fabric",
+        "brushed metal",
+        "leather"
+      ],
+      "hex_editable": "partly – albedo textures need Hue/Mix tint, not exact hex",
+      "note": "Use for fabric/felt bump or micro-texture maps layered under a procedural base.",
+      "rank": 22
+    },
+    {
+      "name": "Poly Haven (Poly Haven Asset Browser add-on)",
+      "author": "Poly Haven",
+      "url": "https://superhivemarket.com/products/poly-haven-asset-browser",
+      "image": "https://assets.superhivemarket.com/store/product/179546/image/xlarge-4830ea5f4d71161668c5fa93a0ac8772.jpg",
+      "price": "Assets free; add-on $69",
+      "licence": "CC0",
+      "blender": "Add-on 4.x+",
+      "type": "Photoscanned textures + HDRIs",
+      "inside": "Scanned textures, models, HDRIs. Poly Haven deliberately makes no plastics.",
+      "looks": [
+        "HDRI studio lighting",
+        "fabric"
+      ],
+      "hex_editable": "no – scanned albedo",
+      "note": "Not a material source for icons. Use only for studio HDRIs.",
+      "rank": 23
+    },
+    {
+      "name": "Blender Procedural Metal Shader",
+      "author": "Mabel Design",
+      "url": "https://superhivemarket.com/products/blender-procedural-metal-shader",
+      "image": "https://assets.superhivemarket.com/store/product/197593/image/c0a2aa5e460162bb415c012235d9384e.jpg",
+      "price": "$2",
+      "licence": "GPL",
+      "blender": "3.2 – 3.6 listed",
+      "type": "Procedural",
+      "inside": "27 metals: aluminium polished/brushed/sanded/anodized, steel, gold, iron, bronze, copper, brass.",
+      "looks": [
+        "anodized aluminium",
+        "brushed aluminium",
+        "polished metal"
+      ],
+      "hex_editable": "yes",
+      "note": "Only cheap pack with anodized + brushed aluminium; old version tag – test on 5.x.",
+      "rank": 24
+    },
+    {
+      "name": "Iridescence – Thin Film Shading",
+      "author": "Witting Graphics",
+      "url": "https://superhivemarket.com/products/iridescence-thin-film-shading",
+      "image": "https://assets.superhivemarket.com/store/product/163865/image/b5a70a68a6f5ba7fb8e6cb5470a7307e.png",
+      "price": "$25 (2 seats) / $99 studio",
+      "licence": "Royalty free",
+      "blender": "4.0 – 5.2",
+      "type": "Procedural node + presets",
+      "inside": "Physically correct thin-film node, works in EEVEE; 15 premade materials (soap, oil, pearl, anodized, beetle).",
+      "looks": [
+        "thin-film",
+        "pearlescent",
+        "anodized"
+      ],
+      "hex_editable": "partly",
+      "note": "Alternative to Egret's Iridescence; Cycles now has native thin film, this adds EEVEE + control.",
+      "rank": 25
+    },
+    {
+      "name": "Rexhue",
+      "author": "Rexhue",
+      "url": "https://superhivemarket.com/products/rexhue",
+      "image": "https://assets.superhivemarket.com/store/product/207384/image/4c9b26928197631c5c6616eb4ed3e5a0.png",
+      "price": "$2.99",
+      "licence": "Royalty free",
+      "blender": "3.4 – 4.4",
+      "type": "Procedural 3-layer paint",
+      "inside": "40+ presets, 4 nodes: basic paint, flex paint, chameleon (ChromaFlair) and pearlescent paint.",
+      "looks": [
+        "pearlescent",
+        "chameleon iridescent",
+        "metallic paint"
+      ],
+      "hex_editable": "yes",
+      "note": "Cheap pearlescent/candy paint; version tag stops at 4.4.",
+      "rank": 26
+    },
+    {
+      "name": "Procedural Ceramics Shader",
+      "author": "Secret Swim Club",
+      "url": "https://secretswimclub.gumroad.com/l/ykbvl",
+      "image": "https://public-files.gumroad.com/pkp50qmlf9ko1m0oyhluzx1ln4kw",
+      "price": "Free V1 / paid V2",
+      "licence": "Free for commercial and personal use",
+      "blender": "4.0+",
+      "type": "Procedural",
+      "inside": "Ceramic glaze shader; V1 8 objects, V2 81 objects, secondary glaze colour, crackle, glaze thickness.",
+      "looks": [
+        "ceramic",
+        "glaze"
+      ],
+      "hex_editable": "yes – glaze colour inputs",
+      "note": "Best ceramic option found; 10 ratings 5.0★.",
+      "rank": 27
+    },
+    {
+      "name": "Glass Shaders Professional Pack",
+      "author": "mashud008",
+      "url": "https://superhivemarket.com/products/glass57",
+      "image": "https://assets.superhivemarket.com/store/product/262170/image/xlarge-2171c113a1284e7d660c11b141e70798.jpg",
+      "price": "$3.50",
+      "licence": "Royalty free",
+      "blender": "4.2 – 5.2",
+      "type": "Procedural + PBR",
+      "inside": "57 glass materials incl. caustic/absorption.",
+      "looks": [
+        "clear glass",
+        "coloured glass"
+      ],
+      "hex_editable": "yes [U]",
+      "note": "New, no ratings, generic marketing copy – quality unverified [U].",
+      "rank": 28
+    },
+    {
+      "name": "Fuzzy Master: Realistic Felt Effects",
+      "author": "Lazy3D [U]",
+      "url": "https://superhivemarket.com/products/fuzzy-master-realistic-felt-effects",
+      "image": "https://assets.superhivemarket.com/store/product/224041/image/xlarge-c1f0ef27880ac92e116baf3d4f2d4e5b.jpg",
+      "price": "$8 (free tier $0 [U])",
+      "licence": "GPL",
+      "blender": "4.2 – 5.2",
+      "type": "Add-on (hair/fuzz)",
+      "inside": "Felt fuzz for stop-motion look; 9 ratings, 500+ sales.",
+      "looks": [
+        "felt"
+      ],
+      "hex_editable": "yes [U]",
+      "note": "Cheaper alternative to Woolly.",
+      "rank": 29
+    }
+  ]
+}

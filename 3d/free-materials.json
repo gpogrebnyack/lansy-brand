@@ -1,0 +1,544 @@
+[
+  {
+    "name": "Heat Oxidized Brushed Titanium",
+    "author": "Bad Pixel (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/ee9b66ca-8eb2-43c4-8b13-9d4a6869c414/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/ee9b66ca8eb243c48b139d4a6869c414/files/thumbnail_928d26a0-f15a-4d6f-abe1-eab334ae72fc.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF: commercial OK, no resale of the asset)",
+    "blender": "5.2.2",
+    "type": "procedural",
+    "looks": [
+      "spun-metal",
+      "brushed-aluminium"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Radial (circular) brushing + anisotropic + blue/violet/gold heat-tint colour shift; controls Heat Position/Spread. Closest free match to spun anodized iridescent metal. Uploaded 2026-10-07, no ratings yet."
+  },
+  {
+    "name": "Liquid Thin Film Chrome",
+    "author": "Bad Pixel (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/b9460f44-2555-4376-9753-325203b09185/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/b9460f44255543769753325203b09185/files/thumbnail_fade533a-8b57-4a38-a04b-27149e7318ba.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "5.2.2",
+    "type": "procedural",
+    "looks": [
+      "chrome",
+      "spun-metal"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Liquid chrome with thin-film colour shift, ripples and fine brushing; Film Thickness / Liquid Ripple params. Uploaded 2026-10-07, no ratings yet."
+  },
+  {
+    "name": "Circular Brushed Metal",
+    "author": "Apicedda (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/6a26d8e5-b43d-4932-af14-13faf1746283/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/6a26d8e5b43d4932af1413faf1746283/files/thumbnail_98177e9d-475c-45ca-9a45-a0b660164979.png.2048x2048_q85.png",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "4.2.2",
+    "type": "procedural",
+    "looks": [
+      "spun-metal",
+      "brushed-aluminium"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Procedural radial/circular anisotropic brushing (tags: radial, anisotropic). Plain steel colour; add Principled Thin Film for iridescence."
+  },
+  {
+    "name": "Procedural Anisotropic Metal",
+    "author": "danes_dysfunction (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/9d1162b8-5b34-46c4-9ab2-a5af3d41761a/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/9d1162b85b3446c49ab2a5af3d41761a/files/thumbnail_000af5c8-d80e-47ba-a77c-99bbd5705dab.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "4.1.0",
+    "type": "procedural",
+    "looks": [
+      "spun-metal",
+      "brushed-aluminium"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Radial anisotropic highlights on stainless steel; Cycles only (EEVEE ignores anisotropy)."
+  },
+  {
+    "name": "Iridescent Steel",
+    "author": "NK Productions (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/66d16a77-17ab-4797-b359-014983e04dc3/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/66d16a7717ab4797b359014983e04dc3/files/thumbnail_52836d25-4d4e-4418-a334-f13da74e2483.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "4.3.2",
+    "type": "procedural",
+    "looks": [
+      "spun-metal",
+      "brushed-aluminium"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Brushed steel with subtle iridescent reflections; linear brushing, not radial. Top-rated (score 500)."
+  },
+  {
+    "name": "Anisotropic Brushed Metal",
+    "author": "DJ SOLANA (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/8ba9f23b-a3d6-4e4e-b9f0-4e5424c39a07/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/8ba9f23ba3d64e4eb9f04e5424c39a07/files/thumbnail_90b5e760-6e6e-46f0-9b22-b3ae0f0da2dc.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "4.5.1",
+    "type": "procedural",
+    "looks": [
+      "brushed-aluminium"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Linear hairline brushed aluminium/steel with real anisotropic reflections."
+  },
+  {
+    "name": "Brushed chrome",
+    "author": "antoine f (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/fbfd3009-17ad-45a6-91a3-27c3d358d792/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/fbfd300917ad45a691a327c3d358d792/files/thumbnail_f63e35df-46e9-49e1-9f4c-81b5c9d361b2.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "5.1.0",
+    "type": "procedural [U]",
+    "looks": [
+      "brushed-aluminium",
+      "chrome"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Fine linear micro-scratches, anisotropic reflection; appliance/hardware finish. 2026-05."
+  },
+  {
+    "name": "Polished Chrome Metal",
+    "author": "RADHUNANDAN (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/e80c7431-6bac-46ad-a3c4-9401664427db/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/e80c74316bac46ada3c49401664427db/files/thumbnail_7dad24bb-ad65-46c3-9cc1-5e91fa3e0dc3.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "4.5.4",
+    "type": "textures (tileable PBR)",
+    "looks": [
+      "chrome"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. High-gloss, minimal roughness chrome/mirror. Honestly a stock Principled (Metallic 1, Roughness ~0.02) gets you 95% there."
+  },
+  {
+    "name": "Mercury",
+    "author": "Nikhil G krishnan (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/f8c0c35d-dee0-4385-808b-4a326dad4f98/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/f8c0c35ddee04385808b4a326dad4f98/files/thumbnail_428a9eef-58a5-43db-8261-07270915299f.png.2048x2048_q85.png",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "5.0.1",
+    "type": "procedural [U]",
+    "looks": [
+      "chrome"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Liquid-metal silver look. 2026-08."
+  },
+  {
+    "name": "Metal 051 A (circular brushed aluminium)",
+    "author": "ambientCG (Lennart Demes)",
+    "url": "https://ambientcg.com/view?id=Metal051A",
+    "image": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-JPG-FFFFFF/Metal051A.jpg",
+    "price": "$0",
+    "licence": "CC0",
+    "blender": "any (PBR maps; 2.8+)",
+    "type": "textures (PBR, up to 8K)",
+    "looks": [
+      "spun-metal",
+      "brushed-aluminium"
+    ],
+    "note": "Scanned/authored circular brushed aluminium (tags: aluminum, brushed, circular). Variants 051B/051C. Map the roughness/normal planar on a disc; add Principled Thin Film for anodized colour. Released 2024-08."
+  },
+  {
+    "name": "Metal 009 (brushed steel)",
+    "author": "ambientCG",
+    "url": "https://ambientcg.com/view?id=Metal009",
+    "image": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-JPG-FFFFFF/Metal009.jpg",
+    "price": "$0",
+    "licence": "CC0",
+    "blender": "any (PBR maps)",
+    "type": "textures (PBR)",
+    "looks": [
+      "brushed-aluminium"
+    ],
+    "note": "Linear brushed silver steel. Older set (2018) but clean; siblings Metal011/012."
+  },
+  {
+    "name": "Brushed Metal 1",
+    "author": "Share Textures",
+    "url": "https://www.sharetextures.com/textures/metal/brushed-metal-1",
+    "image": "https://images.sharetextures.com/u/Brushed_metal_1_mat-min.webp",
+    "price": "$0",
+    "licence": "CC0",
+    "blender": "any (PBR maps)",
+    "type": "textures (PBR)",
+    "looks": [
+      "brushed-aluminium"
+    ],
+    "note": "Linear brushed metal PBR set."
+  },
+  {
+    "name": "Procedural metal shader (2 shaders)",
+    "author": "mart0nnn (Gumroad)",
+    "url": "https://mart0nnn.gumroad.com/l/metalllic",
+    "image": "https://public-files.gumroad.com/07j3dw9cu293k6up0i5bux8tc0z5",
+    "price": "$0+ (pay what you want)",
+    "licence": "Royalty free: commercial OK, no resale",
+    "blender": "[U] (3.x+)",
+    "type": "procedural",
+    "looks": [
+      "brushed-aluminium",
+      "chrome"
+    ],
+    "note": "Two procedural metallic node groups; also part of Curtis Holt Community Material Pack v3."
+  },
+  {
+    "name": "Thin-film interference and metals with complex refractive index",
+    "author": "prutser (BlendSwap)",
+    "url": "https://www.blendswap.com/blend/18049",
+    "image": "https://blendswap.com/blend_previews/18049/0/0?v=d5475010",
+    "price": "$0 (free BlendSwap account to download)",
+    "licence": "CC0",
+    "blender": "3.0x (Cycles)",
+    "type": "procedural (node group)",
+    "looks": [
+      "spun-metal",
+      "chrome"
+    ],
+    "note": "Physically based thin-film over metal using n/k per RGB; good for anodized/oxide colours on any metal (incl. spun). Old file (~10 yrs, updated for 3.0); in 4.2+ the Principled Thin Film input covers most of this."
+  },
+  {
+    "name": "Principled BSDF: Thin Film + Anisotropic (built in)",
+    "author": "Blender Foundation",
+    "url": "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html",
+    "image": "https://docs.blender.org/manual/en/latest/_images/render_shader-nodes_shader_principled-thin-film-thickness.webp",
+    "price": "$0",
+    "licence": "GPL software; renders are yours",
+    "blender": "4.2+ (thin film), anisotropy any 4.x/5.x",
+    "type": "procedural (stock node)",
+    "looks": [
+      "spun-metal",
+      "brushed-aluminium",
+      "chrome",
+      "clear-glass",
+      "frosted-glass"
+    ],
+    "note": "Cycles-only Thin Film (thickness nm + IOR) and Anisotropic + Rotation + Tangent. Spun metal recipe: Metallic 1, Anisotropic ~0.8, Tangent node set to Radial Z (object-centred), Thin Film 300-800 nm / IOR ~2.0 (TiO2/Al2O3). 4.2 notes said thin film was dielectric-only at first; metallic thin film support in current versions [U]. No dedicated Dispersion input found in the 5.2 manual [U]."
+  },
+  {
+    "name": "Real Aesthetic Glass",
+    "author": "Paco Salas (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/b4f3d8f3-70c4-4ea5-8226-a213f7767572/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/b4f3d8f370c44ea58226a213f7767572/files/thumbnail_780a79d3-58e3-48dd-a7fc-cf7f061cb14a.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "4.0.3",
+    "type": "procedural",
+    "looks": [
+      "clear-glass"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Clear refractive glass with chromatic dispersion / rainbow highlights (faked RGB-split). Highly rated."
+  },
+  {
+    "name": "Frosted Glass 02",
+    "author": "Paco Salas (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/8cc5c57f-8141-4122-8edb-23087d955f49/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/8cc5c57f814141228edb23087d955f49/files/thumbnail_f3d82111-42c9-4bd7-b285-b078cde9aa0f.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "3.3.0",
+    "type": "procedural",
+    "looks": [
+      "frosted-glass"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Satin-etched frosted glass, softened refraction. Top-rated."
+  },
+  {
+    "name": "Procedural Frosted Glass",
+    "author": "eatnoodls (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/c9083ee5-464f-42f5-9b57-15ff8b3ae393/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/c9083ee5464f42f59b5715ff8b3ae393/files/thumbnail_10f65064-dd41-4a44-88a8-701846ee8097.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "2.93.0",
+    "type": "procedural",
+    "looks": [
+      "frosted-glass"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Frosted glass with volumetrics; old (2021) but opens in 4.x [U]."
+  },
+  {
+    "name": "Realistic Eevee Glass Shader",
+    "author": "Ryan King Art (Gumroad)",
+    "url": "https://ryankingart.gumroad.com/l/eevee-glass",
+    "image": "https://public-files.gumroad.com/v0st53uxlu5kfqk767e796el00tq",
+    "price": "$0+ (pay what you want)",
+    "licence": "CC0",
+    "blender": "4.2",
+    "type": "procedural",
+    "looks": [
+      "clear-glass"
+    ],
+    "note": "2 glass .blends + HDRIs. Built for EEVEE Next; how it reads in Cycles is [U]. Same product on Superhive lists $2."
+  },
+  {
+    "name": "Glass Frosted 001",
+    "author": "3dtextures.me (Joao Paulo)",
+    "url": "https://3dtextures.me/2020/08/27/glass-frosted-001/",
+    "image": "https://i0.wp.com/3dtextures.me/wp-content/uploads/2020/08/Material_1619.jpg",
+    "price": "$0 (free tier)",
+    "licence": "CC0",
+    "blender": "any (PBR maps)",
+    "type": "textures (PBR)",
+    "looks": [
+      "frosted-glass"
+    ],
+    "note": "Roughness/normal maps for frosted pattern; plug into a Glass/Principled transmission shader."
+  },
+  {
+    "name": "Paper 001 (white)",
+    "author": "ambientCG",
+    "url": "https://ambientcg.com/view?id=Paper001",
+    "image": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-JPG-FFFFFF/Paper001.jpg",
+    "price": "$0",
+    "licence": "CC0",
+    "blender": "any (PBR maps)",
+    "type": "textures (PBR)",
+    "looks": [
+      "paperboard"
+    ],
+    "note": "Plain white paper with fibre texture. Add low SSS / sheen for coated cup board. Paper003 = white creased; Paper005/Cardboard00x are brown."
+  },
+  {
+    "name": "Paper",
+    "author": "antoine f (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/c68bcd0c-8552-4f73-a7e7-2aeeb64700c4/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/c68bcd0c85524f73a7e72aeeb64700c4/files/thumbnail_6388faf4-4523-4979-91db-57eb235abed0.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "4.2.1",
+    "type": "textures (2K seamless)",
+    "looks": [
+      "paperboard"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. White paper with detailed fibre; 2K seamless."
+  },
+  {
+    "name": "White paper",
+    "author": "ydd 3D (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/0e53c8aa-8c22-48ec-89ea-d405f4c2ac7e/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/0e53c8aa8c2248ec89ead405f4c2ac7e/files/thumbnail_781fcf4a-4756-46d3-9935-d38a524f32a2.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "4.4.1",
+    "type": "[U]",
+    "looks": [
+      "paperboard"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Simple clean white paper. 2025-11."
+  },
+  {
+    "name": "Plastic 010 (white smooth)",
+    "author": "ambientCG",
+    "url": "https://ambientcg.com/view?id=Plastic010",
+    "image": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-JPG-FFFFFF/Plastic010.jpg",
+    "price": "$0",
+    "licence": "CC0",
+    "blender": "any (PBR maps)",
+    "type": "textures (PBR)",
+    "looks": [
+      "satin-plastic",
+      "glossy-plastic"
+    ],
+    "note": "Smooth white plastic; scale roughness map for satin vs gloss. Plastic006 = black shiny; Plastic012-018 (2023) = coloured series."
+  },
+  {
+    "name": "Glossy Plastic",
+    "author": "Paco Salas (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/7140d97f-24b4-48ca-bba0-fd495ac8c1a6/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/7140d97f24b448cabba0fd495ac8c1a6/files/thumbnail_309cb9c3-89ce-456c-ba70-c588d0a7826f.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "3.3.0",
+    "type": "procedural",
+    "looks": [
+      "glossy-plastic"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. High-sheen moulded polymer; top-rated."
+  },
+  {
+    "name": "Dusty Sheen Plastic",
+    "author": "Paco Salas (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/22fbf237-dc5c-4743-9605-ede7b0e5d8ea/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/22fbf237dc5c47439605ede7b0e5d8ea/files/thumbnail_30db3841-6966-4e07-b01d-cf443ce74649.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "4.0.1",
+    "type": "procedural",
+    "looks": [
+      "satin-plastic"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Satin/silky sheen moulded plastic with finish variation."
+  },
+  {
+    "name": "Electronic matte plastic",
+    "author": "Jon 13 (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/d0cde993-10f6-4fa6-80ad-e8ae532fcb36/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/d0cde99310f64fa680ade8ae532fcb36/files/thumbnail_be5951da-f573-448b-8092-203596239a6e.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "4.4.3",
+    "type": "[U]",
+    "looks": [
+      "satin-plastic"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Dull satin housing plastic for electronics."
+  },
+  {
+    "name": "Procedural Ceramic",
+    "author": "Matheus Godoi (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/815760b1-2886-44b7-b395-64591ee09bf4/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/815760b1288644b7b39564591ee09bf4/files/thumbnail_e22a358b-808a-4da8-b14d-1050e4b8a2c5.png.2048x2048_q85.png",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "4.2.3",
+    "type": "procedural",
+    "looks": [
+      "glazed-ceramic",
+      "matte-ceramic"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. White ceramic with several parameters (gloss can be dialled down for bisque) [U]."
+  },
+  {
+    "name": "Porcelain",
+    "author": "Andrey Livintsov (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/5f5fc196-2369-494d-8a89-ab2ac9b2372b/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/5f5fc1962369494d8a89ab2ac9b2372b/files/thumbnail_d93316b2-bc62-459c-812e-253ffb706b3e.png.1200x630_q85_background-black.jpg",
+    "price": "$0 (BlenderKit free)",
+    "licence": "CC0",
+    "blender": "2.92.0",
+    "type": "procedural [U]",
+    "looks": [
+      "glazed-ceramic"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Simple glossy white porcelain; CC0."
+  },
+  {
+    "name": "Ceramic Unglazed",
+    "author": "Jammer Jamski (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/b1836dcb-7b51-4ccd-8483-4b1b6e505455/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/b1836dcb7b514ccd84834b1b6e505455/files/thumbnail_a99afc9e-baef-4c1f-84df-45a29f8555b5.png.2048x2048_q85.png",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "2.82.6",
+    "type": "procedural",
+    "looks": [
+      "matte-ceramic"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. Unglazed (bisque) ceramic shader; old (2020)."
+  },
+  {
+    "name": "Glazed Ceramic Black",
+    "author": "James Middleton (BlenderKit)",
+    "url": "https://www.blenderkit.com/asset-gallery-detail/f636b65a-fd88-4f47-8e23-5ef91ccee423/",
+    "image": "https://public.blenderkit.com/thumbnails/assets/f636b65afd884f478e235ef91ccee423/files/thumbnail_3eb4d11c-636f-4431-a981-f44a64f4c22b.png.2048x2048_q85.png",
+    "price": "$0 (BlenderKit free)",
+    "licence": "Royalty free (BlenderKit RF)",
+    "blender": "4.2.2",
+    "type": "procedural",
+    "looks": [
+      "glazed-ceramic"
+    ],
+    "note": "BlenderKit free tier: needs a free BlenderKit account + add-on to download. 100% procedural wobbly glaze; recolour base for white."
+  },
+  {
+    "name": "Porcelain 001 (white)",
+    "author": "ambientCG",
+    "url": "https://ambientcg.com/view?id=Porcelain001",
+    "image": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-JPG-FFFFFF/Porcelain001.jpg",
+    "price": "$0",
+    "licence": "CC0",
+    "blender": "any (PBR maps)",
+    "type": "textures (PBR)",
+    "looks": [
+      "glazed-ceramic",
+      "matte-ceramic"
+    ],
+    "note": "White porcelain surface maps (2021); raise roughness for bisque. Porcelain002 = with smears."
+  },
+  {
+    "name": "Procedural Ceramics Shader (V1 free)",
+    "author": "secretswimclub (Gumroad)",
+    "url": "https://secretswimclub.gumroad.com/l/ykbvl",
+    "image": "https://public-files.gumroad.com/pkp50qmlf9ko1m0oyhluzx1ln4kw",
+    "price": "£0+ (V1); V2 paid",
+    "licence": "Free for commercial/personal use; no redistribution",
+    "blender": "[U]",
+    "type": "procedural",
+    "looks": [
+      "glazed-ceramic",
+      "matte-ceramic"
+    ],
+    "note": "No-UV procedural glaze shader + 8 example objects; studio-pottery look. 25 five-star ratings."
+  },
+  {
+    "name": "Procedural Glazed Porcelain Texture",
+    "author": "Dona Designs in 3D (Gumroad)",
+    "url": "https://donadesignsin3d.gumroad.com/l/Porcelain",
+    "image": "https://public-files.gumroad.com/0stxdjg7ijxnb8gqv7pur9ihqspq",
+    "price": "€0+ (donation optional)",
+    "licence": "[U] not stated",
+    "blender": "[U] (Cycles)",
+    "type": "procedural",
+    "looks": [
+      "glazed-ceramic"
+    ],
+    "note": "Glazed porcelain, colour + fine cracks + dust toggles; ~158 MB download. Also in Community Material Pack v3 (CC0) [U]."
+  },
+  {
+    "name": "Community Material Pack",
+    "author": "Curtis Holt + contributors (Gumroad)",
+    "url": "https://curtisjamesholt.gumroad.com/l/community_material_pack",
+    "image": "https://public-files.gumroad.com/b4q3gb0hewyl2budbgz5g1qddfxk",
+    "price": "$0+ (pay what you want)",
+    "licence": "CC0",
+    "blender": "3.x+ asset-library .blend [U]",
+    "type": "procedural",
+    "looks": [
+      "brushed-aluminium",
+      "chrome",
+      "clear-glass"
+    ],
+    "note": "Asset-browser .blend; v3 added mart0nnn metals, clay, carbon, etc. Exact list of glass/ceramic/plastic items not confirmed [U]."
+  },
+  {
+    "name": "Meta pack - Blender procedural material pack (~800 materials)",
+    "author": "amelith (after MetaAndrocto)",
+    "url": "https://amelith.gumroad.com/l/vdvzx",
+    "image": "https://public-files.gumroad.com/on9pih9hsjr4l9qmttx52qqwmz1p",
+    "price": "0 zl+ (pay what you want)",
+    "licence": "CC0",
+    "blender": "asset-library compatible, version [U]",
+    "type": "procedural",
+    "looks": [
+      "brushed-aluminium",
+      "chrome",
+      "clear-glass",
+      "glossy-plastic",
+      "satin-plastic"
+    ],
+    "note": "Huge CC0 procedural library; quality varies. Coverage of these specific looks not verified [U]."
+  },
+  {
+    "name": "Sanctus Library - Starter (Essential Asset Set)",
+    "author": "Sanctus (Superhive)",
+    "url": "https://superhivemarket.com/products/sanctus-library-addon---procedural-shaders-collection-for-blender",
+    "image": "https://assets.superhivemarket.com/store/product/173770/image/xlarge-82710ea7d386ddc6eb6d6a223101ea20.jpg",
+    "price": "$0 (Starter tier of paid add-on)",
+    "licence": "Personal only (commercial needs $39 tier)",
+    "blender": "4.5 - 5.2",
+    "type": "procedural (add-on)",
+    "looks": [
+      "brushed-aluminium",
+      "glossy-plastic"
+    ],
+    "note": "73 free materials; which ones are in Starter is not listed [U]. Not usable for commercial renders on the free tier."
+  }
+]

@@ -1,0 +1,550 @@
+{
+  "$description": "Every Lansy brand asset an agent may use. Paths are relative to the site root. Pick a file by purpose and background; never recolour, redraw, crop, stretch or add effects to a logo or icon. Use SVG in code and layouts; use PNG as a reference image for image models (they do not read SVG).",
+  "$version": "2026-10-15",
+  "logo": [
+    {
+      "id": "logo-ink",
+      "what": "Full logo: the mark (squircle with an open palm) and the word 'lansy' in lowercase.",
+      "files": {
+        "svg": "assets/logo/lansy-logo-ink.svg",
+        "png": "assets/logo/lansy-logo-ink.png"
+      },
+      "pngSize": [
+        2048,
+        645
+      ],
+      "color": "#201F1D",
+      "useOn": [
+        "#FFFFFF",
+        "#FCF9F3",
+        "#F2EFE9",
+        "#9CDE45",
+        "surface gradients"
+      ],
+      "minHeightPx": 27.2,
+      "minHeightNote": "Box height. At 27.2px the mark inside is 24px, the minimum."
+    },
+    {
+      "id": "logo-white",
+      "what": "Full logo in white.",
+      "files": {
+        "svg": "assets/logo/lansy-logo-white.svg",
+        "png": "assets/logo/lansy-logo-white.png"
+      },
+      "pngSize": [
+        2048,
+        645
+      ],
+      "color": "#FFFFFF",
+      "useOn": [
+        "#33694F",
+        "#201F1D",
+        "#2A2926",
+        "dark photos"
+      ],
+      "minHeightPx": 27.2,
+      "minHeightNote": "Box height. At 27.2px the mark inside is 24px, the minimum."
+    },
+    {
+      "id": "mark-ink",
+      "what": "The mark alone. Use where the full logo does not fit, or when the brand is already named nearby.",
+      "files": {
+        "svg": "assets/logo/lansy-mark-ink.svg",
+        "png": "assets/logo/lansy-mark-ink.png"
+      },
+      "pngSize": [
+        1024,
+        1024
+      ],
+      "color": "#201F1D",
+      "useOn": [
+        "#FFFFFF",
+        "#FCF9F3",
+        "#F2EFE9",
+        "#9CDE45",
+        "surface gradients"
+      ],
+      "minHeightPx": 24
+    },
+    {
+      "id": "mark-white",
+      "what": "The mark alone, white.",
+      "files": {
+        "svg": "assets/logo/lansy-mark-white.svg",
+        "png": "assets/logo/lansy-mark-white.png"
+      },
+      "pngSize": [
+        1024,
+        1024
+      ],
+      "color": "#FFFFFF",
+      "useOn": [
+        "#33694F",
+        "#201F1D",
+        "#2A2926",
+        "dark photos"
+      ],
+      "minHeightPx": 24
+    }
+  ],
+  "icon": [
+    {
+      "id": "icon-flat",
+      "what": "App icon, flat: an ink squircle with the palm knocked out in white. For favicons, interface icons, avatars.",
+      "files": {
+        "svg": "assets/icon/lansy-icon-ink.svg",
+        "png": "assets/icon/lansy-icon-ink.png"
+      },
+      "pngSize": [
+        1024,
+        1024
+      ],
+      "useOn": [
+        "any light background"
+      ]
+    },
+    {
+      "id": "icon-3d",
+      "what": "App icon, 3D render: a squircle in lime frosted glass (#9CDE45) with a porcelain palm, on transparency. For promo, posts, close-ups.",
+      "files": {
+        "webp": "assets/icon/lansy-icon-3d.webp",
+        "png": "assets/icon/lansy-icon-3d.png"
+      },
+      "pngSize": [
+        1024,
+        1024
+      ],
+      "useOn": [
+        "#FFFFFF",
+        "#FCF9F3",
+        "#F2EFE9",
+        "#9CDE45",
+        "#33694F",
+        "surface gradients"
+      ]
+    }
+  ],
+  "shape": [
+    {
+      "id": "squircle",
+      "what": "The squircle outline (continuous corners, not a rounded rectangle). For shapes that echo the mark.",
+      "files": {
+        "svg": "assets/icon/squircle-ref.svg"
+      }
+    }
+  ],
+  "font": [
+    {
+      "family": "Struve",
+      "weight": 400,
+      "style": "normal",
+      "file": "fonts/Struve-Regular.woff2"
+    },
+    {
+      "family": "Struve",
+      "weight": 500,
+      "style": "normal",
+      "file": "fonts/Struve-Medium.woff2"
+    },
+    {
+      "family": "Struve",
+      "weight": 600,
+      "style": "normal",
+      "file": "fonts/Struve-Semibold.woff2"
+    },
+    {
+      "family": "Supermarker",
+      "weight": 400,
+      "style": "italic",
+      "file": "fonts/Supermarker-Italic.woff2"
+    },
+    {
+      "family": "Supermarker",
+      "weight": 500,
+      "style": "italic",
+      "file": "fonts/Supermarker-MediumItalic.woff2"
+    },
+    {
+      "family": "Supermarker",
+      "weight": 700,
+      "style": "italic",
+      "file": "fonts/Supermarker-BoldItalic.woff2"
+    },
+    {
+      "family": "JetBrains Mono",
+      "weight": 500,
+      "source": "https://fonts.google.com/specimen/JetBrains+Mono"
+    },
+    {
+      "family": "IBM Plex Sans Arabic",
+      "weight": [
+        400,
+        500,
+        600
+      ],
+      "source": "https://fonts.google.com/specimen/IBM+Plex+Sans+Arabic"
+    }
+  ],
+  "line": [
+    {
+      "id": "scribble-a",
+      "what": "Blob shape A (the landing's first scribble). A path: draw it with the pen in tokens.json → pen.",
+      "files": {
+        "svg": "assets/line/scribble-a.svg"
+      }
+    },
+    {
+      "id": "scribble-b",
+      "what": "Blob shape B (the landing's second scribble). A path for the pen.",
+      "files": {
+        "svg": "assets/line/scribble-b.svg"
+      }
+    },
+    {
+      "id": "blob-1876",
+      "what": "Blob shape 1876, kept from the generator. A path for the pen.",
+      "files": {
+        "svg": "assets/line/blob-1876.svg"
+      }
+    },
+    {
+      "id": "underline",
+      "what": "The marker's line: stretched under a marker phrase and drawn with the pen.",
+      "files": {
+        "svg": "assets/line/underline.svg"
+      }
+    }
+  ],
+  "examples": [
+    {
+      "id": "blob-fill-colour",
+      "file": "assets/examples/blob-fill-colour.webp",
+      "page": "blob.html"
+    },
+    {
+      "id": "blob-shape-a",
+      "file": "assets/examples/blob-shape-a.webp",
+      "page": "blob.html"
+    },
+    {
+      "id": "blob-shape-b",
+      "file": "assets/examples/blob-shape-b.webp",
+      "page": "blob.html"
+    },
+    {
+      "id": "blob-shape-kept",
+      "file": "assets/examples/blob-shape-kept.webp",
+      "page": "blob.html"
+    },
+    {
+      "id": "blob-small",
+      "file": "assets/examples/blob-small.webp",
+      "page": "blob.html"
+    },
+    {
+      "id": "marker-build",
+      "file": "assets/examples/marker-build.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "marker-dont-colour",
+      "file": "assets/examples/marker-dont-colour.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "marker-dont-dark",
+      "file": "assets/examples/marker-dont-dark.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "marker-dont-thick",
+      "file": "assets/examples/marker-dont-thick.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "marker-dont-two",
+      "file": "assets/examples/marker-dont-two.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "marker-dont-whole",
+      "file": "assets/examples/marker-dont-whole.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "marker-factoid-floor",
+      "file": "assets/examples/marker-factoid-floor.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "marker-on-dark",
+      "file": "assets/examples/marker-on-dark.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "marker-on-floor",
+      "file": "assets/examples/marker-on-floor.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "marker-on-lime",
+      "file": "assets/examples/marker-on-lime.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "marker-on-white",
+      "file": "assets/examples/marker-on-white.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "marker-pen",
+      "file": "assets/examples/marker-pen.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "marker-quote",
+      "file": "assets/examples/marker-quote.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "marker-dont-number",
+      "file": "assets/examples/marker-dont-number.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "marker-dont-small",
+      "file": "assets/examples/marker-dont-small.webp",
+      "page": "marker.html"
+    },
+    {
+      "id": "dots-voice",
+      "file": "assets/examples/dots-voice.webp",
+      "page": "dots.html"
+    },
+    {
+      "id": "dots-ring",
+      "file": "assets/examples/dots-ring.webp",
+      "page": "dots.html"
+    },
+    {
+      "id": "dots-gulf",
+      "file": "assets/examples/dots-gulf.webp",
+      "page": "dots.html"
+    },
+    {
+      "id": "3d-materials",
+      "file": "assets/examples/3d-materials.webp",
+      "page": "3d.html"
+    },
+    {
+      "id": "3d-icons",
+      "file": "assets/examples/3d-icons.webp",
+      "page": "3d.html"
+    },
+    {
+      "id": "3d-coin-ring",
+      "file": "assets/examples/3d-coin-ring.webp",
+      "page": "3d.html"
+    },
+    {
+      "id": "3d-lansy-icon",
+      "file": "assets/examples/3d-lansy-icon.webp",
+      "page": "3d.html"
+    },
+    {
+      "id": "blob-out-colour",
+      "file": "assets/examples/blob-out-colour.webp",
+      "page": "blob.html"
+    },
+    {
+      "id": "blob-out-photo",
+      "file": "assets/examples/blob-out-photo.webp",
+      "page": "blob.html"
+    },
+    {
+      "id": "blob-out-lime",
+      "file": "assets/examples/blob-out-lime.webp",
+      "page": "blob.html"
+    }
+  ],
+  "photo": [
+    {
+      "id": "omar-cut",
+      "what": "Cut-out of one person (lab sample, 520×671: too small for production).",
+      "file": "assets/photo/omar-cut.webp"
+    },
+    {
+      "id": "pair-cut",
+      "what": "Cut-out of two people talking (generated, lab sample).",
+      "file": "assets/photo/pair-cut.webp"
+    },
+    {
+      "id": "cafe-bg",
+      "what": "A café, for inside a blob (lab sample).",
+      "file": "assets/photo/cafe-bg.webp"
+    },
+    {
+      "id": "store-bg",
+      "what": "A store, for inside a blob (generated, lab sample).",
+      "file": "assets/photo/store-bg.webp"
+    },
+    {
+      "id": "barista-cut",
+      "what": "Cut-out of a barista (generated, keyed off green, 727×1200), head and shoulders. For the blob technique.",
+      "file": "assets/photo/barista-cut.webp"
+    }
+  ],
+  "3d": [
+    {
+      "id": "3d-icon-cafes",
+      "what": "Industry icon in brushed aluminium. Cafés: a to-go cup. Hugeicons line icon as round tubes, on transparency, facing left.",
+      "files": {
+        "webp": "assets/3d/icon-cafes.webp"
+      },
+      "useOn": [
+        "#FFFFFF",
+        "#F2EFE9",
+        "#9CDE45",
+        "#33694F",
+        "surface gradients"
+      ],
+      "note": "One 3D object per layout; the full set only in a strip."
+    },
+    {
+      "id": "3d-icon-retail",
+      "what": "Industry icon in brushed aluminium. Retail: a shopping bag. Hugeicons line icon as round tubes, on transparency, facing left.",
+      "files": {
+        "webp": "assets/3d/icon-retail.webp"
+      },
+      "useOn": [
+        "#FFFFFF",
+        "#F2EFE9",
+        "#9CDE45",
+        "#33694F",
+        "surface gradients"
+      ],
+      "note": "One 3D object per layout; the full set only in a strip."
+    },
+    {
+      "id": "3d-icon-clinics",
+      "what": "Industry icon in brushed aluminium. Clinics: a first-aid kit. Hugeicons line icon as round tubes, on transparency, facing left.",
+      "files": {
+        "webp": "assets/3d/icon-clinics.webp"
+      },
+      "useOn": [
+        "#FFFFFF",
+        "#F2EFE9",
+        "#9CDE45",
+        "#33694F",
+        "surface gradients"
+      ],
+      "note": "One 3D object per layout; the full set only in a strip."
+    },
+    {
+      "id": "3d-icon-schools",
+      "what": "Industry icon in brushed aluminium. Schools: a mortarboard. Hugeicons line icon as round tubes, on transparency, facing left.",
+      "files": {
+        "webp": "assets/3d/icon-schools.webp"
+      },
+      "useOn": [
+        "#FFFFFF",
+        "#F2EFE9",
+        "#9CDE45",
+        "#33694F",
+        "surface gradients"
+      ],
+      "note": "One 3D object per layout; the full set only in a strip."
+    },
+    {
+      "id": "3d-icon-hotels",
+      "what": "Industry icon in brushed aluminium. Hotels: a double bed. Hugeicons line icon as round tubes, on transparency, facing left.",
+      "files": {
+        "webp": "assets/3d/icon-hotels.webp"
+      },
+      "useOn": [
+        "#FFFFFF",
+        "#F2EFE9",
+        "#9CDE45",
+        "#33694F",
+        "surface gradients"
+      ],
+      "note": "One 3D object per layout; the full set only in a strip."
+    },
+    {
+      "id": "3d-icon-callcenters",
+      "what": "Industry icon in brushed aluminium. Call centres: a headset. Hugeicons line icon as round tubes, on transparency, facing left.",
+      "files": {
+        "webp": "assets/3d/icon-callcenters.webp"
+      },
+      "useOn": [
+        "#FFFFFF",
+        "#F2EFE9",
+        "#9CDE45",
+        "#33694F",
+        "surface gradients"
+      ],
+      "note": "One 3D object per layout; the full set only in a strip."
+    },
+    {
+      "id": "3d-material-alu",
+      "what": "Material swatch on the preview ball. Brushed aluminium: industry icons and coins.",
+      "files": {
+        "webp": "assets/3d/material-alu.webp"
+      }
+    },
+    {
+      "id": "3d-material-glass",
+      "what": "Material swatch on the preview ball. Lime frosted glass, 80% transmission: the Lansy squircle.",
+      "files": {
+        "webp": "assets/3d/material-glass.webp"
+      }
+    },
+    {
+      "id": "3d-material-porcelain",
+      "what": "Material swatch on the preview ball. Porcelain: the palm on the squircle.",
+      "files": {
+        "webp": "assets/3d/material-porcelain.webp"
+      }
+    },
+    {
+      "id": "3d-material-ceramic",
+      "what": "Material swatch on the preview ball. Unglazed ceramic: to try.",
+      "files": {
+        "webp": "assets/3d/material-ceramic.webp"
+      }
+    },
+    {
+      "id": "3d-coin-ring",
+      "what": "Ten aluminium coins with the industry icons in relief, in a ring, on transparency.",
+      "files": {
+        "webp": "assets/3d/coin-ring.webp"
+      },
+      "useOn": [
+        "#9CDE45",
+        "#33694F"
+      ]
+    },
+    {
+      "id": "3d-icon-spin",
+      "what": "The coffee icon making the Lansy turn: 5 s loop, 30 fps, alpha. WebM for Chrome/Firefox, MOV (HEVC) for Safari.",
+      "files": {
+        "webm": "https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/icon-spin.webm",
+        "mov": "https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/icon-spin.mov",
+        "poster": "https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/icon-spin-poster.webp"
+      }
+    },
+    {
+      "id": "3d-ring-swirl",
+      "what": "The coin ring swirl: each coin makes the Lansy turn, one after another; 6 s seamless loop, 30 fps, alpha. WebM for Chrome/Firefox, MOV (HEVC) for Safari.",
+      "files": {
+        "webm": "https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/ring-swirl.webm",
+        "mov": "https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/ring-swirl.mov",
+        "poster": "https://pub-f554743e343b4157afc5fa154f4ba787.r2.dev/brand/v1/ring-swirl-poster.webp"
+      },
+      "useOn": [
+        "#9CDE45",
+        "#33694F"
+      ]
+    }
+  ]
+}
