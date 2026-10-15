@@ -21,3 +21,4 @@ web/assets/photo/gen/
 3d/blobs/*.png
 .claude/*.jpg
 __pycache__/
+CLAUDE.local.md
