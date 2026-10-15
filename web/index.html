@@ -119,11 +119,14 @@ section.floor{padding-top:var(--floor)}
 .sizes figcaption{font:500 11px "JetBrains Mono",monospace;color:var(--grey)}
 .geo{width:220px;height:220px;display:block}
 
-/* techniques: the landing's industry cards, 5:7 — a row of four on desktop, a swipe and snap on the phone */
+/* techniques: the landing's industries carousel — big 5:7 cards, ~3.2 on screen, arrows by the heading, swipe and snap */
+.hd.with-arrows{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.arrows{display:flex;gap:8px}
+.arrows button{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;transition:opacity .2s,background .2s}
+.arrows button:hover{background:var(--sand)}.arrows button:disabled{opacity:.35;cursor:default;background:#fff}
 .track{--bleed:max(var(--pad),calc((100vw - 1320px) / 2 + var(--pad)));display:flex;gap:20px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;
   margin:-8px calc(-1 * var(--bleed));padding:8px var(--bleed);scroll-padding:0 var(--bleed)}   /* 8px of room so a lifted card is not clipped */
 .track::-webkit-scrollbar{display:none}
-@media (min-width:901px){.track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:-8px 0;padding:8px 0;overflow:visible}.track .tq{width:auto;min-width:0}}   /* a row of four on desktop; a swipe on the phone */
 .tq{position:relative;flex:none;width:calc((100vw - var(--bleed)) / 3.2 - 20px);min-width:300px;aspect-ratio:5/7;border-radius:24px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);overflow:hidden;scroll-snap-align:start;
   display:flex;flex-direction:column;padding:32px;color:var(--ink);text-decoration:none;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
 .tq:hover{transform:translateY(-4px)}
@@ -179,7 +182,7 @@ footer svg{height:27.2px;width:auto;color:var(--ink);display:block}
   .duo{grid-template-columns:1fr}.pal{grid-template-columns:repeat(3,1fr);gap:12px}.pal .use{display:none}.pal>.lbl.n,.pal>.lbl.s{grid-column:1/-1}.pal>.n{order:1}.pal>.lbl.s{order:2;margin-top:16px}.pal>.s{order:3}
   .hd{margin-bottom:32px}
   .igrid{grid-template-columns:1fr}
-  .tq{padding:24px}.tq .vis{margin:12px -24px}.tq .badge{height:40px;padding:0 18px;font-size:23px}
+  .hd.with-arrows .arrows{display:none}.tq{padding:24px}.tq .vis{margin:12px -24px}.tq .badge{height:40px;padding:0 18px;font-size:23px}
   .brow,.brow.r2{grid-template-columns:1fr;gap:20px}.bento{gap:20px}.bc{min-height:180px}.bc .tx{padding:24px}.bc .go{right:24px;top:24px}  .card{padding:24px}.chip{padding:20px}
   .lplate{--h:48px;min-height:400px}.gsw button{width:28px;height:28px}.lfoot{flex-direction:column;align-items:flex-start}.seg button{padding:8px 10px}
 }
@@ -290,7 +293,7 @@ html.canvas-on .tb a.on{background:none;color:var(--text2)}   /* on the canvas o
 
 <!-- techniques -->
 <section class="floor" id="techniques"><div class="wrap">
-  <div class="hd"><h2>Techniques</h2></div>
+  <div class="hd with-arrows"><div><h2>Techniques</h2></div><div class="arrows"><button id="tPrev" aria-label="Previous"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5.5 12.002H19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.9999 18.002C10.9999 18.002 4.99998 13.583 4.99997 12.0019C4.99996 10.4208 11 6.00195 11 6.00195" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button id="tNext" aria-label="Next"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18.5 12L4.99997 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 18C13 18 19 13.5811 19 12C19 10.4188 13 6 13 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
   <div class="track" id="ttrack">
     <a class="tq lime" href="marker.html"><span class="badge">Marker</span>
       <div class="vis"><div class="v-ly v-mk" role="img" aria-label="Every text has one phrase that matters most, the phrase in the marker over our line"><img class="ly-line" src="assets/examples/marker-card-line.webp?v=2" alt=""><img src="assets/examples/marker-card-text.webp?v=2" alt=""></div></div>
@@ -357,6 +360,12 @@ document.querySelectorAll('.sw').forEach(b=>{
   b.addEventListener('click',()=>{navigator.clipboard?.writeText(h).then(()=>toast(`${h} copied`),()=>toast(h));});
 });
 let tt; const toast=t=>{const e=document.getElementById('toast'); e.textContent=t; e.classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>e.classList.remove('on'),1400);};
+
+// techniques: the arrows step one card; disabled at the ends
+(()=>{const tr=document.getElementById('ttrack'), P=document.getElementById('tPrev'), N=document.getElementById('tNext'), step=()=>tr.querySelector('.tq').offsetWidth+20;
+  const st=()=>{P.disabled=tr.scrollLeft<4; N.disabled=tr.scrollLeft>tr.scrollWidth-tr.clientWidth-4;};
+  P.onclick=()=>tr.scrollBy({left:-step(),behavior:'smooth'}); N.onclick=()=>tr.scrollBy({left:step(),behavior:'smooth'});
+  tr.addEventListener('scroll',st,{passive:true}); addEventListener('resize',st); st();})();
 
 // the dots card: the landing's voice line (privacy bento), one 2.4px dot about 7px apart, laid on an arc as if it ran around the planet
 // seen from slightly above: columns at equal angles crowd toward the ends, and the ends drop and fade with depth
