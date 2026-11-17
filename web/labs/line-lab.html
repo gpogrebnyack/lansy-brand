@@ -240,7 +240,7 @@ function drawTiles(){if(document.documentElement.classList.contains('solo'))retu
 let SHOWPATH=false;
 // ---- posts. A scene: the blob filled with the café, blurred a little so the person stays the subject, and Omar in it:
 // 'in' — his head comes up over the blob's top edge; 'inside' — the blob clips him whole; 'over' — he stands in front, cut by the frame
-const IMG={}; for(const [k,f] of [['bg','cafe-bg'],['omar','omar-cut'],['pair','pair-cut'],['store','store-bg'],['retail','retail'],['office','office'],['cafe','cafe'],['hotel','hotel'],['barista','barista-cut'],['guest','guest-cut'],['manager','manager-cut']]){const im=new Image(); im.onload=()=>drawSquare(); im.src=`../assets/photo/${f}.webp`; IMG[k]=im;}
+const IMG={}; for(const [k,f] of [['bg','cafe-bg'],['omar','omar-cut'],['pair','pair-cut'],['store','store-bg'],['retail','retail'],['office','office'],['cafe','cafe'],['hotel','hotel'],['barista','barista-cut'],['guest','guest-cut'],['manager','manager-cut']]){const im=new Image(); im.onload=()=>drawSquare(); if(!QS.has('shape'))im.src=`../assets/photo/${f}.webp`; IMG[k]=im;}   // ?shape draws the pen alone: no photos
 const BLUR=3;   // blur in px of a 560 px square
 // who stands in the blob: one person (Omar, in the café) or two in a conversation (a sales associate and a customer, in a store;
 // generated with Codex, keyed off green). Per head, as shares of the cutout: the neck's row, the neck's columns, the head's columns
@@ -454,7 +454,7 @@ function postSpec(x,c,S,o,HH=S){const fs=HH*(o.size||(o.guides?.26:.17)), T=o.te
   for(const X of [mk.x0,mk.x1]){x.setLineDash([S*.002,S*.003]); x.beginPath(); x.moveTo(X,B-F*.9); x.lineTo(X,B+F*.25); x.stroke(); x.setLineDash([]);}
   x.restore();}
 const DRAW={below:postBelow, above:postAbove, hero:postHero, line:postLine, quote:postQuote, spec:postSpec};   // by layout
-function drawSquare(){if(!SQ.pts||!tiles[1]||Object.values(IMG).some(i=>!i.naturalWidth))return;
+function drawSquare(){if(QS.has('shape')||!SQ.pts||!tiles[1]||Object.values(IMG).some(i=>!i.naturalWidth))return;
   for(const o of POSTS)for(const b of [o,...(o.blobs||[])])if(b.shape==='gen'&&b.seed&&!b.gen)b.gen=blob(b.seed);   // defaults keep a generated blob by its seed
   for(const o of POSTS){if(SOLO&&o.id!==SOLO)continue; const c=$('sq-'+o.id); size(c); const r=c.getBoundingClientRect(), S=r.width, x=c.getContext('2d'); POST.bg=o.bg; paintBg(x,S,r.height); DRAW[o.layout](x,c,S,o,r.height);} if(SOLO)document.documentElement.dataset.ready='1';}   // S: the width; a wide post also gets its height
 function seg(id,key,opts){const el=$(id); el.innerHTML=opts.map(([v,l])=>`<button data-v="${v}"${POST[key]===v?' class="on"':''}>${l}</button>`).join('');
