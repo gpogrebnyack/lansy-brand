@@ -58,6 +58,7 @@ Proportions (proposal): the page is mostly white and warm greys. Lime is an acce
 
 - One h1 per page.
 - Headings use sentence case, never all caps. Only labels are uppercase.
+- No full stop at the end of a heading or a post headline. A question mark or an ellipsis stays; full stops between sentences stay.
 - Don't add sizes between the steps: pick the nearest one.
 - A square post has its own two headline sizes: see Square post.
 
