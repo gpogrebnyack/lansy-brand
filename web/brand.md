@@ -146,7 +146,8 @@ Our icons as objects, in a few real materials, one studio light and one way of m
 
 - Margin 6% on every side.
 - Headline: Struve 500, leading 1.0, −2.5%, on the top or the bottom margin. Two sizes only: large, 15% of the square (162 px at 1080), when every line fits between the margins (88%, 950 px at 1080); otherwise regular, 11% (119 px). Regular may also be chosen on purpose, when the picture should lead. As many lines as the text needs; nothing in between the two sizes.
-- Logo: box 5% of the square, on the edge opposite the headline; the site address `lansy.ai` (Struve 500, 3%) on its baseline, across.
+- Logo: box 5% of the square, in the top right corner. The site address `lansy.ai` (Struve 500, 3%) stands in the bottom right corner: on a single post, and on the last page of a carousel. Neither moves with the headline.
+- Carousel page (4:5): the same frame on every page. Top left: the industry chip, when the page has one. Top right: the logo. Bottom left: the page number in mono, then a source line. Bottom right: a footer line, `lansy.ai` on the last page. A button, when the page has one, takes a corner of the bottom row in place of what stood there.
 - Info cards (quote, factoid) carry no logo. A factoid signs with the icon, at least 32 px, next to a mono source line.
 - Grounds: Floor, Card, Lime, Primary Dark. Grey text (`#75736F`) only on Floor and Card; on Lime and Dark, secondary text keeps the text colour and differs by weight.
 - Wide posts (2:1): margins and logo by the short side.
